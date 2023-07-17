@@ -3,12 +3,13 @@ import style from './style.module.scss'
 import {LoginForm} from '../../components/Form/Login'
 import {LoginSchema, loginSchema} from '../../components/Form/Login/schema'
 import { useNavigate } from 'react-router-dom'
+import { routes } from '../../app/constants'
 
 export function Login() {
     const navigate = useNavigate()
     const onSubmit = (data: LoginSchema) => {
         console.log(data)
-        navigate('/dashboard')
+        navigate(routes.DASHBOARD)
     }
 
   return (
