@@ -4,6 +4,7 @@ import {LoginForm} from '../../components/Form/Login'
 import {LoginSchema, loginSchema} from '../../components/Form/Login/schema'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '../../app/constants'
+import { Card } from '../../components/Card'
 
 export function Login() {
     const navigate = useNavigate()
@@ -16,10 +17,12 @@ export function Login() {
     <div className={style.mainPage}>
         <img src={logoLong} alt='Company Logo'/>
         <h3>Bienvenido</h3>
-        <LoginForm 
-            onSubmitItem={onSubmit}
-            schema={loginSchema}
-        />
+        <Card>
+          <LoginForm 
+              onSubmitItem={onSubmit}
+              schema={loginSchema}
+          />
+        </Card>
     </div>
   )
 }

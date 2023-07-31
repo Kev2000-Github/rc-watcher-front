@@ -1,4 +1,3 @@
-import {Card} from '../../Card'
 import {FormControl, IconButton, InputAdornment, OutlinedInput, Button, FormHelperText} from '@mui/material'
 import {VisibilityOff, Visibility} from '@mui/icons-material'
 import { useState } from 'react'
@@ -43,9 +42,8 @@ export function LoginForm({
     }
     
     return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-        <Card>
-            <FormControl sx={{ p: 1 }} variant="outlined">
+    <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex', flexDirection: 'column'}}>
+        <FormControl sx={{ p: 1 }} variant="outlined">
             <label htmlFor='login-username'>Username</label>
             <OutlinedInput
                 {...register("username")}
@@ -120,7 +118,6 @@ export function LoginForm({
                     Iniciar Sesion
                 </Button>
             </FormControl>
-        </Card>
     </form>
     )
 }
