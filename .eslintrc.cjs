@@ -15,7 +15,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
   },
   plugins: ['react-refresh'],
-  ignorePatterns: ['.eslintrc.cjs', 'vite.config.ts'],
+  ignorePatterns: ['.eslintrc.cjs', 'vite.config.ts','*.d.ts'],
   rules: {
     'react-refresh/only-export-components': [
       'warn',

@@ -1,0 +1,10 @@
+
+.outline{
+    display: flex;
+    flex-direction: row;
+    .content{
+        flex-grow: 1;
+        padding-left: 10px;
+        height: 100vh;
+    }
+}

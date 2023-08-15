@@ -5,6 +5,8 @@ import {LoginSchema, loginSchema} from '../../components/Form/Login/schema'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '../../app/constants'
 import { Card } from '../../components/Card'
+import { Logo } from '../../SVG/logo'
+
 
 export function Login() {
     const navigate = useNavigate()
@@ -15,7 +17,7 @@ export function Login() {
 
   return (
     <div className={style.mainPage}>
-        <img src={logoLong} alt='Company Logo'/>
+        <Logo />
         <h3>Bienvenido</h3>
         <Card>
           <LoginForm 
