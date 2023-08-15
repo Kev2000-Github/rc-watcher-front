@@ -4,7 +4,26 @@
     flex-direction: row;
     .content{
         flex-grow: 1;
+        display: flex;
+        flex-direction: column;
         padding-left: 10px;
         height: 100vh;
+        .topInfo{
+            display: flex;
+            justify-content: end;
+            position: relative;
+            padding-top: 10px;
+            padding-right: 20px;
+            .icon{
+                height: 100%;
+                width: 40px
+            }
+            .userInfo .name{
+                font-size: 14px;
+            }
+            .userInfo .type{
+                font-size: 12px;
+            }
+        }
     }
 }

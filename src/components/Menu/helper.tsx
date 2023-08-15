@@ -26,7 +26,7 @@ export const menuItems: MenuItems = [
     },
     {
         text: 'Encuestas',
-        URI: '/on-construction...',
+        URI: routes.QUIZ,
         icon: <Form/>
     },
     {

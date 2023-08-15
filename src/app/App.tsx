@@ -6,6 +6,7 @@ import './index.scss'
 import { Dashboard } from '../pages/Dashboard/index.tsx'
 import { routes } from './constants.ts'
 import { NotFound } from '../pages/NotFound/index.tsx'
+import { Quiz } from '../pages/Quiz/index.tsx'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path={routes.LOGIN} element={<Login />} />
             <Route path={routes.DASHBOARD} element={<Dashboard/>} />
+            <Route path={routes.QUIZ} element={<Quiz/>} />
             <Route path={routes.NOT_FOUND} element={<NotFound/>} />
           </Routes>
       </Router>
