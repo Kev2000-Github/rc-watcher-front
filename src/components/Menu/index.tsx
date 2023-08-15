@@ -20,6 +20,12 @@ const CustomListButton = styled(ListItemButton)(({theme}) => ({
   '&.Mui-selected, &.Mui-selected:hover': {
     backgroundColor: theme.menu.pressed,
   },
+  '&.MuiListItemButton-root:hover': {
+    backgroundColor: 'rgba(255, 255, 255, 0.08)'
+  },
+  '& svg': {
+    color: theme.custom.white
+  }
 }))
 
 export function Menu() {
@@ -60,14 +66,14 @@ export function Menu() {
           <List sx={{width: 1}}>
             {menuLastItems.map(({text, URI, icon}) => (
               <ListItem key={text} disablePadding>
-                <ListItemButton sx={{justifyContent: "center"}}>
+                <CustomListButton sx={{justifyContent: "center"}}>
                   <ListItemIcon sx={{minWidth: 30}}>
                     {icon}
                   </ListItemIcon>
                   <Typography>
                     {text}
                   </Typography>
-                </ListItemButton>
+                </CustomListButton>
               </ListItem>
             ))}
           </List>

@@ -49,7 +49,6 @@ export const theme = createTheme({
     fontWeightRegular: "lighter",
   },
   palette: {
-    mode: 'dark',
     primary: createColor('#0072BC'),
     secondary: createColor('#1F2631'),
     warning: createColor('#B38D38'),

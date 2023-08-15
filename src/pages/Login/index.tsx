@@ -1,4 +1,3 @@
-import logoLong from '../../assets/logo_long.jpg'
 import style from './style.module.scss'
 import {LoginForm} from '../../components/Form/Login'
 import {LoginSchema, loginSchema} from '../../components/Form/Login/schema'
