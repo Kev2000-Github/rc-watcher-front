@@ -5,7 +5,7 @@ type Props = {
   children?: React.ReactNode,
 };
 
-export function Outline({children}: Props) {
+export function Layout({children}: Props) {
     return (
         <div className={style.outline}>
             <Menu/>

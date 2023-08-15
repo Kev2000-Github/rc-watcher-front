@@ -1,9 +1,9 @@
-import { Outline } from '../../components/Outline'
+import { Layout } from '../../components/Layout'
 
 export function Dashboard() {
   return (
-    <Outline>
+    <Layout>
       <h1>DASHBOARD</h1>
-    </Outline>
+    </Layout>
   )
 }
