@@ -46,7 +46,7 @@ export const theme = createTheme({
       'Arial',
       'sans-serif'
     ].join(','),
-    fontWeightRegular: "lighter",
+    fontWeightRegular: 'normal',
   },
   palette: {
     primary: createColor('#0072BC'),

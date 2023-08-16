@@ -5,14 +5,25 @@ import { useNavigate } from 'react-router-dom'
 import { routes } from '../../app/constants'
 import { Card } from '../../components/Card'
 import { Logo } from '../../SVG/logo'
-
+import { useMutation } from '@tanstack/react-query'
+import { closeNotification, notifyError, notifyLoading } from '../../utils/alert'
+import loginService from '../../services/Login'
+import { useEffect } from 'react'
 
 export function Login() {
-    const navigate = useNavigate()
-    const onSubmit = (data: LoginSchema) => {
-        console.log(data)
-        navigate(routes.DASHBOARD)
-    }
+  const signInMutation = useMutation(['hola'], loginService.login, {
+    onSuccess: () => {
+      navigate(routes.DASHBOARD)
+      closeNotification()
+    },
+    onError: () => notifyError('Error Inicio de Sesion', '')
+  })
+  const navigate = useNavigate()
+  const onSubmit = (data: LoginSchema) => signInMutation.mutate(data)
+
+  useEffect(() => {
+    if(signInMutation.isLoading) notifyLoading()
+  }, [signInMutation.isLoading])
 
   return (
     <div className={style.mainPage}>
