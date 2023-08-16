@@ -9,6 +9,7 @@ import { routes } from "../../app/constants";
 import { closeNotification, notifyError, notifyLoading } from "../../utils/alert";
 import { ServiceError } from "../../errors/ServiceError";
 import { useEffect } from "react";
+import { useUserStore } from "../../store";
 
 const drawerWidth = 240;
 const CustomDrawer = styled(Drawer)(({theme}) => ({
@@ -35,8 +36,10 @@ const CustomListButton = styled(ListItemButton)(({theme}) => ({
 }))
 
 export function Menu() {
+    const {clear, user} = useUserStore()
     const logoutMutation = useMutation(['logout'], loginService.logout, {
       onSuccess: () => {
+        clear()
         navigate(routes.LOGIN)
         closeNotification()
       },
@@ -98,10 +101,10 @@ export function Menu() {
             ))}
           </List>
           <Typography>
-            Empresa Polar, C.A
+            {user?.Company?.name ?? 'COMPANY NAME'}
           </Typography>
           <Typography fontSize={13}>
-            Venezuela
+            {user?.Company?.Country?.name ?? 'COUNTRY'}
           </Typography>
         </Box>
     </CustomDrawer>

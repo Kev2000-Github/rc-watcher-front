@@ -10,7 +10,7 @@ export class LoginServiceDummy implements LoginServiceInterface {
         const dummyUser: User = {
             id: '1',
             username: 'Fran',
-            fullName: 'Francisco Landaeta',
+            fullName: 'Francisco Castillo',
             email: 'Fran@gmail.com',
             Company: {
                 id: '1',

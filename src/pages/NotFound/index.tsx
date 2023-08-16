@@ -3,8 +3,6 @@ import style from './style.module.scss'
 const starCounter = new Array(100).fill(0);
 
 export function NotFound() {
-  console.log(style)
-
   return (
     <div className={style.wrapper}>
         <div className={style.textGroup}>
