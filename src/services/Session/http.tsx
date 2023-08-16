@@ -2,11 +2,9 @@ import { sleep } from '../../utils/common'
 import { User } from '../interface'
 import {LoginServiceInterface, loginProps} from './interface'
 
-export class LoginServiceDummy implements LoginServiceInterface {
+export class LoginServiceHttp implements LoginServiceInterface {
     async login(props: loginProps) {
-        if(props.username === 'error'){
-            throw Error('this is an error')
-        }
+        //TODO: PENDING REAL IMPLEMENTATION...
         const dummyUser: User = {
             id: '1',
             username: 'Fran',
@@ -28,5 +26,10 @@ export class LoginServiceDummy implements LoginServiceInterface {
         }
         await sleep(500)
         return dummyUser
+    }
+
+    async logout() {
+        //TODO: PENDING REAL IMPLEMENTATION...
+        await sleep(500)
     }
 }

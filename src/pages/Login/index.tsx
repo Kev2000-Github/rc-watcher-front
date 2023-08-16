@@ -7,12 +7,12 @@ import { Card } from '../../components/Card'
 import { Logo } from '../../SVG/logo'
 import { useMutation } from '@tanstack/react-query'
 import { closeNotification, notifyError, notifyLoading } from '../../utils/alert'
-import loginService from '../../services/Login'
+import loginService from '../../services/Session'
 import { useEffect } from 'react'
 import { ServiceError } from '../../errors/ServiceError'
 
 export function Login() {
-  const signInMutation = useMutation(['hola'], loginService.login, {
+  const signInMutation = useMutation(['login'], loginService.login, {
     onSuccess: () => {
       navigate(routes.DASHBOARD)
       closeNotification()

@@ -64,7 +64,7 @@ export const menuItems: MenuItems = [
 export const menuLastItems: MenuItems = [
     {
         text: 'Cerrar Sesion',
-        URI: '/on-construction...',
+        URI: routes.LOGIN,
         icon: <Logout/>
     }
 ]

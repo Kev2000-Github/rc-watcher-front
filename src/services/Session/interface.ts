@@ -7,4 +7,5 @@ export type loginProps = {
 }
 export abstract class LoginServiceInterface {
     abstract login: ({username, password, companyId}: loginProps) => Promise<User>
+    abstract logout: () => Promise<void>
 }

@@ -3,6 +3,12 @@ import { DarkLogo } from '../../SVG/darkLogo'
 import style from './style.module.scss'
 import { menuItems, menuLastItems } from './helper'
 import { useLocation, useNavigate } from 'react-router-dom'
+import loginService from "../../services/Session";
+import { useMutation } from "@tanstack/react-query";
+import { routes } from "../../app/constants";
+import { closeNotification, notifyError, notifyLoading } from "../../utils/alert";
+import { ServiceError } from "../../errors/ServiceError";
+import { useEffect } from "react";
 
 const drawerWidth = 240;
 const CustomDrawer = styled(Drawer)(({theme}) => ({
@@ -29,8 +35,20 @@ const CustomListButton = styled(ListItemButton)(({theme}) => ({
 }))
 
 export function Menu() {
+    const logoutMutation = useMutation(['logout'], loginService.logout, {
+      onSuccess: () => {
+        navigate(routes.LOGIN)
+        closeNotification()
+      },
+      onError: (err: ServiceError) => notifyError(err.title, err.message)
+    })
     const location = useLocation()
     const navigate = useNavigate()
+
+    useEffect(() => {
+      if(logoutMutation.isLoading) notifyLoading()
+    }, [logoutMutation.isLoading])
+
     return (
     <CustomDrawer
         variant="permanent"
@@ -64,9 +82,11 @@ export function Menu() {
           }}
         >
           <List sx={{width: 1}}>
-            {menuLastItems.map(({text, URI, icon}) => (
+            {menuLastItems.map(({text, icon}) => (
               <ListItem key={text} disablePadding>
-                <CustomListButton sx={{justifyContent: "center"}}>
+                <CustomListButton 
+                  sx={{justifyContent: "center"}}
+                  onClick={() => logoutMutation.mutate()}>
                   <ListItemIcon sx={{minWidth: 30}}>
                     {icon}
                   </ListItemIcon>
