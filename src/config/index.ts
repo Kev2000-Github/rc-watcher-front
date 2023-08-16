@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
 interface configuration {
-    env: 'development'|'production',
+    serviceType: string,
     backURL: string
 }
 
 export const config: configuration = {
-    env: import.meta.env['VITE_NODE_ENV'] === 'development' ? 'development' : 'production',
-    backURL: import.meta.env['VITE_APP_URL'] ?? ''
+    serviceType: import.meta.env['VITE_SERVICE_TYPE'],
+    backURL: import.meta.env['VITE_APP_URL']
 }

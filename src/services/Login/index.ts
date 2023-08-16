@@ -4,7 +4,7 @@ import {LoginServiceHttp} from './http'
 import {LoginServiceInterface} from './interface'
 
 let loginService: LoginServiceInterface
-if(config.env === 'development'){
+if(config.serviceType === 'dummy'){
     loginService = new LoginServiceDummy()
 }
 else{
