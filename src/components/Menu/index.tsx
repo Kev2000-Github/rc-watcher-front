@@ -1,4 +1,4 @@
-import { styled, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Box, Typography } from "@mui/material";
+import { styled, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Box, Typography } from "@mui/material";
 import { DarkLogo } from '../../SVG/darkLogo'
 import style from './style.module.scss'
 import { menuItems, menuLastItems } from './helper'

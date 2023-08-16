@@ -9,6 +9,7 @@ import { useMutation } from '@tanstack/react-query'
 import { closeNotification, notifyError, notifyLoading } from '../../utils/alert'
 import loginService from '../../services/Login'
 import { useEffect } from 'react'
+import { ServiceError } from '../../errors/ServiceError'
 
 export function Login() {
   const signInMutation = useMutation(['hola'], loginService.login, {
@@ -16,7 +17,7 @@ export function Login() {
       navigate(routes.DASHBOARD)
       closeNotification()
     },
-    onError: () => notifyError('Error Inicio de Sesion', '')
+    onError: (err: ServiceError) => notifyError(err.title, err.message)
   })
   const navigate = useNavigate()
   const onSubmit = (data: LoginSchema) => signInMutation.mutate(data)

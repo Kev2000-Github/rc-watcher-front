@@ -4,6 +4,9 @@ import {LoginServiceInterface, loginProps} from './interface'
 
 export class LoginServiceDummy implements LoginServiceInterface {
     async login(props: loginProps) {
+        if(props.username === 'error'){
+            throw Error('this is an error')
+        }
         const dummyUser: User = {
             id: '1',
             username: 'Fran',
