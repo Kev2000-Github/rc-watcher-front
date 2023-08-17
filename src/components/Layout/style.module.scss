@@ -1,7 +1,8 @@
 
-.outline{
+.layout{
     display: flex;
     flex-direction: row;
+    z-index: 1;
     .content{
         flex-grow: 1;
         display: flex;

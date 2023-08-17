@@ -6,12 +6,18 @@ import './index.scss'
 import { Dashboard } from '../pages/Dashboard/index.tsx'
 import { routes } from './constants.ts'
 import { NotFound } from '../pages/NotFound/index.tsx'
-import { Quiz } from '../pages/Quiz/index.tsx'
+import { QuizListPage } from '../pages/Quiz/list/index.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ProtectedRoute } from '../components/protectedRoute.tsx'
 import { useUserStore } from '../store/index.ts'
 
-const queryClient= new QueryClient()
+const queryClient= new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false, // default: true
+    },
+  }
+})
 
 function App() {
   const { isAdmin, isAuditor } = useUserStore()
@@ -23,7 +29,7 @@ function App() {
               <Route path={routes.LOGIN} element={<Login />} />
               <Route element={<ProtectedRoute isAllowed={isAdmin() || isAuditor()}/>}>
                 <Route path={routes.DASHBOARD} element={<Dashboard/>} />
-                <Route path={routes.QUIZ} element={<Quiz/>} />
+                <Route path={routes.QUIZ} element={<QuizListPage/>} />
               </Route>
               <Route path={routes.NOT_FOUND} element={<NotFound/>} />
             </Routes>

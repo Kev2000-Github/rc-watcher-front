@@ -11,7 +11,7 @@ type Props = {
 export function Layout({children}: Props) {
     const user = useUserStore(state => state.user)
     return (
-        <div className={style.outline}>
+        <div className={style.layout}>
             <Menu/>
             <div className={style.content}>
                 <Box className={style.topInfo}>

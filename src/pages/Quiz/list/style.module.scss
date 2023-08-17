@@ -1,0 +1,46 @@
+@import "../../../utils/theme/colors.scss";
+
+.content{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .catalog{
+        padding: 20px 0;
+        display: grid;
+        grid-template-columns: repeat(
+            auto-fit,
+            minmax(400px, 1fr)
+        );
+        gap: 30px;
+        .card{
+            padding: 20px;
+            max-width: none;
+            .cardHeader{
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                padding-bottom: 10px;
+                .regulation{
+                    padding: 2px 15px;
+                    color: $white;
+                    font-size: 0.7rem;
+                    margin-left: 10px;
+                    background: $secondary;
+                }
+            }
+            .questions{
+                padding-bottom: 10px;
+                font-size: .7rem;
+                color: $primary
+            }
+            .button{
+                width: auto
+            }
+        }
+    }
+}

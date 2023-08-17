@@ -5,3 +5,8 @@ export const routes = {
     QUIZ: '/quiz',
     NOT_FOUND: '*'
 }
+
+export const pagination = {
+    DEFAULT_PAGE: 1,
+    LIMIT: 6
+}
