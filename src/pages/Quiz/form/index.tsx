@@ -25,7 +25,6 @@ export function QuizFormPage() {
   const answerFormMutation = useMutation(['login'], quizService.answerQuizForm, {
     onSuccess: () => {
       closeNotification()
-      notifySuccess("¡Encuesta Completada!")
       navigate(routes.DASHBOARD)
     },
     onError: (err: ServiceError) => notifyError(err.title, err.message)

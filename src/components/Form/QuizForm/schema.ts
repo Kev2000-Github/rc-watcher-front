@@ -1,16 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import * as yup from 'yup'
 import { QuizForm } from '../../../services/interface'
+import { selectionType } from '../../../services/constants'
 
 export interface QuizFormSchema {
     [id: string]: {
-        selectionId: string[]|string|undefined
+        selectionId: string[]|string|undefined,
+        document?: {
+            name: string
+            content: string|ArrayBuffer
+        } | null
     }
 }
 
-export type DynamicSchema = yup.ObjectSchema<{
-    [id: string]: { selectionId: string | string[] | undefined; };
-}, yup.AnyObject, {
+export type DynamicSchema = yup.ObjectSchema<QuizFormSchema, yup.AnyObject, {
     [id: string]: undefined;
 }, "">
 
@@ -28,7 +31,16 @@ export const quizFormSchemaBuilder = (quiz: QuizForm) => {
         else{
             questionValidation['selectionId'] = yup.string().required(validationMessage(i + 1))
         }
-        if(question.hasDoc) questionValidation['document'] = yup.string().optional()
+        if(question.hasDoc){
+            const positiveSelectionId = question.Selections.find(s => s.type === selectionType.POSITIVE)?.id
+            questionValidation['document'] = yup.object().when(`selectionId`, {
+                is: (selectionId: string) => {
+                    return selectionId === positiveSelectionId
+                },
+                then: (schema) => schema.required(`Falta subir el documento para la pregunta ${i + 1}`),
+                otherwise: (schema) => schema.optional().nullable()
+            })
+        }
         validationSchema[question.id] = yup.object(questionValidation)
     }
     return yup.object(validationSchema) as DynamicSchema

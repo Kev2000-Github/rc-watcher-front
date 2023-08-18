@@ -21,7 +21,7 @@ export const notifyError: ErrorNotifier = (
 ) => {
   let message = text as string
   if(typeof text === 'object'){
-    message = text.map(msg => `<li>${msg}</li>`).join('\n ')
+    message = text.map(msg => `<li style="text-align: left;">${msg}</li>`).join('\n ')
     message = `<ul>${message}</ul>`
   }
   void Swal.fire({
@@ -36,7 +36,7 @@ export const notifySuccess = (title='') => {
     icon: 'success',
     title: title,
     showConfirmButton: false,
-    timer: 1 * SECOND
+    timer: 2 * SECOND
   })
 }
 

@@ -10,3 +10,26 @@ export const paginationConfig = {
     keepPreviousData: true,
     staleTime: STALE_TIME
 }
+
+export const readFile = (
+    file: File | null,
+    type: "text" | "dataURL" | "arrayBuffer"
+  ) => {
+    return new Promise<string | ArrayBuffer>((r) => {
+      const fileReader = new FileReader();
+      fileReader.addEventListener("load", (e) => {
+        if (e && e.target && e.target.result && file !== null) {
+          r(e.target.result);
+        }
+      });
+      if (file !== null) {
+        if (type === "text") {
+          fileReader.readAsText(file);
+        } else if (type === "dataURL") {
+          fileReader.readAsDataURL(file);
+        } else if (type === "arrayBuffer") {
+          fileReader.readAsArrayBuffer(file);
+        }
+      }
+    });
+  };

@@ -40,5 +40,19 @@
             display: flex;
             justify-content: end;
         }
+        .disabled{
+            pointer-events: none;
+        }
+        .uploadFileSection{
+            display: flex;
+            flex-direction: column;
+            max-width: 70px;
+            .fileName{
+                font-size: .7rem;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+        }
     }
 }

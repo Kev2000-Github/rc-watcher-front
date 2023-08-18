@@ -53,20 +53,22 @@ export interface QuizForm {
         name: string,
         description: string
     },
-    Questions: {
+    Questions: Question[]
+}
+
+export interface Question {
+    id: string,
+    description: string,
+    hasDoc: boolean,
+    isMultiple: boolean,
+    Risk: {
+        id: string,
+        name: string
+    }
+    Selections: {
         id: string,
         description: string,
-        hasDoc: boolean,
-        isMultiple: boolean,
-        Risk: {
-            id: string,
-            name: string
-        }
-        Selections: {
-            id: string,
-            description: string,
-            riskScore: number,
-            type: string
-        }[]
+        riskScore: number,
+        type: string
     }[]
 }
