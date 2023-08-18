@@ -7,14 +7,17 @@ import { useEffect, useState } from 'react'
 import { paginationProps } from '../../../services/interface'
 import { useQuery } from '@tanstack/react-query'
 import quizService from '../../../services/Quiz'
-import { pagination } from '../../../app/constants'
+import { pagination, routes } from '../../../app/constants'
 import { closeNotification, notifyLoading } from '../../../utils/alert'
 import { paginationConfig } from '../../../utils/common'
+import { useNavigate } from 'react-router'
+import { queryKey } from '../../../services/constants'
 
 export function QuizListPage() {
+  const navigate = useNavigate()
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
   const { isLoading, isFetching, data: paginatedQuizzes, isPreviousData } = useQuery({
-    queryKey: ['quizzes', page],
+    queryKey: [queryKey.QUIZZES, page],
     queryFn: () => {
       const options: paginationProps = {
         limit: pagination.LIMIT,
@@ -28,11 +31,13 @@ export function QuizListPage() {
   useEffect(() => {
     if(isFetching && isPreviousData) notifyLoading()
     else closeNotification()
+    return () => closeNotification()
   }, [isFetching])
 
   useEffect(() => {
     if(isLoading) notifyLoading()
     else closeNotification()
+    return () => closeNotification()
   }, [isLoading])
 
   const onChangePage = (e: React.ChangeEvent<unknown>, page: number) => {
@@ -72,14 +77,18 @@ export function QuizListPage() {
                         preguntas: {item.questionCount}
                       </Typography>
                       <Box sx={{display: 'flex', justifyContent: 'end', alignItems: 'end', height: 1}}>
-                      <Button 
-                          variant='contained'
-                          color='primary'
-                          className={style.button}
-                          sx={{width: 'auto'}}
-                      >
-                          Responder
-                      </Button>
+                        <Button 
+                            variant='contained'
+                            color='primary'
+                            className={style.button}
+                            sx={{width: 'auto'}}
+                            onClick={() => {
+                              const url = routes.QUIZ_FORM.split(':')[0] + item.id
+                              navigate(url)
+                            }}
+                        >
+                            Responder
+                        </Button>
                       </Box>
                   </Card>
                 )

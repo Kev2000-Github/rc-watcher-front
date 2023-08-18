@@ -1,0 +1,44 @@
+@import "../../../utils/theme/colors.scss";
+
+.content{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    .title{
+        padding-bottom: 20px;
+    }
+    .form{
+        .formTitle{
+            padding: 10px 0 10px 30px;
+        }
+        padding: 0;
+        max-width: none;
+        .tableHeaderCell{
+            font-weight: 600;
+            padding-bottom: 5px;
+        }
+        .tableRowContent > td{
+            border-left: 1px solid rgba(224, 224, 224, 1);
+        }
+        .riskName {
+            letter-spacing: 1px;
+            text-align: center;
+            padding: 1px;
+            background: $secondary;
+            color: $white;
+            border-radius: 3px;
+        }
+        .selections {
+            display: flex;
+            flex-direction: column;
+            .selection > span {
+                font-size: .7rem;
+            }
+        }
+        .cardFooter{
+            padding: 40px 20px 20px 20px;
+            display: flex;
+            justify-content: end;
+        }
+    }
+}

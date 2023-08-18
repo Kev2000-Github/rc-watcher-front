@@ -43,3 +43,30 @@ export interface Quiz {
         description: string
     }
 }
+
+export interface QuizForm {
+    id: string,
+    name: string,
+    description: string,
+    Regulation: {
+        id: string,
+        name: string,
+        description: string
+    },
+    Questions: {
+        id: string,
+        description: string,
+        hasDoc: boolean,
+        isMultiple: boolean,
+        Risk: {
+            id: string,
+            name: string
+        }
+        Selections: {
+            id: string,
+            description: string,
+            riskScore: number,
+            type: string
+        }[]
+    }[]
+}

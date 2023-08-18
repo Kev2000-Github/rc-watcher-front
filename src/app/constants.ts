@@ -3,6 +3,7 @@ export const routes = {
     LOGIN: '/',
     DASHBOARD: '/dashboard',
     QUIZ: '/quiz',
+    QUIZ_FORM: '/quiz/:id',
     NOT_FOUND: '*'
 }
 

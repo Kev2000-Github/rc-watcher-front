@@ -10,11 +10,12 @@ import { QuizListPage } from '../pages/Quiz/list/index.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ProtectedRoute } from '../components/protectedRoute.tsx'
 import { useUserStore } from '../store/index.ts'
+import { QuizFormPage } from '../pages/Quiz/form/index.tsx'
 
 const queryClient= new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false, // default: true
+      refetchOnWindowFocus: false
     },
   }
 })
@@ -30,6 +31,7 @@ function App() {
               <Route element={<ProtectedRoute isAllowed={isAdmin() || isAuditor()}/>}>
                 <Route path={routes.DASHBOARD} element={<Dashboard/>} />
                 <Route path={routes.QUIZ} element={<QuizListPage/>} />
+                <Route path={routes.QUIZ_FORM} element={<QuizFormPage/>} />
               </Route>
               <Route path={routes.NOT_FOUND} element={<NotFound/>} />
             </Routes>
