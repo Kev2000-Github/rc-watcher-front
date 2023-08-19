@@ -3,14 +3,25 @@
 import Swal from 'sweetalert2'
 import { SECOND } from './constants'
 
-type LoadingNotifier = (title?: string) => void
-export const notifyLoading: LoadingNotifier = (title = 'Cargando...') => {
+interface Options {
+  title?: string
+  onClose?: ()=>void,
+}
+const defaultOpts: Options = {
+  title: '',
+  onClose: () => null,
+}
+
+export const notifyLoading = (options?: Options) => {
+  const defaultLoadingOpts = {...defaultOpts, title: 'Cargando...'}
+  const { onClose, title } = {...defaultLoadingOpts, ...options}
   void Swal.fire({
     title,
     allowOutsideClick: false,
     didOpen: () => {
       Swal.showLoading()
-    }
+    },
+    didClose: onClose
   })
 }
 
@@ -31,12 +42,14 @@ export const notifyError: ErrorNotifier = (
   })
 }
 
-export const notifySuccess = (title='') => {
+export const notifySuccess = (options?: Options) => {
+  const { onClose, title } = {...defaultOpts, ...options}
   void Swal.fire({
     icon: 'success',
     title: title,
     showConfirmButton: false,
-    timer: 2 * SECOND
+    timer: 1 * SECOND,
+    didClose: onClose
   })
 }
 

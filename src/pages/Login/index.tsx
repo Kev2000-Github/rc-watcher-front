@@ -6,10 +6,9 @@ import { routes } from '../../app/constants'
 import { Card } from '../../components/Card'
 import { Logo } from '../../SVG/logo'
 import { useMutation } from '@tanstack/react-query'
-import { closeNotification, notifyError, notifyLoading } from '../../utils/alert'
+import { closeNotification, notifyLoading } from '../../utils/alert'
 import loginService from '../../services/Session'
 import { useEffect } from 'react'
-import { ServiceError } from '../../errors/ServiceError'
 import { useUserStore } from '../../store'
 
 export function Login() {
@@ -19,8 +18,7 @@ export function Login() {
       setUser(user)
       navigate(routes.DASHBOARD)
       closeNotification()
-    },
-    onError: (err: ServiceError) => notifyError(err.title, err.message)
+    }
   })
   const navigate = useNavigate()
   const onSubmit = (data: LoginSchema) => signInMutation.mutate(data)

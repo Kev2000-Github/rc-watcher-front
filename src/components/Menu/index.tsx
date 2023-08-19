@@ -6,8 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import loginService from "../../services/Session";
 import { useMutation } from "@tanstack/react-query";
 import { routes } from "../../app/constants";
-import { closeNotification, notifyError, notifyLoading } from "../../utils/alert";
-import { ServiceError } from "../../errors/ServiceError";
+import { closeNotification, notifyLoading } from "../../utils/alert";
 import { useEffect } from "react";
 import { useUserStore } from "../../store";
 
@@ -42,8 +41,7 @@ export function Menu() {
         clear()
         navigate(routes.LOGIN)
         closeNotification()
-      },
-      onError: (err: ServiceError) => notifyError(err.title, err.message)
+      }
     })
     const location = useLocation()
     const navigate = useNavigate()
@@ -64,7 +62,10 @@ export function Menu() {
           {menuItems.map(({text, URI, icon}) => (
             <ListItem key={text} disablePadding>
               <CustomListButton 
-                onClick={() => navigate(URI)}
+                onClick={() => {
+                  closeNotification()
+                  navigate(URI)
+                }}
                 selected={location.pathname === URI}>
                 <ListItemIcon sx={{minWidth: 40}}>
                   {icon}

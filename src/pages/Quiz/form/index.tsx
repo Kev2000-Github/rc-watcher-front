@@ -1,14 +1,13 @@
 import { Layout } from '../../../components/Layout'
 import { useEffect, useState } from 'react'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import quizService from '../../../services/Quiz'
-import { closeNotification, notifyError, notifyLoading, notifySuccess } from '../../../utils/alert'
+import { closeNotification, notifyLoading, notifySuccess } from '../../../utils/alert'
 import { useNavigate, useParams } from 'react-router'
 import { QuizForm } from '../../../components/Form/QuizForm'
 import { DynamicSchema, QuizFormSchema, quizFormSchemaBuilder } from '../../../components/Form/QuizForm/schema'
 import { generateDefaultValues } from '../../../components/Form/QuizForm/helper'
 import { routes } from '../../../app/constants'
-import { ServiceError } from '../../../errors/ServiceError'
 import { queryKey } from '../../../services/constants'
 
 export function QuizFormPage() {
@@ -25,9 +24,9 @@ export function QuizFormPage() {
   const answerFormMutation = useMutation(['login'], quizService.answerQuizForm, {
     onSuccess: () => {
       closeNotification()
+      notifySuccess({ title: '¡Has completado la encuesta!' })
       navigate(routes.DASHBOARD)
-    },
-    onError: (err: ServiceError) => notifyError(err.title, err.message)
+    }
   })
 
   useEffect(() => {
@@ -36,12 +35,10 @@ export function QuizFormPage() {
       setEnabledFetch(false)
       closeNotification()
     }
-    return () => closeNotification()
   },[isFetching])
 
   useEffect(() => {
     if(answerFormMutation.isLoading) notifyLoading()
-    return () => closeNotification()
   }, [answerFormMutation.isLoading])
 
   useEffect(() => {

@@ -31,13 +31,11 @@ export function QuizListPage() {
   useEffect(() => {
     if(isFetching && isPreviousData) notifyLoading()
     else closeNotification()
-    return () => closeNotification()
   }, [isFetching])
 
   useEffect(() => {
     if(isLoading) notifyLoading()
     else closeNotification()
-    return () => closeNotification()
   }, [isLoading])
 
   const onChangePage = (e: React.ChangeEvent<unknown>, page: number) => {
