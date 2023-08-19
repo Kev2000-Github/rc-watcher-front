@@ -6,10 +6,11 @@ import { routes } from '../../app/constants'
 import { Card } from '../../components/Card'
 import { Logo } from '../../SVG/logo'
 import { useMutation } from '@tanstack/react-query'
-import { closeNotification, notifyLoading } from '../../utils/alert'
+import { closeNotification, notifyError, notifyLoading } from '../../utils/alert'
 import loginService from '../../services/Session'
 import { useEffect } from 'react'
 import { useUserStore } from '../../store'
+import { ServiceError } from '../../errors/ServiceError'
 
 export function Login() {
   const {isAuth, setUser, isAdmin, isAuditor, isOperator} = useUserStore()
@@ -30,6 +31,13 @@ export function Login() {
       else navigate(routes.NOT_FOUND)
     }
   }, [])
+
+  useEffect(() => {
+    if(signInMutation.error){
+      const err = signInMutation.error as ServiceError
+      notifyError(err.title, err.message)
+    }
+  }, [signInMutation.error])
 
   useEffect(() => {
     if(signInMutation.isLoading) notifyLoading()

@@ -1,3 +1,4 @@
+import { ServiceError } from '../../errors/ServiceError'
 import { sleep } from '../../utils/common'
 import { User } from '../interface'
 import {LoginServiceInterface, loginProps} from './interface'
@@ -5,7 +6,7 @@ import {LoginServiceInterface, loginProps} from './interface'
 export class LoginServiceDummy implements LoginServiceInterface {
     async login(props: loginProps) {
         if(props.username === 'error'){
-            throw Error('this is an error')
+            throw new ServiceError('error title', 'a')
         }
         const dummyUser: User = {
             id: '1',

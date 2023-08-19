@@ -2,13 +2,14 @@ import { Layout } from '../../../components/Layout'
 import { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import quizService from '../../../services/Quiz'
-import { closeNotification, notifyLoading, notifySuccess } from '../../../utils/alert'
+import { closeNotification, notifyError, notifyLoading, notifySuccess } from '../../../utils/alert'
 import { useNavigate, useParams } from 'react-router'
 import { QuizForm } from '../../../components/Form/QuizForm'
 import { DynamicSchema, QuizFormSchema, quizFormSchemaBuilder } from '../../../components/Form/QuizForm/schema'
 import { generateDefaultValues } from '../../../components/Form/QuizForm/helper'
 import { routes } from '../../../app/constants'
 import { queryKey } from '../../../services/constants'
+import { ServiceError } from '../../../errors/ServiceError'
 
 export function QuizFormPage() {
   const {id} = useParams()
@@ -28,6 +29,13 @@ export function QuizFormPage() {
       navigate(routes.DASHBOARD)
     }
   })
+
+  useEffect(() => {
+    if(answerFormMutation.error){
+      const err = answerFormMutation.error as ServiceError
+      notifyError(err.title, err.message)
+    }
+  }, [answerFormMutation.error])
 
   useEffect(() => {
     if(isFetching) notifyLoading()
