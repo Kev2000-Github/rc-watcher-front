@@ -1,3 +1,4 @@
+import { UserState } from '../store';
 import { STALE_TIME } from "./constants";
 
 export const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
@@ -33,3 +34,15 @@ export const readFile = (
       }
     });
   };
+
+export const getSessionId = () => {
+  const userString = localStorage.getItem('user')
+  if(!userString) return ''
+  try{
+    const {state} = JSON.parse(userString) as {state: UserState}
+    return state.user?.sessionId ?? ''
+  }
+  catch(err) {
+    return ''
+  }
+}

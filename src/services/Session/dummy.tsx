@@ -25,7 +25,8 @@ export class LoginServiceDummy implements LoginServiceInterface {
             Role: {
                 id: '1',
                 name: 'admin'
-            }
+            },
+            sessionId: '1'
         }
         await sleep(500)
         return dummyUser

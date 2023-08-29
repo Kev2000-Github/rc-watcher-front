@@ -1,35 +1,41 @@
-import { sleep } from '../../utils/common'
 import { User } from '../interface'
 import {LoginServiceInterface, loginProps} from './interface'
+import { client } from '../../clients'
+import { url } from '../constants'
+import { ServiceError } from '../../errors/ServiceError'
+import { HTTPError } from '../../errors/HTTPError'
+import { getSessionId } from '../../utils/common'
 
+type UserResponse = {
+    user: Omit<User, 'sessionId'>,
+    session: string
+}
 export class LoginServiceHttp implements LoginServiceInterface {
     async login(props: loginProps) {
-        //TODO: PENDING REAL IMPLEMENTATION...
-        const dummyUser: User = {
-            id: '1',
-            username: 'Fran',
-            fullName: 'Francisco Landaeta',
-            email: 'Fran@gmail.com',
-            Company: {
-                id: '1',
-                name: 'company Test',
-                address: 'address',
-                Country: {
-                    id: '1',
-                    name: 'Venezuela',
-                }
-            },
-            Role: {
-                id: '1',
-                name: 'admin'
-            }
+        try{
+            const sessionId = getSessionId()
+            const data = await client.post<UserResponse>(url.login, props, sessionId)
+            const user: User = {...data.user, sessionId: data.session}
+            return user
         }
-        await sleep(500)
-        return dummyUser
+        catch(err){
+            if(err instanceof HTTPError){
+                return Promise.reject(new ServiceError('Login Failed', err.message))
+            }
+            return Promise.reject(new ServiceError('Login Error', 'error'))
+        }
     }
 
     async logout() {
-        //TODO: PENDING REAL IMPLEMENTATION...
-        await sleep(500)
+        try{
+            const sessionId = getSessionId()
+            await client.delete(url.logout, sessionId)
+        }
+        catch(err){
+            if(err instanceof HTTPError){
+                return Promise.reject(new ServiceError('Logout Error', err.message))
+            }
+            return Promise.reject(new ServiceError('Logout Error', 'error'))
+        }
     }
 }

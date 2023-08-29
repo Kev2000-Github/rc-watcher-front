@@ -1,3 +1,4 @@
+import { config } from './../config';
 export const selectionType = {
     SIMPLE: 'simple',
     MULTIPLE: 'multiple',
@@ -8,4 +9,9 @@ export const selectionType = {
 export const queryKey = {
     QUIZ: 'QUIZ',
     QUIZZES: 'QUIZZES'
+}
+
+export const url = {
+    login: `${config.backURL}/auths`,
+    logout: `${config.backURL}/auths`
 }

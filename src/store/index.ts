@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { User } from '../services/interface'
 
-interface UserState {
+export interface UserState {
   user: User|null
   setUser: (userData: User) => void
   isAuth: () => boolean

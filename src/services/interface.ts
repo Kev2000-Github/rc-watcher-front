@@ -28,7 +28,8 @@ export interface User {
     Role: {
         id: string,
         name: string
-    }
+    },
+    sessionId: string
 }
 
 export interface Quiz {
