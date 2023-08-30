@@ -1,64 +1,78 @@
-import { QuizFormSchema } from '../../components/Form/QuizForm/schema'
-import { sleep } from '../../utils/common'
-import { selectionType } from '../constants'
+import { client } from '../../clients'
+import { HTTPError } from '../../errors/HTTPError'
+import { ServiceError } from '../../errors/ServiceError'
+import { getSessionId } from '../../utils/common'
+import { url } from '../constants'
 import { Paginated, Quiz, QuizForm, paginationProps } from '../interface'
-import {QuizServiceInterface} from './interface'
-
+import {QuizServiceInterface, answerQuizProps} from './interface'
+type answerSchema = {
+    questionId: string,
+    selectionId: string,
+    document?: {
+        name: string,
+        content: string|ArrayBuffer
+    } | null
+}
 export class QuizServiceHttp implements QuizServiceInterface {
-    async answerQuizForm(data: QuizFormSchema) {
-        //TODO: PENDING REAL IMPLEMENTATION
-        await sleep(500)
-        return true
+    async answerQuizForm({id, form}: answerQuizProps) {
+        try{
+            const sessionId = getSessionId()
+            const link = url.answerQuizForm.replace(':id', id ?? '')
+            const responses = Object.keys(form).reduce((resp, questionId) => {
+                if(typeof form[questionId].selectionId === 'string'){
+                    const newItem: answerSchema = {
+                        questionId, 
+                        selectionId: form[questionId].selectionId as string
+                    }
+                    if(form[questionId].document) newItem.document = form[questionId].document
+                    return [...resp, newItem]
+                }
+                const checkboxes = (form[questionId].selectionId as string[]).map(
+                    (selectionId: string) => ({questionId, selectionId})
+                )
+                return [...resp, ...checkboxes]
+            }, [] as answerSchema[])
+            console.log(responses)
+            await client.post(link, {responses}, sessionId)
+            return true
+        }
+        catch(err){
+            if(err instanceof HTTPError){
+                return Promise.reject(new ServiceError('Quiz error', err.message))
+            }
+            return Promise.reject(new ServiceError('Quiz Error', 'error'))
+        }
     }
 
     async getQuizForm(id: string) {
-        //TODO: PENDING REAL IMPLEMENTATION
-        const result: QuizForm = {
-            id,
-            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
-            name: `Taxes 1`,
-            Regulation: {
-                id: '1',
-                description: 'Taxes',
-                name: 'Taxes'
-            },
-            Questions: [
-                {
-                    id: '1',
-                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel ',
-                    hasDoc: false,
-                    isMultiple: false,
-                    Risk: {
-                        id: '1',
-                        name: 'risk'
-                    },
-                    Selections: [
-                        {
-                            id: '1',
-                            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel ',
-                            riskScore: 0.1,
-                            type: selectionType.SIMPLE
-                        }
-                    ]
-                }
-            ]
+        try{
+            const sessionId = getSessionId()
+            const link = url.quizForm.replace(':id', id)
+            const data = await client.get<{data: QuizForm}>(link, sessionId)
+            return data.data
         }
-        await sleep(500)
-        return result
+        catch(err){
+            if(err instanceof HTTPError){
+                return Promise.reject(new ServiceError('Quiz error', err.message))
+            }
+            return Promise.reject(new ServiceError('Quiz Error', 'error'))
+        }
     }
 
     async getQuizzes(paginationOpts: paginationProps) {
-        //TODO: PENDING REAL IMPLEMENTATION
-        const TOTAL_QUIZZES = 100
         const {limit, page} = paginationOpts
-        const result: Paginated<Quiz> = {
-            data: [],
-            page,
-            items: limit,
-            totalPages: Math.floor(TOTAL_QUIZZES/limit)
+        try{
+            const sessionId = getSessionId()
+            const link = `${url.quizzes}?limit=${limit}&page=${page}`
+            const data = await client.get<Paginated<Quiz>>(link, sessionId)
+            return data
         }
-        await sleep(500)
-        return result
+        catch(err){
+            if(err instanceof HTTPError){
+                return Promise.reject(new ServiceError('Quiz error', err.message))
+            }
+            return Promise.reject(new ServiceError('Quiz Error', 'error'))
+        }
     }
     
 }

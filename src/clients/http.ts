@@ -17,7 +17,7 @@ export class ClientHTTP implements Client {
           async (error: AxiosError) => {
             const originalRequestURL = error.config?.url ?? ''
             if (
-              error.response?.status === HTTP_CODES.UNAUTHORIZED,
+              error.response?.status === HTTP_CODES.UNAUTHORIZED &&
               originalRequestURL.indexOf("/auths") === -1
             ) {
               return window.location.replace(routes.LOGIN)

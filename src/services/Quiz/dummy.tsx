@@ -1,11 +1,10 @@
-import { QuizFormSchema } from '../../components/Form/QuizForm/schema'
 import { sleep } from '../../utils/common'
 import { selectionType } from '../constants'
 import { Paginated, Quiz, QuizForm, paginationProps } from '../interface'
-import {QuizServiceInterface} from './interface'
+import {QuizServiceInterface, answerQuizProps} from './interface'
 
 export class QuizServiceDummy implements QuizServiceInterface {
-    async answerQuizForm(data: QuizFormSchema) {
+    async answerQuizForm(props: answerQuizProps) {
         await sleep(500)
         return true
     }

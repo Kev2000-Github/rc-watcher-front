@@ -55,7 +55,7 @@ export function QuizFormPage() {
     }
   }, [quiz])
 
-  const onSubmit = (data: QuizFormSchema) => answerFormMutation.mutate(data)
+  const onSubmit = (data: QuizFormSchema) => answerFormMutation.mutate({id, form: data})
  
   return (
     <Layout>
