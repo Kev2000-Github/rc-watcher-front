@@ -8,6 +8,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        position: relative;
     }
     .catalog{
         padding: 20px 0;
@@ -20,6 +21,21 @@
         .card{
             padding: 20px;
             max-width: none;
+            position: relative;
+            overflow: hidden;
+            &.completed::after{
+                content: 'completo';
+                position: absolute;
+                width: fit-content;
+                height: fit-content;
+                padding: 5px 20px;
+                font-size: .8rem;
+                color: $white;
+                text-align: center;
+                background: $primary;
+                right: 0;
+                top: 0;
+            }
             .cardHeader{
                 display: flex;
                 justify-content: start;

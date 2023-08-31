@@ -4,7 +4,7 @@ import { ServiceError } from '../../errors/ServiceError'
 import { getSessionId } from '../../utils/common'
 import { url } from '../constants'
 import { Paginated, Quiz, QuizForm, paginationProps } from '../interface'
-import {QuizServiceInterface, answerQuizProps} from './interface'
+import {QuizServiceInterface, answerQuizProps, quizFilterProps} from './interface'
 type answerSchema = {
     questionId: string,
     selectionId: string,
@@ -32,7 +32,6 @@ export class QuizServiceHttp implements QuizServiceInterface {
                 )
                 return [...resp, ...checkboxes]
             }, [] as answerSchema[])
-            console.log(responses)
             await client.post(link, {responses}, sessionId)
             return true
         }
@@ -59,11 +58,12 @@ export class QuizServiceHttp implements QuizServiceInterface {
         }
     }
 
-    async getQuizzes(paginationOpts: paginationProps) {
+    async getQuizzes(paginationOpts: paginationProps, filters?: quizFilterProps) {
         const {limit, page} = paginationOpts
         try{
             const sessionId = getSessionId()
-            const link = `${url.quizzes}?limit=${limit}&page=${page}`
+            let link = `${url.quizzes}?limit=${limit}&page=${page}`
+            if(filters?.state) link = `${link}&state=${filters.state}`
             const data = await client.get<Paginated<Quiz>>(link, sessionId)
             return data
         }

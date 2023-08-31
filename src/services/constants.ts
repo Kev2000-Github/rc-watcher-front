@@ -11,6 +11,14 @@ export const queryKey = {
     QUIZZES: 'QUIZZES'
 }
 
+export const quizListFilter = {
+    state: {
+        ALL: 'all',
+        COMPLETED: 'completed',
+        PENDING: 'pending'
+    }
+}
+
 export const url = {
     login: `${config.backURL}/auths`,
     logout: `${config.backURL}/auths`,
