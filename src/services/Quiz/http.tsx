@@ -64,6 +64,7 @@ export class QuizServiceHttp implements QuizServiceInterface {
             const sessionId = getSessionId()
             let link = `${url.quizzes}?limit=${limit}&page=${page}`
             if(filters?.state) link = `${link}&state=${filters.state}`
+            if(filters?.tags) link = `${link}&tags=${filters.tags.join(',')}`
             const data = await client.get<Paginated<Quiz>>(link, sessionId)
             return data
         }

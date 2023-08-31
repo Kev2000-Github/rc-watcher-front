@@ -16,6 +16,11 @@ export const quizListFilter = {
         ALL: 'all',
         COMPLETED: 'completed',
         PENDING: 'pending'
+    },
+    include: {
+        TAXES: 'Impuestos',
+        SECURITY: 'Seguridad',
+        AML: 'AML',
     }
 }
 

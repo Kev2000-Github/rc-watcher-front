@@ -7,7 +7,8 @@ export type answerQuizProps = {
 }
 
 export type quizFilterProps = {
-    state?: string
+    state?: string,
+    tags? : string[]
 }
 
 export abstract class QuizServiceInterface {

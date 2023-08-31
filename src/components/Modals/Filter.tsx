@@ -1,7 +1,8 @@
-import { Button, Dialog, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, styled } from "@mui/material"
+import { Button, Chip, Dialog, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, styled } from "@mui/material"
 import { useState } from 'react'
 import { quizListFilter } from "../../services/constants"
 import { quizFilterProps } from "../../services/Quiz/interface"
+import style from './style.module.scss'
 
 const CustomDialog = styled(Dialog)(({theme}) => ({
     '& .MuiModal-backdrop': {
@@ -11,7 +12,7 @@ const CustomDialog = styled(Dialog)(({theme}) => ({
         borderRadius: '10px',
         border: `1px solid ${theme.custom.gray}`,
         boxShadow: '1px 2px 5px rgba(0,0,0,.3)',
-        minWidth: '300px'
+        minWidth: '400px'
     }
 }))
 
@@ -30,6 +31,12 @@ const stateOptions = [
     {value: quizListFilter.state.PENDING, name: 'Pendientes'}
 ]
 
+const includeOptions = [
+    {value: quizListFilter.include.AML, name: 'AML'},
+    {value: quizListFilter.include.TAXES, name: 'Impuestos'},
+    {value: quizListFilter.include.SECURITY, name: 'Seguridad'},
+]
+
 export const FilterModal = ({
     elementRef,
     onClose,
@@ -39,14 +46,24 @@ export const FilterModal = ({
     yOffset = 20
 }: Props) => {
     const [state, setState] = useState<string>(stateOptions[0].value)
+    const [tags, setTags] = useState<string[]>(includeOptions.map(opt => opt.value))
     const handleStateChange = (e: SelectChangeEvent<string>) => {
         setState(e.target.value)
     }
     const handleApply = () => {
-        const data = {state}
+        const data = {
+            state,
+            tags
+        }
         apply(data)
         onClose()
     }
+    const onClickTag = (val: string) => {
+        const filteredTags = tags.filter(tag => tag !== val)
+        if(filteredTags.length === tags.length) setTags([...tags, val])
+        else setTags(filteredTags)
+    }
+
     return (
         <CustomDialog 
             className={className} 
@@ -60,7 +77,7 @@ export const FilterModal = ({
                 } : undefined
             }}
         >
-            <DialogContent>
+            <DialogContent className={style.content}>
                 <FormControl>
                     <InputLabel id="state-label">Estado</InputLabel>
                     <Select
@@ -82,6 +99,23 @@ export const FilterModal = ({
                             ))
                         }
                     </Select>
+                </FormControl>
+                <FormControl className={style.tagSection}>
+                    {
+                        includeOptions.map(opt => (
+                            <Chip
+                                key={opt.value}
+                                sx={{
+                                    width: 'fit-content',
+                                    fontSize: '.8rem',
+                                }}
+                                label={opt.name} 
+                                variant={tags.includes(opt.value) ? 'filled' : 'outlined'}
+                                onClick={() => onClickTag(opt.value)} 
+                                color='primary'
+                            />
+                        ))
+                    }
                 </FormControl>
             </DialogContent>
             <DialogActions>

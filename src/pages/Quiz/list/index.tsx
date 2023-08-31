@@ -19,17 +19,19 @@ export function QuizListPage() {
   const navigate = useNavigate()
   const filterBtn = useRef<HTMLButtonElement>(null)
   const [stateFilter, setStateFilter] = useState<string>(quizListFilter.state.ALL)
+  const [tagsFilter, setTagsFilter] = useState<string[]>(Object.values(quizListFilter.include))
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false)
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
   const { isLoading, isFetching, data: paginatedQuizzes, isPreviousData } = useQuery({
-    queryKey: [queryKey.QUIZZES, page, stateFilter],
+    queryKey: [queryKey.QUIZZES, page, stateFilter, ...tagsFilter],
     queryFn: () => {
       const options: paginationProps = {
         limit: pagination.LIMIT,
         page
       }
       const filters = {
-        state: stateFilter
+        state: stateFilter,
+        tags: tagsFilter
       }
       return quizService.getQuizzes(options, filters)
     },
@@ -54,6 +56,7 @@ export function QuizListPage() {
   const onCloseFilter = () => setIsFilterOpen(false)
   const handleFilters = (data: quizFilterProps) => {
     setStateFilter(data.state ?? quizListFilter.state.ALL)
+    setTagsFilter(tags => data.tags ?? tags)
   }
   return (
     <Layout>
