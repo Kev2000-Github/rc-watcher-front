@@ -11,6 +11,10 @@ export interface Paginated<T> {
     totalPages: number
 }
 
+export interface ResponseHTTP<T> {
+    data: T
+}
+
 export interface User {
     id: string,
     username: string,
@@ -25,11 +29,13 @@ export interface User {
             name: string,
         }
     },
-    Role: {
-        id: string,
-        name: string
-    },
+    Role: Role,
     sessionId: string
+}
+
+export interface Role {
+    id: string,
+    name: string
 }
 
 export interface Quiz {

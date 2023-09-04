@@ -3,7 +3,7 @@ import { HTTPError } from '../../errors/HTTPError'
 import { ServiceError } from '../../errors/ServiceError'
 import { getSessionId } from '../../utils/common'
 import { url } from '../constants'
-import { Paginated, Quiz, QuizForm, paginationProps } from '../interface'
+import { Paginated, Quiz, QuizForm, ResponseHTTP, paginationProps } from '../interface'
 import {QuizServiceInterface, answerQuizProps, quizFilterProps} from './interface'
 type answerSchema = {
     questionId: string,
@@ -47,7 +47,7 @@ export class QuizServiceHttp implements QuizServiceInterface {
         try{
             const sessionId = getSessionId()
             const link = url.quizForm.replace(':id', id)
-            const data = await client.get<{data: QuizForm}>(link, sessionId)
+            const data = await client.get<ResponseHTTP<QuizForm>>(link, sessionId)
             return data.data
         }
         catch(err){

@@ -8,7 +8,9 @@ export const selectionType = {
 
 export const queryKey = {
     QUIZ: 'QUIZ',
-    QUIZZES: 'QUIZZES'
+    QUIZZES: 'QUIZZES', 
+    USERS: 'USERS',
+    ROLES: 'ROLES'
 }
 
 export const quizListFilter = {
@@ -30,4 +32,7 @@ export const url = {
     quizzes: `${config.backURL}/quizzes`,
     quizForm: `${config.backURL}/quizzes/form/:id`,
     answerQuizForm: `${config.backURL}/quizzes/form/:id`,
+    roles: `${config.backURL}/roles`,
+    users: `${config.backURL}/users/:companyId`,
+    updateUser: `${config.backURL}/users/:companyId/:userId`
 }

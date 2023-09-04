@@ -12,7 +12,7 @@ import { closeNotification, notifyLoading } from '../../../utils/alert'
 import { paginationConfig } from '../../../utils/common'
 import { useNavigate } from 'react-router'
 import { queryKey, quizListFilter } from '../../../services/constants'
-import { FilterModal } from '../../../components/Modals/Filter'
+import { FilterModal } from '../../../components/Modals/Filter/Filter'
 import { quizFilterProps } from '../../../services/Quiz/interface'
 
 export function QuizListPage() {

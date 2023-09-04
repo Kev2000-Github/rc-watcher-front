@@ -51,7 +51,7 @@ export const menuItems: MenuItems = [
     },
     {
         text: 'Usuarios',
-        URI: '/on-construction...',
+        URI: routes.USERS,
         icon: <User/>
     },
     {

@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ProtectedRoute } from '../components/protectedRoute.tsx'
 import { useUserStore } from '../store/index.ts'
 import { QuizFormPage } from '../pages/Quiz/form/index.tsx'
+import { Users } from '../pages/Users/index.tsx'
 
 const queryClient= new QueryClient({
   defaultOptions: {
@@ -32,6 +33,7 @@ function App() {
                 <Route path={routes.DASHBOARD} element={<Dashboard/>} />
                 <Route path={routes.QUIZ} element={<QuizListPage/>} />
                 <Route path={routes.QUIZ_FORM} element={<QuizFormPage/>} />
+                <Route path={routes.USERS} element={<Users/>} />
               </Route>
               <Route path={routes.NOT_FOUND} element={<NotFound/>} />
             </Routes>

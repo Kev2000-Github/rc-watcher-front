@@ -1,20 +1,9 @@
-import { Button, Chip, Dialog, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, styled } from "@mui/material"
+import { Button, Chip, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, styled } from "@mui/material"
 import { useState } from 'react'
-import { quizListFilter } from "../../services/constants"
-import { quizFilterProps } from "../../services/Quiz/interface"
+import { quizListFilter } from "../../../services/constants"
+import { quizFilterProps } from "../../../services/Quiz/interface"
 import style from './style.module.scss'
-
-const CustomDialog = styled(Dialog)(({theme}) => ({
-    '& .MuiModal-backdrop': {
-        backgroundColor: 'transparent',
-    },
-    '& .MuiDialog-paper': {
-        borderRadius: '10px',
-        border: `1px solid ${theme.custom.gray}`,
-        boxShadow: '1px 2px 5px rgba(0,0,0,.3)',
-        minWidth: '400px'
-    }
-}))
+import { CustomDialog } from "../customDialog"
 
 interface Props {
     className?: string,
