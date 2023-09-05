@@ -1,7 +1,11 @@
-import { QuizFormSchema } from "../../components/Form/QuizForm/schema";
-import { Alert, Paginated, Quiz, QuizForm, paginationProps } from "../interface";
+import { Alert, Paginated, paginationProps } from "../interface";
 
-
+export type createAlertProps = {
+    title: string,
+    description: string,
+    priority: string,
+    regulationId: string
+}
 
 export type AlertFilterProps = {
     state?: string,
@@ -10,4 +14,6 @@ export type AlertFilterProps = {
 
 export abstract class AlertServiceInterface {
     abstract getAlerts: (paginationOpts: paginationProps, filters?: AlertFilterProps) => Promise<Paginated<Alert>>
+    abstract createAlert: (props: createAlertProps) => Promise<Alert>
+    abstract getAlert: (id: string) => Promise<Alert>
 }

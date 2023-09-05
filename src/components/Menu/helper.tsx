@@ -31,12 +31,12 @@ export const menuItems: MenuItems = [
     },
     {
         text: 'Riesgos',
-        URI: routes.ALERTS,
+        URI: '/on-construction...',
         icon: <Risk/>
     },
     {
         text: 'Alertas',
-        URI: '/on-construction...',
+        URI: routes.ALERTS,
         icon: <Notification/>
     },
     {

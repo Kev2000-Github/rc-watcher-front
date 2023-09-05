@@ -12,7 +12,9 @@ export const queryKey = {
     USERS: 'USERS',
     USER: 'USER',
     ROLES: 'ROLES',
-    ALERTS: 'ALERTS'
+    ALERTS: 'ALERTS',
+    ALERT: 'ALERT',
+    REGULATIONS: 'REGULATIONS',
 }
 
 export const quizListFilter = {
@@ -55,10 +57,13 @@ export const url = {
     quizForm: `${config.backURL}/quizzes/form/:id`,
     answerQuizForm: `${config.backURL}/quizzes/form/:id`,
     roles: `${config.backURL}/roles`,
+    regulations: `${config.backURL}/regulations`,
     users: `${config.backURL}/users/:companyId`,
     user: `${config.backURL}/users/:companyId/:userId`,
     updateUser: `${config.backURL}/users/:companyId/:userId`,
     deleteUser: `${config.backURL}/users/:companyId/:userId`,
     createUser: `${config.backURL}/users/:companyId`,
-    alerts: `${config.backURL}/alerts`
+    alerts: `${config.backURL}/alerts`,
+    alert: `${config.backURL}/alerts/:id`,
+    createAlert: `${config.backURL}/alert`
 }

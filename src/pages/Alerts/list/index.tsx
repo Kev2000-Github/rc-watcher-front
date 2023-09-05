@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router'
 import { ALERT_PRIORITY, ALERT_STATE, queryKey } from '../../../services/constants'
 import { quizFilterProps } from '../../../services/Quiz/interface'
 import alertService from '../../../services/Alert'
-import { FilterAlertModal } from '../../../components/Modals/Filter/FilteraLERTS'
+import { FilterAlertModal } from '../../../components/Modals/Filter/FilterAlerts'
 import { SECOND } from '../../../utils/constants'
 
 export function AlertsListPage() {
@@ -112,7 +112,7 @@ export function AlertsListPage() {
                 </Button>
                 <Button 
                   ref={filterBtn}
-                  onClick={onOpenFilter} 
+                  onClick={() => navigate(routes.CREATE_ALERT)} 
                   variant='contained' 
                   startIcon={<Add/>} 
                   color='primary'

@@ -38,17 +38,19 @@ export interface Role {
     name: string
 }
 
+export interface Regulation {
+    id: string,
+    name: string,
+    description: string
+}
+
 export interface Quiz {
     id: string,
     name: string,
     description: string,
     isCompleted: boolean,
     questionCount: number,
-    Regulation: {
-        id: string,
-        name: string,
-        description: string
-    }
+    Regulation: Regulation
 }
 
 export interface Alert {
@@ -57,22 +59,14 @@ export interface Alert {
     description: string,
     priority: string,
     state: string,
-    Regulation: {
-        id: string,
-        name: string,
-        description: string
-    }
+    Regulation: Regulation
 }
 
 export interface QuizForm {
     id: string,
     name: string,
     description: string,
-    Regulation: {
-        id: string,
-        name: string,
-        description: string
-    },
+    Regulation: Regulation,
     Questions: Question[]
 }
 

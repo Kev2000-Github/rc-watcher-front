@@ -4,7 +4,7 @@ import { ServiceError } from '../../errors/ServiceError'
 import { getSessionId } from '../../utils/common'
 import { url } from '../constants'
 import { Paginated, Alert, ResponseHTTP, paginationProps } from '../interface'
-import {AlertServiceInterface, AlertFilterProps} from './interface'
+import {AlertServiceInterface, AlertFilterProps, createAlertProps} from './interface'
 
 export class AlertServiceHttp implements AlertServiceInterface {
     async getAlerts(paginationOpts: paginationProps, filters?: AlertFilterProps) {
@@ -16,6 +16,35 @@ export class AlertServiceHttp implements AlertServiceInterface {
             if(filters?.priority) link = `${link}&priority=${filters.priority}`
             const data = await client.get<Paginated<Alert>>(link, sessionId)
             return data
+        }
+        catch(err){
+            if(err instanceof HTTPError){
+                return Promise.reject(new ServiceError('Alert error', err.message))
+            }
+            return Promise.reject(new ServiceError('Alert Error', 'error'))
+        }
+    }
+
+    async createAlert(body: createAlertProps) {
+        try{
+            const sessionId = getSessionId()
+            const resp = await client.post<ResponseHTTP<Alert>>(url.createAlert, body, sessionId)
+            return resp.data
+        }
+        catch(err){
+            if(err instanceof HTTPError){
+                return Promise.reject(new ServiceError('Alert error', err.message))
+            }
+            return Promise.reject(new ServiceError('Alert Error', 'error'))
+        }
+    }
+
+    async getAlert(id: string) {
+        try{
+            const sessionId = getSessionId()
+            const link = url.alert.replace(':id', id)
+            const resp = await client.get<ResponseHTTP<Alert>>(link, sessionId)
+            return resp.data
         }
         catch(err){
             if(err instanceof HTTPError){

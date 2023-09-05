@@ -13,6 +13,7 @@ import { useUserStore } from '../store/index.ts'
 import { QuizFormPage } from '../pages/Quiz/form/index.tsx'
 import { Users } from '../pages/Users/index.tsx'
 import { AlertsListPage } from '../pages/Alerts/list/index.tsx'
+import { CreateAlert } from '../pages/Alerts/create/index.tsx'
 
 const queryClient= new QueryClient({
   defaultOptions: {
@@ -36,6 +37,7 @@ function App() {
                 <Route path={routes.QUIZ_FORM} element={<QuizFormPage/>} />
                 <Route path={routes.USERS} element={<Users/>} />
                 <Route path={routes.ALERTS} element={<AlertsListPage/>} />
+                <Route path={routes.CREATE_ALERT} element={<CreateAlert/>} />
               </Route>
               <Route path={routes.NOT_FOUND} element={<NotFound/>} />
             </Routes>
