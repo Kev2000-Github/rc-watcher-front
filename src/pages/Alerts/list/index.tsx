@@ -71,6 +71,16 @@ export function AlertsListPage() {
     return style.low
   }
 
+  const getPriorityText = (priority: string) => {
+    if(priority === ALERT_PRIORITY.HIGH){
+      return 'Alta'
+    }
+    if(priority === ALERT_PRIORITY.MEDIUM){
+      return 'Media'
+    }
+    return 'Baja'
+  }
+
   const getAlertState = (alert: string) => {
       if(alert === ALERT_STATE.SOLVED){
         return 'Resuelto'
@@ -128,7 +138,7 @@ export function AlertsListPage() {
                           {item.title}
                         </Typography>
                         <Typography className={[style.priority, getPriorityColor(item.priority)].join(' ')} variant='body2'>
-                          {item.priority}
+                          Prioridad: {getPriorityText(item.priority)}
                         </Typography>
                       </Box>
                       <Typography sx={{ paddingBottom: 2 }} variant='body2'>
