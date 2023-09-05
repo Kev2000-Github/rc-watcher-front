@@ -5,6 +5,8 @@ export const routes = {
     QUIZ: '/quiz',
     QUIZ_FORM: '/quiz/:id',
     USERS: '/users',
+    ALERTS: '/alerts',
+    CREATE_ALERT: '/alert/:id',
     NOT_FOUND: '*'
 }
 

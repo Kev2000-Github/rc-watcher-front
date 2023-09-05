@@ -11,7 +11,8 @@ export const queryKey = {
     QUIZZES: 'QUIZZES', 
     USERS: 'USERS',
     USER: 'USER',
-    ROLES: 'ROLES'
+    ROLES: 'ROLES',
+    ALERTS: 'ALERTS'
 }
 
 export const quizListFilter = {
@@ -27,6 +28,26 @@ export const quizListFilter = {
     }
 }
 
+export const SOLUTION_STATE = {
+    ALL: 'ALL',
+    ACTIVE: 'active',
+    INACTIVE: 'inactive'
+}
+
+export const ALERT_STATE = {
+    ALL: 'ALL',
+    PENDING: 'pending',
+    SOLVED: 'solved',
+    CANCELED: 'canceled'
+}
+
+export const ALERT_PRIORITY = {
+    ALL: 'ALL',
+    HIGH: 'high',
+    MEDIUM: 'medium',
+    LOW: 'low'
+}
+
 export const url = {
     login: `${config.backURL}/auths`,
     logout: `${config.backURL}/auths`,
@@ -38,5 +59,6 @@ export const url = {
     user: `${config.backURL}/users/:companyId/:userId`,
     updateUser: `${config.backURL}/users/:companyId/:userId`,
     deleteUser: `${config.backURL}/users/:companyId/:userId`,
-    createUser: `${config.backURL}/users/:companyId`
+    createUser: `${config.backURL}/users/:companyId`,
+    alerts: `${config.backURL}/alerts`
 }

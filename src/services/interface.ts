@@ -51,6 +51,19 @@ export interface Quiz {
     }
 }
 
+export interface Alert {
+    id: string,
+    title: string,
+    description: string,
+    priority: string,
+    state: string,
+    Regulation: {
+        id: string,
+        name: string,
+        description: string
+    }
+}
+
 export interface QuizForm {
     id: string,
     name: string,

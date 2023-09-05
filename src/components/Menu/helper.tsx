@@ -31,7 +31,7 @@ export const menuItems: MenuItems = [
     },
     {
         text: 'Riesgos',
-        URI: '/on-construction...',
+        URI: routes.ALERTS,
         icon: <Risk/>
     },
     {
