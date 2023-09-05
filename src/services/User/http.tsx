@@ -1,5 +1,5 @@
 import { Paginated, ResponseHTTP, User, paginationProps } from '../interface'
-import {UserServiceInterface, deleteUserProps, mutateProps, mutateUserProps} from './interface'
+import {UserServiceInterface, createProps, deleteUserProps, mutateProps, mutateUserProps} from './interface'
 import { client } from '../../clients'
 import { url } from '../constants'
 import { ServiceError } from '../../errors/ServiceError'
@@ -24,10 +24,25 @@ export class UserServiceHttp implements UserServiceInterface {
         }
     }
 
+    async getUser(companyId: string, userId: string) {
+        try{
+            const sessionId = getSessionId()
+            const link = `${url.user}`.replace(':companyId', companyId).replace(':userId', userId)
+            const resp = await client.get<ResponseHTTP<User>>(link, sessionId)
+            return resp.data
+        }
+        catch(err){
+            if(err instanceof HTTPError){
+                return Promise.reject(new ServiceError('Users Failed', err.message))
+            }
+            return Promise.reject(new ServiceError('Users Error', 'error'))
+        }
+    }
+
     async updateUser({companyId, userId, body}: mutateProps<mutateUserProps>) {
         try{
             const sessionId = getSessionId()
-            const link = `${url.users}`.replace(':companyId', companyId).replace(':userId', userId)
+            const link = `${url.updateUser}`.replace(':companyId', companyId).replace(':userId', userId)
             if(body.email) delete body.email
             const resp = await client.put<ResponseHTTP<User>>(link, body, sessionId)
             return resp.data
@@ -43,7 +58,7 @@ export class UserServiceHttp implements UserServiceInterface {
     async deleteUser({companyId, userId}: deleteUserProps){
         try{
             const sessionId = getSessionId()
-            const link = `${url.users}`.replace(':companyId', companyId).replace(':userId', userId)
+            const link = `${url.deleteUser}`.replace(':companyId', companyId).replace(':userId', userId)
             const resp = await client.delete<ResponseHTTP<User>>(link, sessionId)
             return resp.data
         }
@@ -55,10 +70,10 @@ export class UserServiceHttp implements UserServiceInterface {
         }
     }
 
-    async createUser({companyId, userId, body}: mutateProps<mutateUserProps>){
+    async createUser({companyId, body}: createProps<mutateUserProps>){
         try{
             const sessionId = getSessionId()
-            const link = `${url.users}`.replace(':companyId', companyId).replace(':userId', userId)
+            const link = `${url.createUser}`.replace(':companyId', companyId)
             const resp = await client.post<ResponseHTTP<User>>(link, body, sessionId)
             return resp.data
         }

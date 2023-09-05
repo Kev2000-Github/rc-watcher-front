@@ -12,7 +12,6 @@ export class RoleServiceHttp implements RoleServiceInterface {
             const sessionId = getSessionId()
             const link = `${url.roles}?level=2`
             const resp = await client.get<Paginated<Role>>(link, sessionId)
-            console.log('fetch')
             return resp.data
         }
         catch(err){

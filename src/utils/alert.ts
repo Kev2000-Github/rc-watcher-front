@@ -16,6 +16,9 @@ export const notifyLoading = (options?: Options) => {
   const defaultLoadingOpts = {...defaultOpts, title: 'Cargando...'}
   const { onClose, title } = {...defaultLoadingOpts, ...options}
   void Swal.fire({
+    customClass: {
+      container: 'alerts'
+    },
     title,
     allowOutsideClick: false,
     didOpen: () => {
@@ -36,6 +39,9 @@ export const notifyError: ErrorNotifier = (
     message = `<ul>${message}</ul>`
   }
   void Swal.fire({
+    customClass: {
+      container: 'alerts'
+    },
     icon: 'error',
     title,
     html: message
@@ -45,6 +51,9 @@ export const notifyError: ErrorNotifier = (
 export const notifySuccess = (options?: Options) => {
   const { onClose, title } = {...defaultOpts, ...options}
   void Swal.fire({
+    customClass: {
+      container: 'alerts'
+    },
     icon: 'success',
     title: title,
     showConfirmButton: false,

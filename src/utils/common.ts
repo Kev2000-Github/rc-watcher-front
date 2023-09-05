@@ -46,3 +46,27 @@ export const getSessionId = () => {
     return ''
   }
 }
+
+export const isObject = (value: unknown) => {
+  if(!value) return false
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  return typeof value === 'object' && value.constructor === Object;
+}
+
+export const removeBlankProperties: (obj: any) => any = (obj) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  if (!isObject(obj)) return obj
+
+  const result: { [key: string]: any } = {};
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  for (const key of Object.keys(obj)) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
+    const value = obj[key];
+    if (value !== null && value !== '') {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      result[key] = removeBlankProperties(value);
+    }
+  }
+
+  return result;
+}

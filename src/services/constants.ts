@@ -10,6 +10,7 @@ export const queryKey = {
     QUIZ: 'QUIZ',
     QUIZZES: 'QUIZZES', 
     USERS: 'USERS',
+    USER: 'USER',
     ROLES: 'ROLES'
 }
 
@@ -34,5 +35,8 @@ export const url = {
     answerQuizForm: `${config.backURL}/quizzes/form/:id`,
     roles: `${config.backURL}/roles`,
     users: `${config.backURL}/users/:companyId`,
-    updateUser: `${config.backURL}/users/:companyId/:userId`
+    user: `${config.backURL}/users/:companyId/:userId`,
+    updateUser: `${config.backURL}/users/:companyId/:userId`,
+    deleteUser: `${config.backURL}/users/:companyId/:userId`,
+    createUser: `${config.backURL}/users/:companyId`
 }

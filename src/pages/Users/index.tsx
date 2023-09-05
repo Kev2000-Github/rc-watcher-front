@@ -16,12 +16,15 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { queryKey } from '../../services/constants';
 import { paginationProps } from '../../services/interface';
 import { paginationConfig } from '../../utils/common';
-import { closeNotification, notifyLoading } from '../../utils/alert';
+import { closeNotification, notifyError, notifyLoading } from '../../utils/alert';
 import userService from '../../services/User';
 import { useUserStore } from '../../store';
 import {Edit, Delete} from '@mui/icons-material'
-import { CreateUserModal } from '../../components/Modals/CreateUser';
-import { UserSchema } from '../../components/Form/User/schema';
+import { CreateUserModal } from '../../components/Modals/User/CreateUser';
+import { EditUserSchema, UserSchema } from '../../components/Form/User/schema';
+import { UpdateUserModal } from '../../components/Modals/User/updateUser';
+import { DeleteUserModal } from '../../components/Modals/User/DeleteUser';
+import { ServiceError } from '../../errors/ServiceError';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -52,8 +55,9 @@ export const modals = {
 export function Users() {
   const user = useUserStore(state => state.user)
   const [updates, setUpdates] = useState<number>(0)
+  const [selectedUser, setSelectedUser] = useState<string>('')
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
-  const [openModal, setOpenModal] = useState<string|null>()
+  const [openModal, setOpenModal] = useState<string|null>(null)
   const { isLoading, isFetching, data: paginatedUsers, isPreviousData, refetch } = useQuery({
     queryKey: [queryKey.USERS, page, updates],
     queryFn: () => {
@@ -65,20 +69,32 @@ export function Users() {
     },
     ...paginationConfig
   })
+
   const updateUser = useMutation(['updateUser'], userService.updateUser, {
     onSuccess: () => {
       onCloseModal()
+      setUpdates(prev => prev + 1)
+    },
+    onError: (error: ServiceError) => {
+      notifyError(error.title, error.message)
     }
   })
   const createUser = useMutation(['createUser'], userService.createUser, {
     onSuccess: () => {
       onCloseModal()
       setUpdates(prev => prev + 1)
+    },
+    onError: (error: ServiceError) => {
+      notifyError(error.title, error.message)
     }
   })
-  const deleteUser = useMutation(['deleteUser'], userService.updateUser, {
+  const deleteUser = useMutation(['deleteUser'], userService.deleteUser, {
     onSuccess: () => {
       onCloseModal()
+      setUpdates(prev => prev + 1)
+    },
+    onError: (error: ServiceError) => {
+      notifyError(error.title, error.message)
     }
   })
 
@@ -92,33 +108,50 @@ export function Users() {
     else closeNotification()
   }, [isLoading])
 
-  const onEditUser = (userId: string) => {
-    console.log("A")
-  }
-
-  const onDeleteUser = (userId: string) => {
-    console.log("A")
+  const onUpdateSelectedUser = (action: string, userId: string) => {
+    setSelectedUser(userId)
+    setOpenModal(action)
   }
 
   const onOpenModal = (modal: string) => {
     setOpenModal(modal)
   }
 
-  const onCloseModal = () => setOpenModal(null)
-  const onSubmit = (action: string, data: UserSchema) => {
+  const onCloseModal = () => {
+    setSelectedUser('')
+    setOpenModal(null)
+  }
+
+  const onSubmit = (action: string, data: UserSchema|EditUserSchema|string) => {
     if(action === modals.CREATE){
       const req = {
-        userId: user?.id ?? '',
         companyId: user?.Company?.id ?? '',
-        body: data
+        body: typeof data === 'string' ? {} : data
       }
       createUser.mutate(req)
     }
+    else if(action === modals.UPDATE){
+      const req = {
+        userId: selectedUser ?? '',
+        companyId: user?.Company?.id ?? '',
+        body: typeof data === 'string' ? {} : data
+      }
+      updateUser.mutate(req)
+    }
+    else if(action === modals.DELETE){
+      const req = {
+        userId: selectedUser ?? '',
+        companyId: user?.Company?.id ?? '',
+      }
+      deleteUser.mutate(req)
+    }
   }
-  
+
   return (
     <Layout>
-        <main className={style.content}>
+        {
+          user ?
+          <main className={style.content}>
             <Card className={style.card}>
                 <header>
                   <Typography variant='h5'>
@@ -131,7 +164,7 @@ export function Users() {
                   </Button>
                 </header>
                 <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 700 }} aria-label="customized table">
+                    <Table sx={{ minWidth: 700 }}>
                         <TableHead>
                         <TableRow>
                             <StyledTableCell>Usuario</StyledTableCell>
@@ -154,13 +187,13 @@ export function Users() {
                                 <IconButton
                                 color='primary'
                                 disabled={user?.id === scopedUser.id}
-                                onClick={() => onEditUser(scopedUser.id)}>
+                                onClick={() => onUpdateSelectedUser(modals.UPDATE, scopedUser.id)}>
                                   <Edit/>
                                 </IconButton>
                                 <IconButton
                                 color='error'
                                 disabled={user?.id === scopedUser.id}
-                                onClick={() => onDeleteUser(scopedUser.id)}>
+                                onClick={() => onUpdateSelectedUser(modals.DELETE, scopedUser.id)}>
                                   <Delete/>
                                 </IconButton>
                               </StyledTableCell>
@@ -175,7 +208,22 @@ export function Users() {
               open={openModal === modals.CREATE}
               onClose={onCloseModal}
             />
+            <UpdateUserModal
+              userId={selectedUser}
+              admin={user}
+              submit={onSubmit}
+              open={openModal === modals.UPDATE}
+              onClose={onCloseModal}            
+            />
+            <DeleteUserModal
+              userId={selectedUser}
+              submit={onSubmit}
+              open={openModal === modals.DELETE}
+              onClose={onCloseModal}            
+            />
         </main>
+        : ''
+        }
     </Layout>
   );
 }

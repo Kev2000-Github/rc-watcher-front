@@ -1,15 +1,13 @@
 import { useEffect } from 'react'
 import { CircularProgress, DialogContent } from "@mui/material"
-import { queryKey } from "../../../services/constants"
-import { UserForm } from "../../Form/User"
-import { UserSchema, userSchema } from "../../Form/User/schema"
-import { useMutation, useQuery } from "@tanstack/react-query"
-import roleService from "../../../services/Role"
-import { paginationConfig } from "../../../utils/common"
-import { CustomDialog, CustomDialogWithBackdrop } from "../customDialog"
-import userService from '../../../services/User'
-import { User } from '../../../services/interface'
-import { modals } from '../../../pages/Users'
+import { queryKey } from "../../../../services/constants"
+import { CreateUserForm } from "../../../Form/User"
+import { UserSchema, userSchema } from "../../../Form/User/schema"
+import { useQuery } from "@tanstack/react-query"
+import roleService from "../../../../services/Role"
+import { paginationConfig } from "../../../../utils/common"
+import { CustomDialogWithBackdrop } from "../../customDialog"
+import { modals } from '../../../../pages/Users'
 
 interface Props {
     className?: string,
@@ -25,12 +23,11 @@ export const CreateUserModal = ({
     submit
 }: Props) => {
     const { data: roles, refetch } = useQuery({
-      queryKey: [queryKey.USERS],
+      queryKey: [queryKey.ROLES],
       queryFn: roleService.getRoles,
       ...paginationConfig,
       enabled: false
     })
-    const updateUser = useMutation(['updateUser'], userService.updateUser)
 
     useEffect(() => {
         if(open && !roles){
@@ -50,7 +47,7 @@ export const CreateUserModal = ({
         >
             <DialogContent sx={{display: 'flex', justifyContent: 'center'}}>
                 {roles ? 
-                <UserForm
+                <CreateUserForm
                     roles={roles ?? []}
                     onSubmitItem={onSubmit}
                     schema={userSchema}
