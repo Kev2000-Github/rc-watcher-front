@@ -70,3 +70,7 @@ export const removeBlankProperties: (obj: any) => any = (obj) => {
 
   return result;
 }
+
+export const ellipsisText = (text: string, charCount: number) => {
+  return `${text.slice(0, charCount).trim()}...`
+}

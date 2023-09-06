@@ -41,7 +41,7 @@ export const menuItems: MenuItems = [
     },
     {
         text: 'Soluciones',
-        URI: '/on-construction...',
+        URI: routes.SOLUTIONS,
         icon: <Solution/>
     },
     {

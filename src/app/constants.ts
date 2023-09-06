@@ -7,6 +7,8 @@ export const routes = {
     USERS: '/users',
     ALERTS: '/alerts',
     CREATE_ALERT: '/alert',
+    SOLUTIONS: '/solutions',
+    CREATE_SOLUTION: '/solution',
     NOT_FOUND: '*'
 }
 

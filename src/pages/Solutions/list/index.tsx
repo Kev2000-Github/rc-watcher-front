@@ -12,29 +12,28 @@ import { paginationConfig } from '../../../utils/common'
 import { useNavigate } from 'react-router'
 import { ALERT_PRIORITY, ALERT_STATE, queryKey } from '../../../services/constants'
 import { quizFilterProps } from '../../../services/Quiz/interface'
-import alertService from '../../../services/Alert'
 import { FilterAlertModal } from '../../../components/Modals/Filter/FilterAlerts'
 import { SECOND } from '../../../utils/constants'
+import solutionService from '../../../services/Solution'
+import { FilterSolutionModal } from '../../../components/Modals/Filter/FilterSolutions'
 
-export function AlertListPage() {
+export function SolutionListPage() {
   const navigate = useNavigate()
   const filterBtn = useRef<HTMLButtonElement>(null)
   const [stateFilter, setStateFilter] = useState<string>(ALERT_STATE.ALL)
-  const [priorityFilter, setPriorityFilter] = useState<string>(ALERT_PRIORITY.ALL)
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false)
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
-  const { isLoading, isFetching, data: paginatedAlerts, isPreviousData } = useQuery({
-    queryKey: [queryKey.ALERTS, page, stateFilter, priorityFilter],
+  const { isLoading, isFetching, data: paginatedSolutions, isPreviousData } = useQuery({
+    queryKey: [queryKey.SOLUTIONS, page, stateFilter],
     queryFn: () => {
       const options: paginationProps = {
         limit: pagination.LIMIT,
         page
       }
       const filters = {
-        state: stateFilter,
-        priority: priorityFilter
+        state: stateFilter
       }
-      return alertService.getAlerts(options, filters)
+      return solutionService.getSolutions(options, filters)
     },
     ...paginationConfig,
     staleTime: SECOND * 5
@@ -58,7 +57,6 @@ export function AlertListPage() {
   const onCloseFilter = () => setIsFilterOpen(false)
   const handleFilters = (data: quizFilterProps) => {
     setStateFilter(data.state ?? ALERT_STATE.ALL)
-    setPriorityFilter(data.state ?? ALERT_PRIORITY.ALL)
   }
 
   const getPriorityColor = (priority: string) => {
@@ -81,24 +79,14 @@ export function AlertListPage() {
     return 'Baja'
   }
 
-  const getAlertState = (alert: string) => {
-      if(alert === ALERT_STATE.SOLVED){
-        return 'Resuelto'
-      }
-      if(alert === ALERT_STATE.PENDING){
-        return 'Sin resolver'
-      }
-      return 'Cancelado'
-  }
-
   return (
     <Layout>
       {
-        paginatedAlerts && 
+        paginatedSolutions && 
         <Box className={style.content}>
           <Box className={style.header}>
               <Typography variant='h6'>
-                Encuestas
+                Soluciones
               </Typography>
               <div className={style.headerButtons}>
                 <Button 
@@ -112,15 +100,15 @@ export function AlertListPage() {
                 </Button>
                 <Button 
                   ref={filterBtn}
-                  onClick={() => navigate(routes.CREATE_ALERT)} 
+                  onClick={() => navigate(routes.CREATE_SOLUTION)} 
                   variant='contained' 
                   startIcon={<Add/>} 
                   color='primary'
                 >
-                  Crear Alerta
+                  Crear Solucion
                 </Button>
               </div>
-              <FilterAlertModal
+              <FilterSolutionModal
                 elementRef={filterBtn.current?.getBoundingClientRect()}
                 apply={handleFilters}
                 open={isFilterOpen}
@@ -130,36 +118,49 @@ export function AlertListPage() {
           
           <Box className={style.catalog}>
             {
-              paginatedAlerts?.data.map((item, idx) => {
+              paginatedSolutions?.data.map((item) => {
                 return (
-                  <Card key={idx} className={`${style.card} ${item.state ===  ALERT_STATE.SOLVED? style.completed : ''}`}>
-                      <Box className={style.cardHeader}>
-                        <Typography sx={{ fontSize: 16, fontWeight: 600}} variant='body2'>
-                          {item.title}
+                  <Card key={item.id} className={`${style.card} ${style.split}`}>
+                      <Box className={style.left}>
+                        <Box className={style.cardHeader}>
+                          <Typography sx={{ fontSize: 16, fontWeight: 600}} variant='body2'>
+                            {item.title}
+                          </Typography>
+                        </Box>
+                        <Typography className={style.description} sx={{ paddingBottom: 2 }} variant='body2'>
+                          {item.description}
                         </Typography>
-                        <Typography className={[style.priority, getPriorityColor(item.priority)].join(' ')} variant='body2'>
-                          Prioridad: {getPriorityText(item.priority)}
+                        <Typography className={style.questions} variant='body2'>
+                          {item.madeBy.fullName}
                         </Typography>
                       </Box>
-                      <Typography sx={{ paddingBottom: 2 }} variant='body2'>
-                        {item.description}
-                      </Typography>
-                      <Typography className={style.questions} variant='body2'>
-                        Estado: {getAlertState(item.state)}
-                      </Typography>
-                      <Box sx={{display: 'flex', justifyContent: 'end', alignItems: 'end', height: 1}}>
-                        <Button 
-                            variant='contained'
-                            color={item.state ===  ALERT_STATE.SOLVED ? 'info' : 'primary'}
-                            className={style.button}
-                            sx={{width: 'auto'}}
-                            onClick={() => {
-                              const url = routes.QUIZ_FORM.split(':')[0] + item.id
-                              navigate(url)
-                            }}
-                        >
-                            Ver
-                        </Button>
+                      <Box className={style.right}>
+                        {
+                          item.Alerts.map(alert => (
+                            <Box key={alert.id} className={style.alerts}>
+                              <Typography sx={{ fontSize: 14, fontWeight: 600}} variant='body2'>
+                                {alert.title}
+                              </Typography>
+                              <Typography className={[style.priority, getPriorityColor(alert.priority)].join(' ')} variant='body2'>
+                                Prioridad: {getPriorityText(alert.priority)}
+                              </Typography>
+                            </Box>
+                          ))
+                        }
+                        <Box sx={{display: 'flex', justifyContent: 'end', alignItems: 'end', height: 1}}>
+                          <Button 
+                              variant='contained'
+                              color={item.state ===  ALERT_STATE.SOLVED ? 'info' : 'primary'}
+                              className={style.button}
+                              sx={{width: 'auto'}}
+                              onClick={() => {
+                                const url = routes.QUIZ_FORM.split(':')[0] + item.id
+                                navigate(url)
+                              }}
+                          >
+                              Ver
+                          </Button>
+                        </Box>
                       </Box>
                   </Card>
                 )
@@ -171,7 +172,7 @@ export function AlertListPage() {
               disabled={isFetching && isPreviousData}
               page={page}
               onChange={onChangePage}
-              count={paginatedAlerts?.totalPages} 
+              count={paginatedSolutions?.totalPages} 
               siblingCount={2}
               size="small" 
               showFirstButton 

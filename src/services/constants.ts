@@ -14,6 +14,8 @@ export const queryKey = {
     ROLES: 'ROLES',
     ALERTS: 'ALERTS',
     ALERT: 'ALERT',
+    SOLUTIONS: 'SOLUTIONS',
+    SOLUTION: 'SOLUTION',
     REGULATIONS: 'REGULATIONS',
 }
 
@@ -65,5 +67,8 @@ export const url = {
     createUser: `${config.backURL}/users/:companyId`,
     alerts: `${config.backURL}/alerts`,
     alert: `${config.backURL}/alerts/:id`,
-    createAlert: `${config.backURL}/alert`
+    createAlert: `${config.backURL}/alert`,
+    solutions: `${config.backURL}/solutions`,
+    solution: `${config.backURL}/solution/:id`,
+    createSolution: `${config.backURL}/solution`,
 }

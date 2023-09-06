@@ -1,0 +1,110 @@
+@import "../../../utils/theme/colors.scss";
+
+.content{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    overflow: auto;
+    scrollbar-gutter: stable;  
+    .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        .headerButtons{
+            display: flex;
+            column-gap: 20px;
+        }
+    }
+    .catalog{
+        padding: 20px 0;
+        display: grid;
+        grid-template-columns: repeat(
+            auto-fit,
+            minmax(500px, 1fr)
+        );
+        gap: 30px;
+        .card{
+            padding: 20px;
+            max-width: none;
+            position: relative;
+            overflow: hidden;
+            &.split{
+                display: flex;
+                flex-direction: row;
+                column-gap: 10px;
+                .left{
+                    flex: 1;
+                    padding-right: 5px;
+                }
+                .right{
+                    flex: 1;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: end;
+                    padding-top: 20px;
+                    row-gap: 15px;
+                    .alerts{
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: center;
+                        align-items: center;
+                        column-gap: 10px;
+                    }
+                }
+            }
+            &.split::before{
+                content: '';
+                position: absolute;
+                width: 1px;
+                height: 100%;
+                background: #D5D9DB;
+                left: 50%;
+                top: 0;
+            }
+            &.completed::after{
+                content: 'completo';
+                position: absolute;
+                width: fit-content;
+                height: fit-content;
+                padding: 5px 20px;
+                font-size: .8rem;
+                color: $white;
+                text-align: center;
+                background: $primary;
+                right: 0;
+                top: 0;
+            }
+            .cardHeader{
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                padding-bottom: 10px;
+            }
+            .priority{
+                padding: 2px 15px;
+                color: $white;
+                font-size: 0.7rem;
+                margin-left: 10px;
+                background: $secondary;
+                &.high{
+                    background: $danger
+                }
+                &.medium{
+                    background: $warn
+                }
+                &.low{
+                    background: $gray
+                }
+            }
+            .questions{
+                padding-bottom: 10px;
+                font-size: .7rem;
+                color: $primary
+            }
+            .button{
+                width: auto
+            }
+        }
+    }
+}

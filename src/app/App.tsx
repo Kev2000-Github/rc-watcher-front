@@ -12,8 +12,10 @@ import { ProtectedRoute } from '../components/protectedRoute.tsx'
 import { useUserStore } from '../store/index.ts'
 import { QuizFormPage } from '../pages/Quiz/form/index.tsx'
 import { Users } from '../pages/Users/index.tsx'
-import { AlertsListPage } from '../pages/Alerts/list/index.tsx'
+import { AlertListPage } from '../pages/Alerts/list/index.tsx'
 import { CreateAlert } from '../pages/Alerts/create/index.tsx'
+import { SolutionListPage } from '../pages/Solutions/list/index.tsx'
+import { CreateSolution } from '../pages/Solutions/create/index.tsx'
 
 const queryClient= new QueryClient({
   defaultOptions: {
@@ -36,8 +38,10 @@ function App() {
                 <Route path={routes.QUIZ} element={<QuizListPage/>} />
                 <Route path={routes.QUIZ_FORM} element={<QuizFormPage/>} />
                 <Route path={routes.USERS} element={<Users/>} />
-                <Route path={routes.ALERTS} element={<AlertsListPage/>} />
+                <Route path={routes.ALERTS} element={<AlertListPage/>} />
                 <Route path={routes.CREATE_ALERT} element={<CreateAlert/>} />
+                <Route path={routes.SOLUTIONS} element={<SolutionListPage/>} />
+                <Route path={routes.CREATE_SOLUTION} element={<CreateSolution/>} />
               </Route>
               <Route path={routes.NOT_FOUND} element={<NotFound/>} />
             </Routes>

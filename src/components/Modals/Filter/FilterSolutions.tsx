@@ -1,34 +1,26 @@
-import { Button, Chip, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, styled } from "@mui/material"
+import { Button, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, styled } from "@mui/material"
 import { useState } from 'react'
-import { ALERT_PRIORITY, ALERT_STATE } from "../../../services/constants"
+import { SOLUTION_STATE } from "../../../services/constants"
 import style from './style.module.scss'
 import { CustomDialog } from "../customDialog"
-import { AlertFilterProps } from "../../../services/Alert/interface"
+import { SolutionFilterProps } from "../../../services/Solution/interface"
 
 interface Props {
     className?: string,
     open: boolean,
     onClose: () => void,
-    apply: (data: AlertFilterProps) => void
+    apply: (data: SolutionFilterProps) => void
     elementRef?: DOMRect | null,
     yOffset?: number
 }
 
 const stateOptions = [
-    {value: ALERT_STATE.ALL, name: 'Todo'},
-    {value: ALERT_STATE.SOLVED, name: 'Resuelto'},
-    {value: ALERT_STATE.PENDING, name: 'No Resuelto'},
-    {value: ALERT_STATE.CANCELED, name: 'Cancelado'}
+    {value: SOLUTION_STATE.ALL, name: 'Todo'},
+    {value: SOLUTION_STATE.ACTIVE, name: 'Activo'},
+    {value: SOLUTION_STATE.INACTIVE, name: 'Inactivo'},
 ]
 
-const priorityOptions = [
-    {value: ALERT_PRIORITY.ALL, name: 'Todo'},
-    {value: ALERT_PRIORITY.HIGH, name: 'Alto'},
-    {value: ALERT_PRIORITY.MEDIUM, name: 'Medio'},
-    {value: ALERT_PRIORITY.LOW, name: 'Bajo'},
-]
-
-export const FilterAlertModal = ({
+export const FilterSolutionModal = ({
     elementRef,
     onClose,
     apply,
@@ -37,18 +29,13 @@ export const FilterAlertModal = ({
     yOffset = 20
 }: Props) => {
     const [state, setState] = useState<string>(stateOptions[0].value)
-    const [priority, setPriority] = useState<string>(priorityOptions[0].value)
     
     const handleStateChange = (e: SelectChangeEvent<string>) => {
         setState(e.target.value)
     }
-    const handlePriorityChange = (e: SelectChangeEvent<string>) => {
-        setPriority(e.target.value)
-    }
     const handleApply = () => {
         const data = {
             state,
-            priority
         }
         apply(data)
         onClose()
@@ -80,28 +67,6 @@ export const FilterAlertModal = ({
                     >
                         {
                             stateOptions.map(opt => (
-                                <MenuItem 
-                                selected={state === opt.value} 
-                                key={opt.value} 
-                                value={opt.value}>
-                                    {opt.name}
-                                </MenuItem>
-                            ))
-                        }
-                    </Select>
-                </FormControl>
-                <FormControl>
-                    <InputLabel id="priority-label">Prioridad</InputLabel>
-                    <Select
-                        labelId="priority-label"
-                        value={priority}
-                        label="Prioridad"
-                        variant="standard"
-                        size="small"
-                        onChange={handlePriorityChange}
-                    >
-                        {
-                            priorityOptions.map(opt => (
                                 <MenuItem 
                                 selected={state === opt.value} 
                                 key={opt.value} 

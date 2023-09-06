@@ -15,11 +15,14 @@ export interface ResponseHTTP<T> {
     data: T
 }
 
-export interface User {
+interface UserBasic {
     id: string,
     username: string,
     fullName: string,
-    email: string,
+    email: string
+}
+
+export interface User extends UserBasic {
     Company: {
         id: string,
         name: string,
@@ -60,6 +63,22 @@ export interface Alert {
     priority: string,
     state: string,
     Regulation: Regulation
+}
+
+export interface Solution {
+    id: string,
+    title: string,
+    description: string,
+    state: string,
+    madeBy: UserBasic,
+    Responsables: UserBasic[],
+    Alerts: Alert[],
+    Steps: SolutionStep[]
+}
+
+export interface SolutionStep {
+    id: string,
+    description: string,
 }
 
 export interface QuizForm {

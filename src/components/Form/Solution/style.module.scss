@@ -1,0 +1,108 @@
+@import "../../../utils/theme/colors.scss";
+
+.content {
+    padding-left: 30px;
+    padding-top: 30px;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+    column-gap: 30px;
+    height: 100%;
+    overflow: auto;
+    scrollbar-gutter: stable;
+    flex-wrap: wrap;
+    .side{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        padding-bottom: 30px;
+        &.right{
+            flex: .8;
+        }
+        .card{
+            min-width: 400px;
+            max-width: 700px;
+        }
+    }
+}
+
+.section{
+    display: flex;
+    flex-direction: row;
+    column-gap: 20px;
+    align-items: center;
+    .left{
+        flex: 1
+    }
+    .right{
+        flex: .9
+    }
+}
+.stepsHeader{
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 10px;
+    .addStep{
+        background: $primary;
+        color: white;
+        padding: 1px;
+        &:hover{
+            background: $secondary;
+        }
+    }
+}
+.steps{
+    list-style-type: none;
+    .stepForm{
+        width: 100%;
+        padding-bottom: 20px;
+        .step{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+            column-gap: 15px;
+            .stepItem{
+                flex: 0.1;
+            }
+            .input{
+                flex: 2;
+            }
+        }
+    }
+}
+
+.noPadding{
+    padding: 0;
+}
+.horizontal{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    column-gap: 10px;
+}
+.priority{
+    padding: 2px 15px;
+    color: $white;
+    font-size: 0.7rem;
+    margin-left: 10px;
+    background: $secondary;
+    &.high{
+        background: $danger
+    }
+    &.medium{
+        background: $warn
+    }
+    &.low{
+        background: $gray
+    }
+}
+.alertCard{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
