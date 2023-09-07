@@ -16,6 +16,7 @@ import { AlertListPage } from '../pages/Alerts/list/index.tsx'
 import { CreateAlert } from '../pages/Alerts/create/index.tsx'
 import { SolutionListPage } from '../pages/Solutions/list/index.tsx'
 import { CreateSolution } from '../pages/Solutions/create/index.tsx'
+import { AML } from '../pages/AML/index.tsx'
 
 const queryClient= new QueryClient({
   defaultOptions: {
@@ -42,6 +43,7 @@ function App() {
                 <Route path={routes.CREATE_ALERT} element={<CreateAlert/>} />
                 <Route path={routes.SOLUTIONS} element={<SolutionListPage/>} />
                 <Route path={routes.CREATE_SOLUTION} element={<CreateSolution/>} />
+                <Route path={routes.AML} element={<AML/>} />
               </Route>
               <Route path={routes.NOT_FOUND} element={<NotFound/>} />
             </Routes>

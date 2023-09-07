@@ -1,0 +1,14 @@
+@import "../../../utils/theme/colors.scss";
+
+.noPadding{
+    padding: 0;
+}
+.horizontal{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    column-gap: 10px;
+    .name{
+        flex: 1;
+    }
+}

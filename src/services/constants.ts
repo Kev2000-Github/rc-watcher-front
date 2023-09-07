@@ -17,6 +17,7 @@ export const queryKey = {
     SOLUTIONS: 'SOLUTIONS',
     SOLUTION: 'SOLUTION',
     REGULATIONS: 'REGULATIONS',
+    AML: 'AML'
 }
 
 export const quizListFilter = {
@@ -52,6 +53,12 @@ export const ALERT_PRIORITY = {
     LOW: 'low'
 }
 
+export const RISK = {
+    HIGH: 'high',
+    MEDIUM: 'medium',
+    LOW: 'low'
+}
+
 export const url = {
     login: `${config.backURL}/auths`,
     logout: `${config.backURL}/auths`,
@@ -71,4 +78,5 @@ export const url = {
     solutions: `${config.backURL}/solutions`,
     solution: `${config.backURL}/solution/:id`,
     createSolution: `${config.backURL}/solution`,
+    AML: `${config.backURL}/aml`,
 }

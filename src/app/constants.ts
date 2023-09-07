@@ -9,6 +9,7 @@ export const routes = {
     CREATE_ALERT: '/alert',
     SOLUTIONS: '/solutions',
     CREATE_SOLUTION: '/solution',
+    AML: '/AML',
     NOT_FOUND: '*'
 }
 

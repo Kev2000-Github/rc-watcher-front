@@ -46,7 +46,7 @@ export const menuItems: MenuItems = [
     },
     {
         text: 'Buscador AML - PEP',
-        URI: '/on-construction...',
+        URI: routes.AML,
         icon: <AML/>
     },
     {

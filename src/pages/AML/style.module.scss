@@ -1,0 +1,91 @@
+@import "../../utils/theme/colors.scss";
+
+.content {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: start;
+    row-gap: 20px;
+    height: 100%;
+    max-width: 1000px;
+    .card{
+        max-width: none;
+        .split{
+            padding-top: 20px;
+            display: flex;
+            column-gap: 30px;
+            .left{
+                flex: 0.3;
+                .picture{
+                    width: 100%;
+                }
+            }
+            .right{
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                row-gap: 20px;
+            }
+        }
+    }
+}
+
+.risk{
+    width: fit-content;
+    padding: 2px 15px;
+    color: $white;
+    font-size: 0.7rem;
+    margin-left: 10px;
+    background: $secondary;
+    &.high{
+        background: $danger
+    }
+    &.medium{
+        background: $warn
+    }
+    &.low{
+        background: $gray
+    }
+}
+
+.horizontal{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 10px;
+}
+
+.subtitleLink{
+    font-weight: 700;
+}
+
+.article{
+    padding: 15px 20px;
+    max-width: none;
+    position: relative;
+    &::before{
+        content: '';
+        height: 100%;
+        width: 10px;
+        background: $primary;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
+
+.sanction{
+    padding: 15px 20px;
+    max-width: none;
+    position: relative;
+    &::before{
+        content: '';
+        height: 100%;
+        width: 10px;
+        background: $danger;
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}

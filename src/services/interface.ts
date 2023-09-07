@@ -105,3 +105,18 @@ export interface Question {
         type: string
     }[]
 }
+
+export interface AML {
+    id: string,
+    fullName: string,
+    birthdate: Date,
+    country: string,
+    riskLevel: string,
+    riskPoints: number,
+    picture: string,
+    Sanctions: string[],
+    Articles: {
+        content: string,
+        link: string
+    }[]
+}
