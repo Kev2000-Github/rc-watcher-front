@@ -1,5 +1,5 @@
 import { ServiceError } from '../../errors/ServiceError'
-import { sleep } from '../../utils/common'
+import { ellipsisText, sleep } from '../../utils/common'
 import { AML, User } from '../interface'
 import {AMLFilter, AMLServiceInterface} from './interface'
 
@@ -25,7 +25,11 @@ export class AMLServiceDummy implements AMLServiceInterface {
           },
         ],
       }
-        await sleep(500)
-        return sampleAML
+      sampleAML.Articles = sampleAML.Articles.map(val => ({
+        ...val,
+        content: ellipsisText(val.content, 100)
+      }))
+      await sleep(500)
+      return sampleAML
     }
 }

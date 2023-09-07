@@ -9,6 +9,7 @@ import { routes } from "../../app/constants";
 import { closeNotification, notifyLoading } from "../../utils/alert";
 import { useEffect } from "react";
 import { useUserStore } from "../../store";
+import { mutationKey } from "../../services/constants";
 
 const drawerWidth = 240;
 const CustomDrawer = styled(Drawer)(({theme}) => ({
@@ -36,7 +37,7 @@ const CustomListButton = styled(ListItemButton)(({theme}) => ({
 
 export function Menu() {
     const {clear, user} = useUserStore()
-    const logoutMutation = useMutation(['logout'], loginService.logout, {
+    const logoutMutation = useMutation([mutationKey.LOGOUT], loginService.logout, {
       onSuccess: () => {
         clear()
         navigate(routes.LOGIN)

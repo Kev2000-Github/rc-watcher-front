@@ -9,11 +9,11 @@ import Paper from '@mui/material/Paper';
 import { Layout } from '../../components/Layout';
 import { Card } from '../../components/Card';
 import style from './style.module.scss'
-import { Button, IconButton, Typography } from '@mui/material';
+import { Button, IconButton, TableFooter, TablePagination, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { pagination } from '../../app/constants';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { queryKey } from '../../services/constants';
+import { mutationKey, queryKey } from '../../services/constants';
 import { paginationProps } from '../../services/interface';
 import { paginationConfig } from '../../utils/common';
 import { closeNotification, notifyError, notifyLoading } from '../../utils/alert';
@@ -54,9 +54,10 @@ export const modals = {
 
 export function Users() {
   const user = useUserStore(state => state.user)
+  const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
+  const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [updates, setUpdates] = useState<number>(0)
   const [selectedUser, setSelectedUser] = useState<string>('')
-  const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
   const [openModal, setOpenModal] = useState<string|null>(null)
   const { isLoading, isFetching, data: paginatedUsers, isPreviousData, refetch } = useQuery({
     queryKey: [queryKey.USERS, page, updates],
@@ -70,7 +71,7 @@ export function Users() {
     ...paginationConfig
   })
 
-  const updateUser = useMutation(['updateUser'], userService.updateUser, {
+  const updateUser = useMutation([mutationKey.UPDATE_USER], userService.updateUser, {
     onSuccess: () => {
       onCloseModal()
       setUpdates(prev => prev + 1)
@@ -79,7 +80,7 @@ export function Users() {
       notifyError(error.title, error.message)
     }
   })
-  const createUser = useMutation(['createUser'], userService.createUser, {
+  const createUser = useMutation([mutationKey.USER], userService.createUser, {
     onSuccess: () => {
       onCloseModal()
       setUpdates(prev => prev + 1)
@@ -88,7 +89,7 @@ export function Users() {
       notifyError(error.title, error.message)
     }
   })
-  const deleteUser = useMutation(['deleteUser'], userService.deleteUser, {
+  const deleteUser = useMutation([mutationKey.DELETE_USER], userService.deleteUser, {
     onSuccess: () => {
       onCloseModal()
       setUpdates(prev => prev + 1)
@@ -147,6 +148,20 @@ export function Users() {
     }
   }
 
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
   return (
     <Layout>
         {
@@ -200,6 +215,25 @@ export function Users() {
                             </StyledTableRow>
                           ))}
                         </TableBody>
+                        <TableFooter>
+                          <TableRow>
+                            <TablePagination
+                              rowsPerPageOptions={[5, 10, 25]}
+                              colSpan={3}
+                              count={paginatedUsers?.items ?? 0}
+                              rowsPerPage={rowsPerPage}
+                              page={page}
+                              SelectProps={{
+                                inputProps: {
+                                  'aria-label': 'rows per page',
+                                },
+                                native: true,
+                              }}
+                              onPageChange={handleChangePage}
+                              onRowsPerPageChange={handleChangeRowsPerPage}
+                            />
+                          </TableRow>
+                        </TableFooter>
                     </Table>
                 </TableContainer>
             </Card>

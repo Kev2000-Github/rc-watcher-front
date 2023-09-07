@@ -11,10 +11,11 @@ import loginService from '../../services/Session'
 import { useEffect } from 'react'
 import { useUserStore } from '../../store'
 import { ServiceError } from '../../errors/ServiceError'
+import { mutationKey } from '../../services/constants'
 
 export function Login() {
   const {isAuth, setUser, isAdmin, isAuditor, isOperator} = useUserStore()
-  const signInMutation = useMutation(['login'], loginService.login, {
+  const signInMutation = useMutation([mutationKey.LOGIN], loginService.login, {
     onSuccess: (user) => {
       setUser(user)
       navigate(routes.DASHBOARD)

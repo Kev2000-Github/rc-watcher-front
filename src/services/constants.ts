@@ -20,6 +20,17 @@ export const queryKey = {
     AML: 'AML'
 }
 
+export const mutationKey = {
+    QUIZ: 'CREATE_QUIZ',
+    USER: 'CREATE_USER',
+    UPDATE_USER: 'UPDATE_USER',
+    DELETE_USER: 'DELETE_USER',
+    ALERT: 'CREATE_ALERT',
+    SOLUTION: 'CREATE_SOLUTION',
+    LOGIN: 'LOGIN',
+    LOGOUT: 'LOGOUT'
+}
+
 export const quizListFilter = {
     state: {
         ALL: 'all',

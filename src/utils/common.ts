@@ -1,3 +1,4 @@
+import { ALERT_PRIORITY } from '../services/constants';
 import { UserState } from '../store';
 import { STALE_TIME } from "./constants";
 
@@ -73,4 +74,24 @@ export const removeBlankProperties: (obj: any) => any = (obj) => {
 
 export const ellipsisText = (text: string, charCount: number) => {
   return `${text.slice(0, charCount).trim()}...`
+}
+
+export const getPriorityColor = (style: CSSModuleClasses, priority: string) => {
+  if(priority === ALERT_PRIORITY.HIGH){
+    return style.high
+  }
+  if(priority === ALERT_PRIORITY.MEDIUM){
+    return style.medium
+  }
+  return style.low
+}
+
+export const getPriorityText = (priority: string) => {
+  if(priority === ALERT_PRIORITY.HIGH){
+    return 'Alta'
+  }
+  if(priority === ALERT_PRIORITY.MEDIUM){
+    return 'Media'
+  }
+  return 'Baja'
 }

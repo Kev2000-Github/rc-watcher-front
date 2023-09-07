@@ -8,11 +8,10 @@ import { paginationProps } from '../../../services/interface'
 import { useQuery } from '@tanstack/react-query'
 import { pagination, routes } from '../../../app/constants'
 import { closeNotification, notifyLoading } from '../../../utils/alert'
-import { paginationConfig } from '../../../utils/common'
+import { getPriorityColor, getPriorityText, paginationConfig } from '../../../utils/common'
 import { useNavigate } from 'react-router'
-import { ALERT_PRIORITY, ALERT_STATE, queryKey } from '../../../services/constants'
+import { ALERT_STATE, queryKey } from '../../../services/constants'
 import { quizFilterProps } from '../../../services/Quiz/interface'
-import { FilterAlertModal } from '../../../components/Modals/Filter/FilterAlerts'
 import { SECOND } from '../../../utils/constants'
 import solutionService from '../../../services/Solution'
 import { FilterSolutionModal } from '../../../components/Modals/Filter/FilterSolutions'
@@ -57,26 +56,6 @@ export function SolutionListPage() {
   const onCloseFilter = () => setIsFilterOpen(false)
   const handleFilters = (data: quizFilterProps) => {
     setStateFilter(data.state ?? ALERT_STATE.ALL)
-  }
-
-  const getPriorityColor = (priority: string) => {
-    if(priority === ALERT_PRIORITY.HIGH){
-      return style.high
-    }
-    if(priority === ALERT_PRIORITY.MEDIUM){
-      return style.medium
-    }
-    return style.low
-  }
-
-  const getPriorityText = (priority: string) => {
-    if(priority === ALERT_PRIORITY.HIGH){
-      return 'Alta'
-    }
-    if(priority === ALERT_PRIORITY.MEDIUM){
-      return 'Media'
-    }
-    return 'Baja'
   }
 
   return (
@@ -141,7 +120,7 @@ export function SolutionListPage() {
                               <Typography sx={{ fontSize: 14, fontWeight: 600}} variant='body2'>
                                 {alert.title}
                               </Typography>
-                              <Typography className={[style.priority, getPriorityColor(alert.priority)].join(' ')} variant='body2'>
+                              <Typography className={[style.priority, getPriorityColor(style, alert.priority)].join(' ')} variant='body2'>
                                 Prioridad: {getPriorityText(alert.priority)}
                               </Typography>
                             </Box>

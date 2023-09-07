@@ -8,7 +8,7 @@ import { QuizForm } from '../../../components/Form/QuizForm'
 import { DynamicSchema, QuizFormSchema, quizFormSchemaBuilder } from '../../../components/Form/QuizForm/schema'
 import { generateDefaultValues } from '../../../components/Form/QuizForm/helper'
 import { routes } from '../../../app/constants'
-import { queryKey } from '../../../services/constants'
+import { mutationKey, queryKey } from '../../../services/constants'
 import { ServiceError } from '../../../errors/ServiceError'
 
 export function QuizFormPage() {
@@ -22,7 +22,7 @@ export function QuizFormPage() {
     queryFn: () => quizService.getQuizForm(id!),
     enabled: enabledFetch
   })
-  const answerFormMutation = useMutation(['login'], quizService.answerQuizForm, {
+  const answerFormMutation = useMutation([mutationKey.QUIZ], quizService.answerQuizForm, {
     onSuccess: () => {
       closeNotification()
       notifySuccess({ title: '¡Has completado la encuesta!' })

@@ -11,10 +11,11 @@ import { SolutionForm } from "../../../components/Form/Solution"
 import { SolutionSchema, solutionSchema } from "../../../components/Form/Solution/schema"
 import solutionService from "../../../services/Solution"
 import { createSolutionProps } from "../../../services/Solution/interface"
+import { mutationKey } from "../../../services/constants"
 
 export function CreateSolution() {
   const navigate = useNavigate()
-  const createMutation = useMutation(['createSolution'], solutionService.createSolution, {
+  const createMutation = useMutation([mutationKey.SOLUTION], solutionService.createSolution, {
     onSuccess: () => {
       navigate(routes.SOLUTIONS)
     }

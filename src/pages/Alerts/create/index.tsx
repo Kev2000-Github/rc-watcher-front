@@ -9,13 +9,13 @@ import { Card } from "../../../components/Card"
 import { AlertSchema, alertSchema } from "../../../components/Form/Alert/schema"
 import { AlertForm } from "../../../components/Form/Alert"
 import { routes } from "../../../app/constants"
-import { queryKey } from "../../../services/constants"
+import { mutationKey, queryKey } from "../../../services/constants"
 import regulationService from "../../../services/Regulation"
 import style from './style.module.scss'
 
 export function CreateAlert() {
   const navigate = useNavigate()
-  const createMutation = useMutation(['createAlert'], alertService.createAlert, {
+  const createMutation = useMutation([mutationKey.ALERT], alertService.createAlert, {
     onSuccess: () => {
       navigate(routes.ALERTS)
     }

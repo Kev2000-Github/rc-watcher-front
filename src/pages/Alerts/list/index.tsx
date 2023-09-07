@@ -8,7 +8,7 @@ import { paginationProps } from '../../../services/interface'
 import { useQuery } from '@tanstack/react-query'
 import { pagination, routes } from '../../../app/constants'
 import { closeNotification, notifyLoading } from '../../../utils/alert'
-import { paginationConfig } from '../../../utils/common'
+import { getPriorityColor, getPriorityText, paginationConfig } from '../../../utils/common'
 import { useNavigate } from 'react-router'
 import { ALERT_PRIORITY, ALERT_STATE, queryKey } from '../../../services/constants'
 import { quizFilterProps } from '../../../services/Quiz/interface'
@@ -59,26 +59,6 @@ export function AlertListPage() {
   const handleFilters = (data: quizFilterProps) => {
     setStateFilter(data.state ?? ALERT_STATE.ALL)
     setPriorityFilter(data.state ?? ALERT_PRIORITY.ALL)
-  }
-
-  const getPriorityColor = (priority: string) => {
-    if(priority === ALERT_PRIORITY.HIGH){
-      return style.high
-    }
-    if(priority === ALERT_PRIORITY.MEDIUM){
-      return style.medium
-    }
-    return style.low
-  }
-
-  const getPriorityText = (priority: string) => {
-    if(priority === ALERT_PRIORITY.HIGH){
-      return 'Alta'
-    }
-    if(priority === ALERT_PRIORITY.MEDIUM){
-      return 'Media'
-    }
-    return 'Baja'
   }
 
   const getAlertState = (alert: string) => {
@@ -137,7 +117,7 @@ export function AlertListPage() {
                         <Typography sx={{ fontSize: 16, fontWeight: 600}} variant='body2'>
                           {item.title}
                         </Typography>
-                        <Typography className={[style.priority, getPriorityColor(item.priority)].join(' ')} variant='body2'>
+                        <Typography className={[style.priority, getPriorityColor(style, item.priority)].join(' ')} variant='body2'>
                           Prioridad: {getPriorityText(item.priority)}
                         </Typography>
                       </Box>

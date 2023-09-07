@@ -10,9 +10,9 @@ import style from './style.module.scss'
 import { Add, Delete } from '@mui/icons-material'
 import { Card } from '../../Card'
 import { useQuery } from '@tanstack/react-query'
-import { ALERT_PRIORITY, queryKey } from '../../../services/constants'
+import { queryKey } from '../../../services/constants'
 import alertService from '../../../services/Alert'
-import { paginationConfig } from '../../../utils/common'
+import { getPriorityColor, getPriorityText, paginationConfig } from '../../../utils/common'
 import { Alert, paginationProps } from '../../../services/interface'
 import { SyntheticEvent, useState } from 'react'
 
@@ -103,26 +103,6 @@ export function SolutionForm({
             return !addedAlertIds.includes(alert.id)
         })
     }
-
-    const getPriorityColor = (priority: string) => {
-        if(priority === ALERT_PRIORITY.HIGH){
-          return style.high
-        }
-        if(priority === ALERT_PRIORITY.MEDIUM){
-          return style.medium
-        }
-        return style.low
-      }
-
-      const getPriorityText = (priority: string) => {
-        if(priority === ALERT_PRIORITY.HIGH){
-          return 'Alta'
-        }
-        if(priority === ALERT_PRIORITY.MEDIUM){
-          return 'Media'
-        }
-        return 'Baja'
-      }
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex', flexDirection: 'column'}}>
@@ -295,7 +275,7 @@ export function SolutionForm({
                                             <Typography variant='h5'>
                                                 Titulo
                                             </Typography>
-                                            <Typography className={[style.priority, getPriorityColor(alert.priority)].join(' ')} variant='body2'>
+                                            <Typography className={[style.priority, getPriorityColor(style, alert.priority)].join(' ')} variant='body2'>
                                                 Prioridad: {getPriorityText(alert.priority)}
                                             </Typography>
                                             <Button 

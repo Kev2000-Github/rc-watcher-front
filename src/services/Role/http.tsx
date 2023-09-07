@@ -1,4 +1,4 @@
-import { Paginated, Role, User } from '../interface'
+import { Paginated, Role } from '../interface'
 import {RoleServiceInterface} from './interface'
 import { client } from '../../clients'
 import { url } from '../constants'
