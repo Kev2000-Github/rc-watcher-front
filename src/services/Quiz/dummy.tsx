@@ -108,7 +108,7 @@ export class QuizServiceDummy implements QuizServiceInterface {
                     id: 'ecebc955-80f4-4aca-915f-461e15e05abb',
                     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
                     name: `Taxes ${page}`,
-                    isCompleted: false,
+                    isCompleted: true,
                     questionCount: 10,
                     Regulation: {
                         id: '5034b33f-0ce1-4ab7-92a5-5d115b9cce6d',

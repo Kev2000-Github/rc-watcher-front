@@ -120,3 +120,20 @@ export interface AML {
         link: string
     }[]
 }
+
+export interface Risk {
+    id: string,
+    name: string,
+    Regulation: Regulation,
+    score: number
+}
+
+export interface Overview {
+    complianceScore: number,
+    pendingQuizCount: number,
+    affectingRiskCount: number,
+    solutionCount: number,
+    alertCount: number,
+    topAlerts: Alert[],
+    topRisks: Risk[]
+}

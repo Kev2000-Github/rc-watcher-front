@@ -1,4 +1,4 @@
-import { Box, Button, List, ListItem, Typography } from '@mui/material'
+import { Box, Button, CircularProgress, List, ListItem, Typography } from '@mui/material'
 import { Layout } from '../../components/Layout'
 import style from './style.module.scss'
 import { Card } from '../../components/Card'
@@ -8,9 +8,11 @@ import { routes } from '../../app/constants'
 import { useNavigate } from 'react-router-dom'
 import { getPriorityColor, getPriorityText } from '../../utils/common'
 import { useQuery } from '@tanstack/react-query'
-import alertService from '../../services/Alert'
-import { ALERT_STATE, queryKey } from '../../services/constants'
-import { Alert, paginationProps } from '../../services/interface'
+import { queryKey } from '../../services/constants'
+import { Alert, Risk } from '../../services/interface'
+import overviewService from '../../services/Overview'
+
+const LOADER_SIZE = 100
 
 export function Dashboard() {
   const navigate = useNavigate()
@@ -19,18 +21,9 @@ export function Dashboard() {
     const url = routes.ALERT.replace(':id', 'id')
     navigate(url)
   }
-  const { data: alerts } = useQuery({
-    queryKey: [queryKey.ALERTS],
-    queryFn: () => {
-      const options: paginationProps = {
-        limit: 10,
-        page: 1
-      }
-      const filters = {
-        state: ALERT_STATE.PENDING,
-      }
-      return alertService.getAlerts(options, filters)
-    },
+  const { data: overviewData } = useQuery({
+    queryKey: [queryKey.OVERVIEW],
+    queryFn: overviewService.getOverview,
   })
 
   const genAlertItems = (alerts: Alert[]) => {
@@ -43,6 +36,16 @@ export function Dashboard() {
     }))
   }
 
+  const genRiskItems = (risks: Risk[]) => {
+    return risks.map(risk => ({
+      id: risk.id,
+      title: risk.name,
+      regulation: risk.Regulation.name,
+      tagColor: style.black,
+      tag: `puntaje: ${risk.score}`
+    }))
+  }
+
   return (
     <Layout>
       <Box className={style.content}>
@@ -50,41 +53,50 @@ export function Dashboard() {
           {user && `Bienvenido, ${user.fullName}`}
         </Typography>
         <Box className={style.grid}>
-            <Card className={`${style.card} ${style.overview}`}>
-              <OverviewItem
-                count={45}
-                label='Soluciones'
-              />
-              <OverviewItem
-                count={60}
-                label='Riesgos'
-              />
-              <OverviewItem
-                count={50}
-                label='Alertas'
-              />
-              <OverviewItem
-                count={15}
-                label='Encuestas'
-              />
+            <Card className={`
+              ${style.card} 
+              ${overviewData ? style.overview : style.cardLoading}`}
+            >
+              {
+                overviewData ?
+                <>
+                  <OverviewItem
+                    count={overviewData?.solutionCount ?? 0}
+                    label='Soluciones'
+                  />
+                  <OverviewItem
+                    count={overviewData?.affectingRiskCount ?? 0}
+                    label='Riesgos'
+                  />
+                  <OverviewItem
+                    count={overviewData?.alertCount ?? 0}
+                    label='Alertas'
+                  />
+                  <OverviewItem
+                    count={overviewData?.pendingQuizCount ?? 0}
+                    label='Encuestas'
+                  />
+                </>
+                : <CircularProgress size={LOADER_SIZE}/>
+              }
             </Card>
             <Card className={style.card}>
               <Typography variant='h5' sx={{mr: 'auto'}}>
                 Compliance Score
               </Typography>
-              <ComplianceScore value={50} />
+              <ComplianceScore value={overviewData?.complianceScore ?? 0} />
             </Card>
             <Card className={`${style.top} ${style.card}`}>
               <Top
                 headerText='Top 10 Alertas mas prioritarias'
-                topItems={genAlertItems(alerts?.data ?? [])}
+                topItems={overviewData?.topAlerts ? genAlertItems(overviewData.topAlerts) : undefined}
                 onClick={onViewAlert}
               />
             </Card>
             <Card className={`${style.top} ${style.card}`}>
               <Top
                 headerText='Top 10 Riesgos más prioritarios'
-                topItems={genAlertItems(alerts?.data ?? [])}
+                topItems={overviewData?.topRisks ? genRiskItems(overviewData.topRisks) : undefined}
                 onClick={onViewAlert}
               />
             </Card>
@@ -124,7 +136,7 @@ type topItem = {
 
 type topProps = {
   headerText: string,
-  topItems: topItem[],
+  topItems?: topItem[],
   onClick: () => void
 }
 function Top({
@@ -137,33 +149,37 @@ function Top({
       <Typography variant='h5' sx={{mr: 'auto'}}>
         {headerText}
       </Typography>
-      <List className={style.list}>
-        {
-          topItems.map(item => (
-            <ListItem key={item.id} className={style.listItem}>
-              <Typography className={style.title}>
-                {item.title}
-              </Typography>
-              <Typography className={`${style.tag} ${item.tagColor}`} variant='body2'>
-                {item.tag}
-              </Typography>
-              <Typography className={style.regulation}>
-                Regulacion: <p className={style.regularTxt}>{item.regulation}</p>
-              </Typography>
-              <Button 
-                  variant='contained'
-                  color='primary'
-                  size='small'
-                  className={style.button}
-                  sx={{width: 'auto'}}
-                  onClick={() => onClick}
-              >
-                  Ver
-              </Button>
-            </ListItem>
-          ))
-        }
-      </List>
+      {
+        topItems ? 
+        <List className={style.list}>
+          {
+            topItems.map(item => (
+              <ListItem key={item.id} className={style.listItem}>
+                <Typography className={style.title}>
+                  {item.title}
+                </Typography>
+                <Typography className={`${style.tag} ${item.tagColor}`} variant='body2'>
+                  {item.tag}
+                </Typography>
+                <span className={style.regulation}>
+                  Regulacion: <p className={style.regularTxt}>{item.regulation}</p>
+                </span>
+                <Button 
+                    variant='contained'
+                    color='primary'
+                    size='small'
+                    className={style.button}
+                    sx={{width: 'auto'}}
+                    onClick={() => onClick}
+                >
+                    Ver
+                </Button>
+              </ListItem>
+            ))
+          }
+        </List>
+        : <CircularProgress size={LOADER_SIZE}/>
+      }
     </>
   )
 }

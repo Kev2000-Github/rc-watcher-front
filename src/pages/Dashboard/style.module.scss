@@ -104,6 +104,8 @@
 
 .content{
     padding: 20px;
+    overflow: auto;
+    scrollbar-gutter: stable;  
     h4{
         padding-bottom: 20px;
     }
@@ -126,4 +128,9 @@
     &.dark{
         color: $secondary
     }
+}
+.cardLoading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

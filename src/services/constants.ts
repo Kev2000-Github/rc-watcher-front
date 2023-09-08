@@ -17,6 +17,7 @@ export const queryKey = {
     SOLUTIONS: 'SOLUTIONS',
     SOLUTION: 'SOLUTION',
     REGULATIONS: 'REGULATIONS',
+    OVERVIEW: 'OVERVIEW',
     AML: 'AML'
 }
 
