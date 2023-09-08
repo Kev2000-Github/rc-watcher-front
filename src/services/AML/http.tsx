@@ -1,4 +1,4 @@
-import { Paginated, AML, User, ResponseHTTP } from '../interface'
+import { AML, ResponseHTTP } from '../interface'
 import {AMLFilter, AMLServiceInterface} from './interface'
 import { client } from '../../clients'
 import { url } from '../constants'

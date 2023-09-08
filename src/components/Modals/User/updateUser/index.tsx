@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query"
 import roleService from "../../../../services/Role"
 import { paginationConfig, removeBlankProperties } from "../../../../utils/common"
 import { CustomDialogWithBackdrop } from "../../customDialog"
-import { modals } from '../../../../pages/Users'
+import { modals } from '../../../../pages/Users/constants'
 import userService from '../../../../services/User'
 import { User } from '../../../../services/interface'
 

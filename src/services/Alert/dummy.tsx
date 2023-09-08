@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { sleep } from '../../utils/common'
 import { Paginated, Alert, paginationProps } from '../interface'
 import {AlertServiceInterface, createAlertProps, editAlertProps} from './interface'
@@ -71,7 +72,7 @@ export class AlertServiceDummy implements AlertServiceInterface {
         return result
     }
 
-    async getAlert(id: string) {
+    async getAlert(_id: string) {
         const result = {
             id: 'ecebc955-80f4-4aca-915f-461e15e05abb',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
@@ -88,12 +89,12 @@ export class AlertServiceDummy implements AlertServiceInterface {
         return result
     }
 
-    async deleteAlert(id: string) {
+    async deleteAlert(_id: string) {
         await sleep(500)
         return true
     }
 
-    async editAlert(id: string, props: editAlertProps) {
+    async editAlert(_id: string, _props: editAlertProps) {
         const alert: Alert = {
             id: 'ecebc955-80f4-4aca-915f-461e15e05abb',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',

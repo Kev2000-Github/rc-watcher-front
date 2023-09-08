@@ -25,6 +25,7 @@ import { EditUserSchema, UserSchema } from '../../components/Form/User/schema';
 import { UpdateUserModal } from '../../components/Modals/User/updateUser';
 import { DeleteUserModal } from '../../components/Modals/User/DeleteUser';
 import { ServiceError } from '../../errors/ServiceError';
+import { modals } from './constants';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -46,12 +47,6 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-export const modals = {
-  CREATE: 'CREATE',
-  UPDATE: 'UPDATE',
-  DELETE: 'DELETE'
-}
-
 export function Users() {
   const user = useUserStore(state => state.user)
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE - 1)
@@ -59,7 +54,7 @@ export function Users() {
   const [updates, setUpdates] = useState<number>(0)
   const [selectedUser, setSelectedUser] = useState<string>('')
   const [openModal, setOpenModal] = useState<string|null>(null)
-  const { isLoading, isFetching, data: paginatedUsers, isPreviousData, refetch } = useQuery({
+  const { isLoading, isFetching, data: paginatedUsers, isPreviousData } = useQuery({
     queryKey: [queryKey.USERS, page, updates],
     queryFn: () => {
       const options: paginationProps = {

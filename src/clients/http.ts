@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
+ 
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { HTTP_CODES } from '../errors/constants';
 import { routes } from '../app/constants';

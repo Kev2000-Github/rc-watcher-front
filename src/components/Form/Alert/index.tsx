@@ -1,4 +1,4 @@
-import {FormControl, OutlinedInput, Button, FormHelperText, Typography, MenuItem, TextareaAutosize} from '@mui/material'
+import {FormControl, OutlinedInput, Button, FormHelperText, Typography, MenuItem} from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {Boolify} from '../interfaces'

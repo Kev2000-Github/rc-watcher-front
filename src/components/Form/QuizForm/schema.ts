@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+ 
 import * as yup from 'yup'
 import { QuizForm } from '../../../services/interface'
 import { selectionType } from '../../../services/constants'

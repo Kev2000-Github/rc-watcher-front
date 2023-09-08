@@ -1,5 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
+ 
+ 
 import Swal from 'sweetalert2'
 import { SECOND } from './constants'
 

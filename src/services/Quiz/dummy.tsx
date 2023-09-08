@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { sleep } from '../../utils/common'
 import { selectionType } from '../constants'
 import { Paginated, Quiz, QuizForm, paginationProps } from '../interface'
 import {QuizServiceInterface, answerQuizProps} from './interface'
 
 export class QuizServiceDummy implements QuizServiceInterface {
-    async answerQuizForm(props: answerQuizProps) {
+    async answerQuizForm(_props: answerQuizProps) {
         await sleep(500)
         return true
     }

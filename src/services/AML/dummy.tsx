@@ -1,10 +1,10 @@
-import { ServiceError } from '../../errors/ServiceError'
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ellipsisText, sleep } from '../../utils/common'
-import { AML, User } from '../interface'
+import { AML } from '../interface'
 import {AMLFilter, AMLServiceInterface} from './interface'
 
 export class AMLServiceDummy implements AMLServiceInterface {
-    async getAML(props: AMLFilter) {
+    async getAML(_props: AMLFilter) {
       const sampleAML: AML = {
         id: '98765',
         fullName: 'Vladimir Putin',

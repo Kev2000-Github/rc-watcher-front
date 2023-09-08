@@ -50,7 +50,7 @@ export const getSessionId = () => {
 
 export const isObject = (value: unknown) => {
   if(!value) return false
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+   
   return typeof value === 'object' && value.constructor === Object;
 }
 
@@ -107,7 +107,7 @@ export const getAlertStateText = (state: string) => {
 }
 
 export const enumArray = (enumValues: object) => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+   
   const result = Object.values(enumValues)
   if(result.every((val) => typeof val === 'string')) return result as string[]
   return []

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { ellipsisText, sleep } from '../../utils/common'
 import { Paginated, Solution, paginationProps } from '../interface'
 import {SolutionServiceInterface, createSolutionProps, editSolutionProps} from './interface'
@@ -165,7 +166,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
         return result
     }
 
-    async createSolution(props: createSolutionProps) {
+    async createSolution(_props: createSolutionProps) {
         const result = {
             id: 'ecebc955-80f4-4aca-915f-461e15e05aba',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
@@ -210,7 +211,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
         return result
     }
 
-    async getSolution(id: string) {
+    async getSolution(_id: string) {
         const result = {
             id: 'ecebc955-80f4-4aca-915f-461e15e05aba',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
@@ -267,7 +268,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
         return result
     }
 
-    async editSolution(id: string, props: editSolutionProps) {
+    async editSolution(_id: string, _props: editSolutionProps) {
         const result = {
             id: 'ecebc955-80f4-4aca-915f-461e15e05aba',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
@@ -312,7 +313,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
         return result
     }
 
-    async deleteSolution(id: string) {
+    async deleteSolution(_id: string) {
         await sleep(500)
         return true
     }

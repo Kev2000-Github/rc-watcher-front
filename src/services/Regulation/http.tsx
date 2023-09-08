@@ -1,4 +1,4 @@
-import { Paginated, Regulation, User } from '../interface'
+import { Paginated, Regulation } from '../interface'
 import {RegulationServiceInterface} from './interface'
 import { client } from '../../clients'
 import { url } from '../constants'

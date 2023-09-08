@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query"
 import roleService from "../../../../services/Role"
 import { paginationConfig } from "../../../../utils/common"
 import { CustomDialogWithBackdrop } from "../../customDialog"
-import { modals } from '../../../../pages/Users'
+import { modals } from '../../../../pages/Users/constants'
 
 interface Props {
     className?: string,

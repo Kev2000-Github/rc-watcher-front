@@ -1,7 +1,7 @@
 import { Button, DialogActions, DialogContent, Typography } from "@mui/material"
 import { UserSchema } from "../../../Form/User/schema"
 import { CustomDialogWithBackdrop } from "../../customDialog"
-import { modals } from '../../../../pages/Users'
+import { modals } from '../../../../pages/Users/constants'
 
 interface Props {
     userId: string,

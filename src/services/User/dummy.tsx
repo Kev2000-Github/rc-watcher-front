@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { sleep } from '../../utils/common'
 import { User, paginationProps } from '../interface'
 import { UserServiceInterface, createProps, deleteUserProps, mutateProps, mutateUserProps } from './interface'
 
 export class UserServiceDummy implements UserServiceInterface {
-    async getUsers(companyId: string, _: paginationProps) {
+    async getUsers(_companyId: string, _: paginationProps) {
         const dummyUsers: User[] = [
             {
               id: 'f18aaf46-96ea-4dbb-9326-4a29be07c944',
@@ -115,7 +116,7 @@ export class UserServiceDummy implements UserServiceInterface {
         }
     }
 
-    async getUser(companyId: string, userId: string) {
+    async getUser(_companyId: string, _userId: string) {
         const dummyUser: User = {
             id: 'f18aaf46-96ea-4dbb-9326-4a29be07c944',
             username: 'user1',

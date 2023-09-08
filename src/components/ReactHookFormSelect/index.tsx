@@ -1,4 +1,5 @@
-import { FormControl, FormControlProps, InputLabel, Select, SelectProps } from '@mui/material'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FormControl, FormControlProps, InputLabel, Select } from '@mui/material'
 import { Control, Controller } from "react-hook-form";
 
 type Props = {
