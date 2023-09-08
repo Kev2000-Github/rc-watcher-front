@@ -14,6 +14,8 @@ export const routes = {
     EDIT_SOLUTION: '/solution/edit/:id',
     CREATE_SOLUTION: '/solution',
     AML: '/AML',
+    RISKS: '/risks',
+    REPORTS: '/reports',
     NOT_FOUND: '*'
 }
 

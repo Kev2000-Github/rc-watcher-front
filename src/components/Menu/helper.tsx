@@ -31,7 +31,7 @@ export const menuItems: MenuItems = [
     },
     {
         text: 'Riesgos',
-        URI: '/on-construction...',
+        URI: routes.RISKS,
         icon: <Risk/>
     },
     {
@@ -56,7 +56,7 @@ export const menuItems: MenuItems = [
     },
     {
         text: 'Reportes',
-        URI: '/on-construction...',
+        URI: routes.REPORTS,
         icon: <Report/>
     },
 ]

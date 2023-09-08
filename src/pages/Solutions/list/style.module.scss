@@ -62,8 +62,8 @@
                 left: 50%;
                 top: 0;
             }
-            &.completed::after{
-                content: 'completo';
+            &.inactive::after{
+                content: 'inactivo';
                 position: absolute;
                 width: fit-content;
                 height: fit-content;
@@ -71,7 +71,7 @@
                 font-size: .8rem;
                 color: $white;
                 text-align: center;
-                background: $primary;
+                background: $gray;
                 right: 0;
                 top: 0;
             }

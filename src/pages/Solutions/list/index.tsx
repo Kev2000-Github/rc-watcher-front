@@ -10,7 +10,7 @@ import { pagination, routes } from '../../../app/constants'
 import { closeNotification, notifyLoading } from '../../../utils/alert'
 import { getPriorityColor, getPriorityText, paginationConfig } from '../../../utils/common'
 import { useNavigate } from 'react-router'
-import { ALERT_STATE, queryKey } from '../../../services/constants'
+import { ALERT_STATE, SOLUTION_STATE, queryKey } from '../../../services/constants'
 import { quizFilterProps } from '../../../services/Quiz/interface'
 import { SECOND } from '../../../utils/constants'
 import solutionService from '../../../services/Solution'
@@ -99,7 +99,10 @@ export function SolutionListPage() {
             {
               paginatedSolutions?.data.map((item) => {
                 return (
-                  <Card key={item.id} className={`${style.card} ${style.split}`}>
+                  <Card key={item.id} className={`
+                  ${style.card} 
+                  ${style.split}
+                  ${item.state === SOLUTION_STATE.INACTIVE ? style.inactive: ''}`}>
                       <Box className={style.left}>
                         <Box className={style.cardHeader}>
                           <Typography sx={{ fontSize: 16, fontWeight: 600}} variant='body2'>
@@ -129,7 +132,7 @@ export function SolutionListPage() {
                         <Box sx={{display: 'flex', justifyContent: 'end', alignItems: 'end', height: 1}}>
                           <Button 
                               variant='contained'
-                              color={item.state ===  ALERT_STATE.SOLVED ? 'info' : 'primary'}
+                              color={item.state ===  SOLUTION_STATE.INACTIVE ? 'info' : 'primary'}
                               className={style.button}
                               sx={{width: 'auto'}}
                               onClick={() => {

@@ -21,6 +21,8 @@ import { AlertViewPage } from '../pages/Alerts/view/index.tsx'
 import { EditAlert } from '../pages/Alerts/edit/index.tsx'
 import { SolutionViewPage } from '../pages/Solutions/view/index.tsx'
 import { EditSolution } from '../pages/Solutions/edit/index.tsx'
+import { Risks } from '../pages/Risks/index.tsx'
+import { Reports } from '../pages/Reports/index.tsx'
 
 const queryClient= new QueryClient({
   defaultOptions: {
@@ -52,6 +54,8 @@ function App() {
                 <Route path={routes.ALERT} element={<AlertViewPage/>} />
                 <Route path={routes.EDIT_ALERT} element={<EditAlert/>} />
                 <Route path={routes.CREATE_ALERT} element={<CreateAlert/>} />
+                <Route path={routes.RISKS} element={<Risks/>} />
+                <Route path={routes.REPORTS} element={<Reports/>} />
               </Route>
               <Route path={routes.NOT_FOUND} element={<NotFound/>} />
             </Routes>
