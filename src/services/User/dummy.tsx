@@ -110,8 +110,8 @@ export class UserServiceDummy implements UserServiceInterface {
         return {
             data: dummyUsers,
             page: 1,
-            items: 1,
-            totalPages: 1
+            items: dummyUsers.length,
+            totalPages: 2
         }
     }
 

@@ -1,4 +1,4 @@
-import { ALERT_PRIORITY } from '../services/constants';
+import { ALERT_PRIORITY, ALERT_STATE } from '../services/constants';
 import { UserState } from '../store';
 import { STALE_TIME } from "./constants";
 
@@ -94,4 +94,21 @@ export const getPriorityText = (priority: string) => {
     return 'Media'
   }
   return 'Baja'
+}
+
+export const getAlertStateText = (state: string) => {
+  if(state === ALERT_STATE.PENDING){
+    return 'No Resuelto'
+  }
+  if(state === ALERT_STATE.CANCELED){
+    return 'Cancelado'
+  }
+  return 'Resuelto'
+}
+
+export const enumArray = (enumValues: object) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  const result = Object.values(enumValues)
+  if(result.every((val) => typeof val === 'string')) return result as string[]
+  return []
 }

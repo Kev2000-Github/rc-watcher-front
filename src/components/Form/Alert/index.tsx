@@ -10,6 +10,7 @@ import { ALERT_PRIORITY } from '../../../services/constants'
 import { CustomTextArea } from '../../CustomTextArea'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '../../../app/constants'
+import { enumArray, getPriorityText } from '../../../utils/common'
 
 interface FormProps {
     regulations: Regulation[],
@@ -26,11 +27,13 @@ const defaultPropValues: AlertSchema = {
     regulationId: "",
 }
 
-const priorityOptions = [
-    {value: ALERT_PRIORITY.HIGH, name: 'Alta'},
-    {value: ALERT_PRIORITY.MEDIUM, name: 'Media'},
-    {value: ALERT_PRIORITY.LOW, name: 'Baja'}
-]
+const priorityOptions = enumArray(ALERT_PRIORITY).map((val: string) => (
+    {
+        value: val, 
+        name: getPriorityText(val)
+    }
+))
+
 
 export function AlertForm({
     regulations,

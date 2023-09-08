@@ -54,7 +54,7 @@ export const modals = {
 
 export function Users() {
   const user = useUserStore(state => state.user)
-  const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
+  const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE - 1)
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [updates, setUpdates] = useState<number>(0)
   const [selectedUser, setSelectedUser] = useState<string>('')
@@ -149,11 +149,12 @@ export function Users() {
   }
 
   const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
+    _: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => {
-    setPage(newPage);
-  };
+    console.log(newPage)
+    setPage(newPage)
+  }
 
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -218,17 +219,12 @@ export function Users() {
                         <TableFooter>
                           <TableRow>
                             <TablePagination
-                              rowsPerPageOptions={[5, 10, 25]}
+                              rowsPerPageOptions={[]}
                               colSpan={3}
-                              count={paginatedUsers?.items ?? 0}
+                              count={-1}
+                              labelDisplayedRows={({from, to}) => `${from}-${to}`}
                               rowsPerPage={rowsPerPage}
                               page={page}
-                              SelectProps={{
-                                inputProps: {
-                                  'aria-label': 'rows per page',
-                                },
-                                native: true,
-                              }}
                               onPageChange={handleChangePage}
                               onRowsPerPageChange={handleChangeRowsPerPage}
                             />

@@ -26,6 +26,8 @@ export const mutationKey = {
     UPDATE_USER: 'UPDATE_USER',
     DELETE_USER: 'DELETE_USER',
     ALERT: 'CREATE_ALERT',
+    EDIT_ALERT: 'EDIT_ALERT',
+    DELETE_ALERT: 'DELETE_ALERT',
     SOLUTION: 'CREATE_SOLUTION',
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT'
@@ -85,6 +87,8 @@ export const url = {
     createUser: `${config.backURL}/users/:companyId`,
     alerts: `${config.backURL}/alerts`,
     alert: `${config.backURL}/alerts/:id`,
+    deleteAlert: `${config.backURL}/alert/:id`,
+    editAlert: `${config.backURL}/alert/:id`,
     createAlert: `${config.backURL}/alert`,
     solutions: `${config.backURL}/solutions`,
     solution: `${config.backURL}/solution/:id`,

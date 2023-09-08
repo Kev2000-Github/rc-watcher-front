@@ -78,7 +78,7 @@ export function AlertListPage() {
         <Box className={style.content}>
           <Box className={style.header}>
               <Typography variant='h6'>
-                Encuestas
+                Alertas
               </Typography>
               <div className={style.headerButtons}>
                 <Button 
@@ -134,7 +134,7 @@ export function AlertListPage() {
                             className={style.button}
                             sx={{width: 'auto'}}
                             onClick={() => {
-                              const url = routes.QUIZ_FORM.split(':')[0] + item.id
+                              const url = routes.ALERT.replace(':id', item.id)
                               navigate(url)
                             }}
                         >
