@@ -142,7 +142,7 @@ export function AlertForm({
                 )}
             </FormControl>
             
-            <FormControl sx={{ p: 1, mt: 2, display: 'flex', flexDirection: 'row' }} variant="outlined">
+            <FormControl sx={{ p: 1, mt: 2, display: 'flex', flexDirection: 'row', justifyContent: 'end' }} variant="outlined">
                 <Button 
                     variant='outlined'
                     color='error'

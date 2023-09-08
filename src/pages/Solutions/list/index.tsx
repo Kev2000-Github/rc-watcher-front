@@ -133,7 +133,7 @@ export function SolutionListPage() {
                               className={style.button}
                               sx={{width: 'auto'}}
                               onClick={() => {
-                                const url = routes.QUIZ_FORM.split(':')[0] + item.id
+                                const url = routes.SOLUTION.replace(':id', item.id)
                                 navigate(url)
                               }}
                           >

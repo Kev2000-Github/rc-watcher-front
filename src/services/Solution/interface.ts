@@ -7,6 +7,7 @@ export type createSolutionProps = {
     alertIds: string[],
     steps: string[]
 }
+export type editSolutionProps = Partial<createSolutionProps>
 
 export type SolutionFilterProps = {
     state?: string,
@@ -15,5 +16,7 @@ export type SolutionFilterProps = {
 export abstract class SolutionServiceInterface {
     abstract getSolutions: (paginationOpts: paginationProps, filters?: SolutionFilterProps) => Promise<Paginated<Solution>>
     abstract createSolution: (props: createSolutionProps) => Promise<Solution>
+    abstract editSolution: (id: string, props: editSolutionProps) => Promise<Solution>
+    abstract deleteSolution: (id: string) => Promise<boolean>
     abstract getSolution: (id: string) => Promise<Solution>
 }

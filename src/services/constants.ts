@@ -29,6 +29,8 @@ export const mutationKey = {
     EDIT_ALERT: 'EDIT_ALERT',
     DELETE_ALERT: 'DELETE_ALERT',
     SOLUTION: 'CREATE_SOLUTION',
+    EDIT_SOLUTION: 'EDIT_SOLUTION',
+    DELETE_SOLUTION: 'DELETE_SOLUTION',
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT'
 }
@@ -92,6 +94,8 @@ export const url = {
     createAlert: `${config.backURL}/alert`,
     solutions: `${config.backURL}/solutions`,
     solution: `${config.backURL}/solution/:id`,
+    editSolution: `${config.backURL}/solution/:id`,
+    deleteSolution: `${config.backURL}/solution/:id`,
     createSolution: `${config.backURL}/solution`,
     AML: `${config.backURL}/aml`,
 }

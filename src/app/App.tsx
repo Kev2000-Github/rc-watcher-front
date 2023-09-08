@@ -19,6 +19,8 @@ import { CreateSolution } from '../pages/Solutions/create/index.tsx'
 import { AML } from '../pages/AML/index.tsx'
 import { AlertViewPage } from '../pages/Alerts/view/index.tsx'
 import { EditAlert } from '../pages/Alerts/edit/index.tsx'
+import { SolutionViewPage } from '../pages/Solutions/view/index.tsx'
+import { EditSolution } from '../pages/Solutions/edit/index.tsx'
 
 const queryClient= new QueryClient({
   defaultOptions: {
@@ -43,11 +45,13 @@ function App() {
                 <Route path={routes.USERS} element={<Users/>} />
                 <Route path={routes.ALERTS} element={<AlertListPage/>} />
                 <Route path={routes.AML} element={<AML/>} />
-                <Route path={routes.CREATE_ALERT} element={<CreateAlert/>} />
                 <Route path={routes.SOLUTIONS} element={<SolutionListPage/>} />
                 <Route path={routes.CREATE_SOLUTION} element={<CreateSolution/>} />
+                <Route path={routes.EDIT_SOLUTION} element={<EditSolution/>} />
+                <Route path={routes.SOLUTION} element={<SolutionViewPage/>} />
                 <Route path={routes.ALERT} element={<AlertViewPage/>} />
                 <Route path={routes.EDIT_ALERT} element={<EditAlert/>} />
+                <Route path={routes.CREATE_ALERT} element={<CreateAlert/>} />
               </Route>
               <Route path={routes.NOT_FOUND} element={<NotFound/>} />
             </Routes>

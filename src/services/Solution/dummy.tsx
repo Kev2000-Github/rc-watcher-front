@@ -1,6 +1,6 @@
 import { ellipsisText, sleep } from '../../utils/common'
 import { Paginated, Solution, paginationProps } from '../interface'
-import {SolutionServiceInterface, createSolutionProps} from './interface'
+import {SolutionServiceInterface, createSolutionProps, editSolutionProps} from './interface'
 
 export class SolutionServiceDummy implements SolutionServiceInterface {
     async getSolutions(paginationOpts: paginationProps) {
@@ -224,6 +224,63 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
             },
             Responsables: [
                 {
+                    id: 'f18aaf46-96ea-4dbb-9326-4a29be07c944',
+                    username: 'user1',
+                    fullName: 'John Doe',
+                    email: 'john.doe@example.com',
+                  }
+            ],
+            Alerts: [
+                {
+                    id: 'ecebc955-80f4-4aca-915f-461e15e05abb',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
+                    state: 'pending',
+                    priority: 'high',
+                    title: 'title 1',
+                    Regulation: {
+                        id: '5034b33f-0ce1-4ab7-92a5-5d115b9cce6d',
+                        description: 'Taxes',
+                        name: 'Taxes'
+                    }
+                },
+                {
+                    id: 'ecebc955-80f4-4aca-915f-461e15e05abc',
+                    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
+                    state: 'pending',
+                    priority: 'high',
+                    title: 'title 2',
+                    Regulation: {
+                        id: '5034b33f-0ce1-4ab7-92a5-5d115b9cce6d',
+                        description: 'Taxes',
+                        name: 'Taxes'
+                    }
+                },
+            ],
+            Steps: [
+                {
+                    id: '1',
+                    description: 'hola'
+                }
+            ]
+        }
+        await sleep(500)
+        return result
+    }
+
+    async editSolution(id: string, props: editSolutionProps) {
+        const result = {
+            id: 'ecebc955-80f4-4aca-915f-461e15e05aba',
+            description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
+            state: 'pending',
+            title: 'title',
+            madeBy: {
+                id: '1',
+                email: 'fran@gmail.com',
+                fullName: 'Francisco Castillo',
+                username: 'fran123'
+            },
+            Responsables: [
+                {
                     id: '1',
                     email: 'fran@gmail.com',
                     fullName: 'Francisco Castillo',
@@ -253,6 +310,11 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
         }
         await sleep(500)
         return result
+    }
+
+    async deleteSolution(id: string) {
+        await sleep(500)
+        return true
     }
     
 }

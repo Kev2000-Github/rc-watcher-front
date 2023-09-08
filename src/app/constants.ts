@@ -11,6 +11,7 @@ export const routes = {
     CREATE_ALERT: '/alert',
     SOLUTIONS: '/solutions',
     SOLUTION: '/solution/:id',
+    EDIT_SOLUTION: '/solution/edit/:id',
     CREATE_SOLUTION: '/solution',
     AML: '/AML',
     NOT_FOUND: '*'

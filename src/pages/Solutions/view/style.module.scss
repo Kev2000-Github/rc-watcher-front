@@ -1,0 +1,17 @@
+@import "../../../utils/theme/colors.scss";
+
+.content{
+    padding: 20px;
+    .header{
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+    }
+}
+
+.horizontal{
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-between;
+}
