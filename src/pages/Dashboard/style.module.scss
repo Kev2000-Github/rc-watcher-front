@@ -1,0 +1,129 @@
+@import "../../utils/theme/colors.scss";
+
+.grid{
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(400px, 1fr)
+    );
+    gap: 20px;
+    .card{
+        display: flex;
+        align-items: center;
+        row-gap: 20px;
+        max-width: 500px;
+        border-radius: 20px;
+        padding: 20px;
+    }
+    .overview{
+        padding-top: 20px;
+        display: grid;
+        grid-template-areas: "a b";
+        gap: 20px;
+        position: relative;
+        &::before{
+            content: '';
+            width: 1.2px;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: $gray;
+        }
+        &::after{
+            content: '';
+            width: 100%;
+            height: 1px;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            background: $gray;
+        }
+        .overviewItem{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            .count{
+                font-weight: bolder;
+            }
+            .label{
+                font-weight: 500;
+                font-size: 1.1rem;
+            }
+        }
+    }
+    .top{
+        overflow-x: hidden;
+        padding: 40px 20px;
+        .list{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            .listItem{
+                position: relative;
+                padding: 15px 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .title, .regulation{
+                    font-weight: 600;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    column-gap: 10px;
+                }
+                .regularTxt{
+                    font-weight: 400;
+                }
+                &::before{
+                    content: '';
+                    width: 120%;
+                    height: 1px;
+                    background: $gray;
+                    position: absolute;
+                    top: 0;
+                    left: -20px;
+                }
+                &:last-child::after{
+                    content: '';
+                    width: 120%;
+                    height: 1px;
+                    background: $gray;
+                    position: absolute;
+                    bottom: 0;
+                    left: -20px;
+                }
+            }
+        }
+    }
+}
+
+.content{
+    padding: 20px;
+    h4{
+        padding-bottom: 20px;
+    }
+}
+.tag{
+    padding: 2px 15px;
+    color: $white;
+    font-size: 0.7rem;
+    margin-left: 10px;
+    background: $secondary;
+    &.high{
+        background: $danger
+    }
+    &.medium{
+        background: $warn
+    }
+    &.low{
+        background: $gray
+    }
+    &.dark{
+        color: $secondary
+    }
+}
