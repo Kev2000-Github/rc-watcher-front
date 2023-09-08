@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router'
 import { queryKey, quizListFilter } from '../../../services/constants'
 import { FilterModal } from '../../../components/Modals/Filter/Filter'
 import { quizFilterProps } from '../../../services/Quiz/interface'
+import { Coloredtag } from '../../../components/ColoredTag'
 
 export function QuizListPage() {
   const navigate = useNavigate()
@@ -93,9 +94,7 @@ export function QuizListPage() {
                         <Typography sx={{ fontSize: 16, fontWeight: 600}} variant='body2'>
                           {item.name}
                         </Typography>
-                        <Typography className={style.regulation} variant='body2'>
-                          {item.Regulation.name}
-                        </Typography>
+                        <Coloredtag text={item.Regulation.name} />
                       </Box>
                       <Typography sx={{ paddingBottom: 2 }} variant='body2'>
                         {item.description}

@@ -6,11 +6,12 @@ import { ComplianceScore } from '../../components/ComplianceScore'
 import { useUserStore } from '../../store'
 import { routes } from '../../app/constants'
 import { useNavigate } from 'react-router-dom'
-import { getPriorityColor, getPriorityText } from '../../utils/common'
+import { getPriorityText } from '../../utils/common'
 import { useQuery } from '@tanstack/react-query'
 import { queryKey } from '../../services/constants'
 import { Alert, Risk } from '../../services/interface'
 import overviewService from '../../services/Overview'
+import { Coloredtag } from '../../components/ColoredTag'
 
 const LOADER_SIZE = 100
 
@@ -32,7 +33,7 @@ export function Dashboard() {
       title: alert.title,
       regulation: alert.Regulation.name,
       tag: getPriorityText(alert.priority),
-      tagColor: getPriorityColor(style, alert.priority)
+      tagColor: alert.priority
     }))
   }
 
@@ -158,9 +159,10 @@ function Top({
                 <Typography className={style.title}>
                   {item.title}
                 </Typography>
-                <Typography className={`${style.tag} ${item.tagColor}`} variant='body2'>
-                  {item.tag}
-                </Typography>
+                <Coloredtag
+                  text={item.tag}
+                  color={item.tagColor}
+                />
                 <span className={style.regulation}>
                   Regulacion: <p className={style.regularTxt}>{item.regulation}</p>
                 </span>

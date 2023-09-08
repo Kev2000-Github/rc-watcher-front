@@ -9,9 +9,10 @@ import { routes } from '../../../app/constants'
 import style from './style.module.scss'
 import { Add, Delete } from '@mui/icons-material'
 import { Card } from '../../Card'
-import { getPriorityColor, getPriorityText } from '../../../utils/common'
+import { getPriorityText } from '../../../utils/common'
 import { Alert, User } from '../../../services/interface'
 import { SyntheticEvent, useEffect, useState } from 'react'
+import { Coloredtag } from '../../ColoredTag'
 
 interface FormProps {
     alerts: Alert[],
@@ -296,9 +297,10 @@ export function SolutionForm({
                                             <Typography variant='h5'>
                                                 Titulo
                                             </Typography>
-                                            <Typography className={[style.priority, getPriorityColor(style, alert.priority)].join(' ')} variant='body2'>
-                                                Prioridad: {getPriorityText(alert.priority)}
-                                            </Typography>
+                                            <Coloredtag
+                                                color={alert.priority}
+                                                text={`Prioridad: ${getPriorityText(alert.priority)}`}
+                                            />
                                             {
                                                 isEditable &&
                                                 <Button 

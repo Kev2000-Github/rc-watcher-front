@@ -25,6 +25,7 @@ import { notifyError } from '../../../utils/alert'
 import { selectionType } from '../../../services/constants'
 import { readFile } from '../../../utils/common'
 import { HiddenFileInput } from '../../hiddenFileInput'
+import { Coloredtag } from '../../ColoredTag'
 
 interface FormProps {
     onSubmitItem: (data: QuizFormSchema) => void;
@@ -152,9 +153,7 @@ export function QuizForm({
                                 </RadioGroup>
                             </TableCell>
                             <TableCell align="left">
-                                <Typography className={style.riskName} variant='body2'>
-                                {question.Risk.name}
-                                </Typography>
+                                <Coloredtag text={question.Risk.name} size='small' />
                             </TableCell>
                             <TableCell align="left">
                                 {

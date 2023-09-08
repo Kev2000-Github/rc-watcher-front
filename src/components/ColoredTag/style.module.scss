@@ -1,0 +1,28 @@
+@import "../../utils/theme/colors.scss";
+
+.tag{
+    padding: 2px 15px;
+    color: $white;
+    font-size: 0.7rem;
+    margin-left: 10px;
+    background: $secondary;
+    &.small{
+        letter-spacing: 1px;
+        text-align: center;
+        padding: 1px;
+        border-radius: 3px;
+        font-size: 0.6rem;
+    }
+    &.danger{
+        background: $danger
+    }
+    &.mid{
+        background: $warn
+    }
+    &.low{
+        background: $gray
+    }
+    &.dark{
+        color: $secondary
+    }
+}

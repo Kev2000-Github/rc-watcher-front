@@ -8,13 +8,14 @@ import { paginationProps } from '../../../services/interface'
 import { useQuery } from '@tanstack/react-query'
 import { pagination, routes } from '../../../app/constants'
 import { closeNotification, notifyLoading } from '../../../utils/alert'
-import { getPriorityColor, getPriorityText, paginationConfig } from '../../../utils/common'
+import { getPriorityText, paginationConfig } from '../../../utils/common'
 import { useNavigate } from 'react-router'
 import { ALERT_STATE, SOLUTION_STATE, queryKey } from '../../../services/constants'
 import { quizFilterProps } from '../../../services/Quiz/interface'
 import { SECOND } from '../../../utils/constants'
 import solutionService from '../../../services/Solution'
 import { FilterSolutionModal } from '../../../components/Modals/Filter/FilterSolutions'
+import { Coloredtag } from '../../../components/ColoredTag'
 
 export function SolutionListPage() {
   const navigate = useNavigate()
@@ -123,9 +124,10 @@ export function SolutionListPage() {
                               <Typography sx={{ fontSize: 14, fontWeight: 600}} variant='body2'>
                                 {alert.title}
                               </Typography>
-                              <Typography className={[style.priority, getPriorityColor(style, alert.priority)].join(' ')} variant='body2'>
-                                Prioridad: {getPriorityText(alert.priority)}
-                              </Typography>
+                              <Coloredtag
+                                color={alert.priority}
+                                text={`Prioridad: ${getPriorityText(alert.priority)}`}
+                              />
                             </Box>
                           ))
                         }
