@@ -100,7 +100,7 @@ export function CommonUserForm({
                     onClick={handleOnShowPassword}
                     edge="end"
                     >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                 </InputAdornment>
                 }

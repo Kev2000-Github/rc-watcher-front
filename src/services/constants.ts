@@ -18,7 +18,8 @@ export const queryKey = {
     SOLUTION: 'SOLUTION',
     REGULATIONS: 'REGULATIONS',
     OVERVIEW: 'OVERVIEW',
-    AML: 'AML'
+    AML: 'AML',
+    COUNTRIES: 'COUNTRIES'
 }
 
 export const mutationKey = {
@@ -33,7 +34,8 @@ export const mutationKey = {
     EDIT_SOLUTION: 'EDIT_SOLUTION',
     DELETE_SOLUTION: 'DELETE_SOLUTION',
     LOGIN: 'LOGIN',
-    LOGOUT: 'LOGOUT'
+    LOGOUT: 'LOGOUT',
+    REGISTER: 'REGISTER'
 }
 
 export const quizListFilter = {
@@ -78,6 +80,7 @@ export const RISK = {
 export const url = {
     login: `${config.backURL}/auths`,
     logout: `${config.backURL}/auths`,
+    register: `${config.backURL}/registrations`,
     quizzes: `${config.backURL}/quizzes`,
     quizForm: `${config.backURL}/quizzes/form/:id`,
     answerQuizForm: `${config.backURL}/quizzes/form/:id`,
@@ -99,4 +102,5 @@ export const url = {
     deleteSolution: `${config.backURL}/solution/:id`,
     createSolution: `${config.backURL}/solution`,
     AML: `${config.backURL}/amlProfiles`,
+    countries: `${config.backURL}/countries`
 }

@@ -1,6 +1,7 @@
 
 export const routes = {
     LOGIN: '/',
+    REGISTER: '/signup',
     DASHBOARD: '/dashboard',
     QUIZ: '/quiz',
     QUIZ_FORM: '/quiz/:id',

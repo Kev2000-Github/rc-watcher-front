@@ -23,6 +23,7 @@ import { SolutionViewPage } from '../pages/Solutions/view/index.tsx'
 import { EditSolution } from '../pages/Solutions/edit/index.tsx'
 import { Risks } from '../pages/Risks/index.tsx'
 import { Reports } from '../pages/Reports/index.tsx'
+import { Register } from '../pages/Register/index.tsx'
 
 const queryClient= new QueryClient({
   defaultOptions: {
@@ -40,6 +41,7 @@ function App() {
         <Router>
             <Routes>
               <Route path={routes.LOGIN} element={<Login />} />
+              <Route path={routes.REGISTER} element={<Register />} />
               <Route element={<ProtectedRoute isAllowed={isAdmin() || isAuditor()}/>}>
                 <Route path={routes.DASHBOARD} element={<Dashboard/>} />
                 <Route path={routes.QUIZ} element={<QuizListPage/>} />

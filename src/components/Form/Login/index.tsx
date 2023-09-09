@@ -6,6 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import {Boolify} from '../interfaces'
 import { LoginSchema } from './schema'
 import {ObjectSchema} from 'yup'
+import { useNavigate } from 'react-router-dom'
+import { routes } from '../../../app/constants'
 
 interface FormProps {
     onSubmitItem: (data: LoginSchema) => void;
@@ -26,6 +28,7 @@ export function LoginForm({
     onSubmitItem,
     defaultValues = defaultPropValues
 } : FormProps) {
+    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
     const {
         register,
@@ -90,7 +93,7 @@ export function LoginForm({
                     onClick={handleOnShowPassword}
                     edge="end"
                     >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                 </InputAdornment>
                 }
@@ -106,6 +109,7 @@ export function LoginForm({
                 <Button 
                     variant='outlined'
                     color='primary'
+                    onClick={() => navigate(routes.REGISTER)}
                 >
                     Registrarse
                 </Button>

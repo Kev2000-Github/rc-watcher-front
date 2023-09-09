@@ -27,13 +27,15 @@ export interface User extends UserBasic {
         id: string,
         name: string,
         address: string,
-        Country: {
-            id: string,
-            name: string,
-        }
+        Country: Country
     },
     Role: Role,
     sessionId: string
+}
+
+export interface Country {
+    id: string,
+    name: string
 }
 
 export interface Role {
