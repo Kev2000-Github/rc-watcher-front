@@ -43,7 +43,7 @@ export function Dashboard() {
       title: risk.name,
       regulation: risk.Regulation.name,
       tagColor: style.black,
-      tag: `puntaje: ${risk.score}`
+      tag: `puntaje: ${risk.score * 100}%`
     }))
   }
 
@@ -85,7 +85,7 @@ export function Dashboard() {
               <Typography variant='h5' sx={{mr: 'auto'}}>
                 Compliance Score
               </Typography>
-              <ComplianceScore value={overviewData?.complianceScore ?? 0} />
+              <ComplianceScore value={overviewData?.complianceScore ? overviewData.complianceScore * 100 : 0} />
             </Card>
             <Card className={`${style.top} ${style.card}`}>
               <Top
@@ -164,7 +164,7 @@ function Top({
                   color={item.tagColor}
                 />
                 <span className={style.regulation}>
-                  Regulacion: <p className={style.regularTxt}>{item.regulation}</p>
+                  Regulación: <p className={style.regularTxt}>{item.regulation}</p>
                 </span>
                 <Button 
                     variant='contained'

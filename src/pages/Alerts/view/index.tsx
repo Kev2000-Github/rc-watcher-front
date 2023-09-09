@@ -141,7 +141,7 @@ export function AlertViewPage() {
             </Box>
             <Box className={`${style.side} ${style.right}`}>
               <Typography variant='h6'>
-                Regulacion
+                Regulación
               </Typography>
               <Card className={style.card}>
                 <Box sx={{display: 'flex', flexDirection: 'column'}}>

@@ -327,7 +327,7 @@ export function SolutionForm({
                                         </FormControl>
                                         <FormControl>
                                             <Typography>
-                                                Regulacion
+                                                Regulación
                                             </Typography>
                                             <TextField
                                                 size='small'

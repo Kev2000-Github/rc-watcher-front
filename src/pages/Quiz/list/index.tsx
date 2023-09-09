@@ -97,7 +97,7 @@ export function QuizListPage() {
                     state={'completo'}
                     showState={item.isCompleted}
                     onClick={() => {
-                      const url = routes.ALERT.replace(':id', item.id)
+                      const url = routes.QUIZ_FORM.replace(':id', item.id)
                       navigate(url)
                     }}
                     btnColor={item.isCompleted ? 'info' : 'primary'}

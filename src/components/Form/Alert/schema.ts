@@ -12,5 +12,5 @@ export const alertSchema = yup
     priority: yup.string()
         .required("La prioridad es requerida"),
     regulationId: yup.string()
-        .required("La regulacion es requerida")
+        .required("La regulación es requerida")
   })

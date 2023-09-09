@@ -116,7 +116,7 @@ export function AlertForm({
             </FormControl>
 
             <FormControl sx={{ p: 1 }} variant="outlined">
-                <Typography variant='inherit'>Regulacion</Typography>
+                <Typography variant='inherit'>Regulación</Typography>
                 <ReactHookFormSelect
                     id={'regulation-select'}
                     name={'regulationId'}

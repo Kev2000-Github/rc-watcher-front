@@ -10,7 +10,7 @@ export class OverviewServiceHttp implements OverviewServiceInterface {
     async getOverview() {
         try{
             const sessionId = getSessionId()
-            const link = `${url.roles}`
+            const link = `${url.overview}`
             const resp = await client.get<ResponseHTTP<Overview>>(link, sessionId)
             return resp.data
         }

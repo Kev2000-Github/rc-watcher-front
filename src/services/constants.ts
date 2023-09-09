@@ -85,6 +85,7 @@ export const url = {
     quizForm: `${config.backURL}/quizzes/form/:id`,
     answerQuizForm: `${config.backURL}/quizzes/form/:id`,
     roles: `${config.backURL}/roles`,
+    overview: `${config.backURL}/overviews`,
     regulations: `${config.backURL}/regulations`,
     users: `${config.backURL}/users/:companyId`,
     user: `${config.backURL}/users/:companyId/:userId`,
