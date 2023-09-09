@@ -84,22 +84,6 @@
     align-items: start;
     column-gap: 10px;
 }
-.priority{
-    padding: 2px 15px;
-    color: $white;
-    font-size: 0.7rem;
-    margin-left: 10px;
-    background: $secondary;
-    &.high{
-        background: $danger
-    }
-    &.medium{
-        background: $warn
-    }
-    &.low{
-        background: $gray
-    }
-}
 .alertCard{
     display: flex;
     flex-direction: column;

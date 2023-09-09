@@ -1,8 +1,7 @@
 import { Box, Typography, Button, Pagination, Stack } from '@mui/material'
 import { Sort } from '@mui/icons-material'
 import { Layout } from '../../../components/Layout'
-import { Card } from '../../../components/Card'
-import style from './style.module.scss'
+import style from '../../../utils/common.module.scss'
 import { useEffect, useState, useRef } from 'react'
 import { paginationProps } from '../../../services/interface'
 import { useQuery } from '@tanstack/react-query'
@@ -14,7 +13,7 @@ import { useNavigate } from 'react-router'
 import { queryKey, quizListFilter } from '../../../services/constants'
 import { FilterModal } from '../../../components/Modals/Filter/Filter'
 import { quizFilterProps } from '../../../services/Quiz/interface'
-import { Coloredtag } from '../../../components/ColoredTag'
+import { GridCard } from '../../../components/GridCard'
 
 export function QuizListPage() {
   const navigate = useNavigate()
@@ -89,34 +88,21 @@ export function QuizListPage() {
             {
               paginatedQuizzes?.data.map((item, idx) => {
                 return (
-                  <Card key={idx} className={`${style.card} ${item.isCompleted ? style.completed : ''}`}>
-                      <Box className={style.cardHeader}>
-                        <Typography sx={{ fontSize: 16, fontWeight: 600}} variant='body2'>
-                          {item.name}
-                        </Typography>
-                        <Coloredtag text={item.Regulation.name} />
-                      </Box>
-                      <Typography sx={{ paddingBottom: 2 }} variant='body2'>
-                        {item.description}
-                      </Typography>
-                      <Typography className={style.questions} variant='body2'>
-                        preguntas: {item.questionCount}
-                      </Typography>
-                      <Box sx={{display: 'flex', justifyContent: 'end', alignItems: 'end', height: 1}}>
-                        <Button 
-                            variant='contained'
-                            color={item.isCompleted ? 'info' : 'primary'}
-                            className={style.button}
-                            sx={{width: 'auto'}}
-                            onClick={() => {
-                              const url = routes.QUIZ_FORM.split(':')[0] + item.id
-                              navigate(url)
-                            }}
-                        >
-                            Responder
-                        </Button>
-                      </Box>
-                  </Card>
+                  <GridCard
+                    key={item.id}
+                    title={item.name}
+                    tagText={item.Regulation.name}
+                    description={item.description}
+                    smallText={`preguntas: ${item.questionCount}`}
+                    state={'completo'}
+                    showState={item.isCompleted}
+                    onClick={() => {
+                      const url = routes.ALERT.replace(':id', item.id)
+                      navigate(url)
+                    }}
+                    btnColor={item.isCompleted ? 'info' : 'primary'}
+                    btnText='Responder'
+                  />
                 )
               })
             }

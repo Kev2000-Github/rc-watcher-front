@@ -1,0 +1,72 @@
+@import "../../utils/theme/colors.scss";
+
+.card{
+    padding: 20px;
+    max-width: none;
+    position: relative;
+    overflow: hidden;
+    &.split{
+        display: flex;
+        flex-direction: row;
+        column-gap: 10px;
+        .left{
+            flex: 1;
+            padding-right: 5px;
+        }
+        .right{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            padding-top: 20px;
+            row-gap: 15px;
+            .alerts{
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                column-gap: 10px;
+            }
+        }
+    }
+    &.split::before{
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 100%;
+        background: #D5D9DB;
+        left: 50%;
+        top: 0;
+    }
+    .state{
+        content: 'completo';
+        position: absolute;
+        width: fit-content;
+        height: fit-content;
+        padding: 5px 20px;
+        font-size: .8rem;
+        color: $white;
+        text-align: center;
+        background: $primary;
+        right: 0;
+        top: 0;
+        &.gray{
+            background: $gray;
+        }
+    }
+    .cardHeader{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        padding-bottom: 10px;
+        column-gap: 20px;
+    }
+    .questions{
+        padding-bottom: 10px;
+        font-size: .7rem;
+        color: $primary
+    }
+    .button{
+        width: auto
+    }
+}

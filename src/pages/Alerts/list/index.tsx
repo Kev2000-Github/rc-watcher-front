@@ -1,21 +1,20 @@
 import { Box, Typography, Button, Pagination, Stack } from '@mui/material'
 import { Sort, Add } from '@mui/icons-material'
 import { Layout } from '../../../components/Layout'
-import { Card } from '../../../components/Card'
-import style from './style.module.scss'
+import style from '../../../utils/common.module.scss'
 import { useEffect, useState, useRef } from 'react'
 import { paginationProps } from '../../../services/interface'
 import { useQuery } from '@tanstack/react-query'
 import { pagination, routes } from '../../../app/constants'
 import { closeNotification, notifyLoading } from '../../../utils/alert'
-import { getPriorityText, paginationConfig } from '../../../utils/common'
+import { getAlertStateText, getPriorityText, paginationConfig } from '../../../utils/common'
 import { useNavigate } from 'react-router'
 import { ALERT_PRIORITY, ALERT_STATE, queryKey } from '../../../services/constants'
 import { quizFilterProps } from '../../../services/Quiz/interface'
 import alertService from '../../../services/Alert'
 import { FilterAlertModal } from '../../../components/Modals/Filter/FilterAlerts'
 import { SECOND } from '../../../utils/constants'
-import { Coloredtag } from '../../../components/ColoredTag'
+import { GridCard } from '../../../components/GridCard'
 
 export function AlertListPage() {
   const navigate = useNavigate()
@@ -62,16 +61,6 @@ export function AlertListPage() {
     setPriorityFilter(data.state ?? ALERT_PRIORITY.ALL)
   }
 
-  const getAlertState = (alert: string) => {
-      if(alert === ALERT_STATE.SOLVED){
-        return 'Resuelto'
-      }
-      if(alert === ALERT_STATE.PENDING){
-        return 'Sin resolver'
-      }
-      return 'Cancelado'
-  }
-
   return (
     <Layout>
       {
@@ -111,39 +100,23 @@ export function AlertListPage() {
           
           <Box className={style.catalog}>
             {
-              paginatedAlerts?.data.map((item, idx) => {
+              paginatedAlerts?.data.map((item) => {
                 return (
-                  <Card key={idx} className={`${style.card} ${item.state ===  ALERT_STATE.SOLVED? style.completed : ''}`}>
-                      <Box className={style.cardHeader}>
-                        <Typography sx={{ fontSize: 16, fontWeight: 600}} variant='body2'>
-                          {item.title}
-                        </Typography>
-                        <Coloredtag
-                          color={item.priority}
-                          text={`Prioridad: ${getPriorityText(item.priority)}`}
-                        />
-                      </Box>
-                      <Typography sx={{ paddingBottom: 2 }} variant='body2'>
-                        {item.description}
-                      </Typography>
-                      <Typography className={style.questions} variant='body2'>
-                        Estado: {getAlertState(item.state)}
-                      </Typography>
-                      <Box sx={{display: 'flex', justifyContent: 'end', alignItems: 'end', height: 1}}>
-                        <Button 
-                            variant='contained'
-                            color={item.state ===  ALERT_STATE.SOLVED ? 'info' : 'primary'}
-                            className={style.button}
-                            sx={{width: 'auto'}}
-                            onClick={() => {
-                              const url = routes.ALERT.replace(':id', item.id)
-                              navigate(url)
-                            }}
-                        >
-                            Ver
-                        </Button>
-                      </Box>
-                  </Card>
+                  <GridCard
+                    key={item.id}
+                    title={item.title}
+                    tagText={`Prioridad: ${getPriorityText(item.priority)}`}
+                    tagColor={item.priority}
+                    description={item.description}
+                    smallText={`Estado: ${getAlertStateText(item.state)}`}
+                    onClick={() => {
+                      const url = routes.ALERT.replace(':id', item.id)
+                      navigate(url)
+                    }}
+                    btnColor={item.state === ALERT_STATE.SOLVED ? 'info' : 'primary'}
+                    state={getAlertStateText(ALERT_STATE.SOLVED)}
+                    showState={item.state === ALERT_STATE.SOLVED}
+                  />
                 )
               })
             }

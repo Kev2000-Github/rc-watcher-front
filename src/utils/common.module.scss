@@ -1,0 +1,28 @@
+@import "./theme/colors.scss";
+
+.content{
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    overflow: auto;
+    scrollbar-gutter: stable;  
+    .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        .headerButtons{
+            display: flex;
+            column-gap: 20px;
+        }
+    }
+    .catalog{
+        padding: 20px 0;
+        display: grid;
+        grid-template-columns: repeat(
+            auto-fit,
+            minmax(400px, 1fr)
+        );
+        gap: 30px;
+    }
+}

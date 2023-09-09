@@ -20,15 +20,6 @@
         .tableRowContent > td{
             border-left: 1px solid rgba(224, 224, 224, 1);
         }
-        .riskName {
-            letter-spacing: 1px;
-            text-align: center;
-            padding: 1px;
-            background: $secondary;
-            color: $white;
-            border-radius: 3px;
-            font-size: 0.6rem;
-        }
         .selections {
             display: flex;
             flex-direction: column;

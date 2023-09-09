@@ -1,10 +1,9 @@
 import { Box, Typography, Button, Pagination, Stack } from '@mui/material'
 import { Sort, Add } from '@mui/icons-material'
 import { Layout } from '../../../components/Layout'
-import { Card } from '../../../components/Card'
-import style from './style.module.scss'
+import style from '../../../utils/common.module.scss'
 import { useEffect, useState, useRef } from 'react'
-import { paginationProps } from '../../../services/interface'
+import { Solution, paginationProps } from '../../../services/interface'
 import { useQuery } from '@tanstack/react-query'
 import { pagination, routes } from '../../../app/constants'
 import { closeNotification, notifyLoading } from '../../../utils/alert'
@@ -15,7 +14,7 @@ import { quizFilterProps } from '../../../services/Quiz/interface'
 import { SECOND } from '../../../utils/constants'
 import solutionService from '../../../services/Solution'
 import { FilterSolutionModal } from '../../../components/Modals/Filter/FilterSolutions'
-import { Coloredtag } from '../../../components/ColoredTag'
+import { GridCardSplit } from '../../../components/GridCard/split'
 
 export function SolutionListPage() {
   const navigate = useNavigate()
@@ -59,6 +58,14 @@ export function SolutionListPage() {
     setStateFilter(data.state ?? ALERT_STATE.ALL)
   }
 
+  const genTagData = (solution: Solution) => {
+    return solution.Alerts.map(alert => ({
+      tagColor: alert.priority,
+      tagText: `Prioridad: ${getPriorityText(alert.priority)}`,
+      subtitle: alert.title
+    }))
+  }
+
   return (
     <Layout>
       {
@@ -100,53 +107,23 @@ export function SolutionListPage() {
             {
               paginatedSolutions?.data.map((item) => {
                 return (
-                  <Card key={item.id} className={`
-                  ${style.card} 
-                  ${style.split}
-                  ${item.state === SOLUTION_STATE.INACTIVE ? style.inactive: ''}`}>
-                      <Box className={style.left}>
-                        <Box className={style.cardHeader}>
-                          <Typography sx={{ fontSize: 16, fontWeight: 600}} variant='body2'>
-                            {item.title}
-                          </Typography>
-                        </Box>
-                        <Typography className={style.description} sx={{ paddingBottom: 2 }} variant='body2'>
-                          {item.description}
-                        </Typography>
-                        <Typography className={style.questions} variant='body2'>
-                          {item.madeBy.fullName}
-                        </Typography>
-                      </Box>
-                      <Box className={style.right}>
-                        {
-                          item.Alerts.map(alert => (
-                            <Box key={alert.id} className={style.alerts}>
-                              <Typography sx={{ fontSize: 14, fontWeight: 600}} variant='body2'>
-                                {alert.title}
-                              </Typography>
-                              <Coloredtag
-                                color={alert.priority}
-                                text={`Prioridad: ${getPriorityText(alert.priority)}`}
-                              />
-                            </Box>
-                          ))
-                        }
-                        <Box sx={{display: 'flex', justifyContent: 'end', alignItems: 'end', height: 1}}>
-                          <Button 
-                              variant='contained'
-                              color={item.state ===  SOLUTION_STATE.INACTIVE ? 'info' : 'primary'}
-                              className={style.button}
-                              sx={{width: 'auto'}}
-                              onClick={() => {
-                                const url = routes.SOLUTION.replace(':id', item.id)
-                                navigate(url)
-                              }}
-                          >
-                              Ver
-                          </Button>
-                        </Box>
-                      </Box>
-                  </Card>
+                  <>
+                    <GridCardSplit
+                      key={item.id}
+                      title={item.title}
+                      description={item.description}
+                      smallText={item.madeBy.fullName}
+                      tagData={genTagData(item)}
+                      onClick={() => {
+                        const url = routes.SOLUTION.replace(':id', item.id)
+                        navigate(url)
+                      }}
+                      btnColor={item.state === SOLUTION_STATE.INACTIVE ? 'info' : 'primary'}
+                      state={'Inactivo'}
+                      showState={item.state === SOLUTION_STATE.INACTIVE}
+                      stateColor='gray'
+                    />
+                  </>
                 )
               })
             }
