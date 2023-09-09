@@ -215,7 +215,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
         const result = {
             id: 'ecebc955-80f4-4aca-915f-461e15e05aba',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
-            state: 'pending',
+            state: 'active',
             title: 'title',
             madeBy: {
                 id: '1',
@@ -314,6 +314,11 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
     }
 
     async deleteSolution(_id: string) {
+        await sleep(500)
+        return true
+    }
+
+    async updateSolutionState(_id: string, _state: string) {
         await sleep(500)
         return true
     }

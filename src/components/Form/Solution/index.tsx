@@ -4,8 +4,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import {Boolify} from '../interfaces'
 import { SolutionSchema } from './schema'
 import {ObjectSchema} from 'yup'
-import { useNavigate } from 'react-router-dom'
-import { routes } from '../../../app/constants'
 import style from './style.module.scss'
 import { Add, Delete } from '@mui/icons-material'
 import { Card } from '../../Card'
@@ -20,7 +18,8 @@ interface FormProps {
     defaultValues?: SolutionSchema
     disabledFields?: Boolify<SolutionSchema>
     dangerBtnText?: string
-    submitBtnText?: string
+    submitBtnText?: string,
+    submitBtnColor?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
     dangerBtnOnClick?: () => void
     submitBtnOnClick?: () => void
 }
@@ -55,6 +54,7 @@ export function SolutionForm({
     submitBtnText = 'Guardar',
     dangerBtnOnClick,
     submitBtnOnClick,
+    submitBtnColor,
     onSubmitItem
 } : EditFormProps|ViewFormProps) {
     const [selectedAlert, setSelectedAlert] = useState<Alert|null>()
@@ -258,7 +258,7 @@ export function SolutionForm({
                                     <Button 
                                         sx={{ ml: 2 }}
                                         variant='contained'
-                                        color='primary'
+                                        color={submitBtnColor}
                                         type={submitBtnOnClick ? 'button' : 'submit'}
                                         onClick ={submitBtnOnClick}
                                     >

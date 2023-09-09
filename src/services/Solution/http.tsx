@@ -82,5 +82,23 @@ export class SolutionServiceHttp implements SolutionServiceInterface {
             return Promise.reject(new ServiceError('Solution Error', 'error'))
         }
     }
+
+    async updateSolutionState(id: string, state: string) {
+        try{
+            const sessionId = getSessionId()
+            const link = url.editSolution.replace(':id', id)
+            const body = {
+                state
+            }
+            const resp = await client.put<ResponseHTTP<boolean>>(link, body, sessionId)
+            return resp.data
+        }
+        catch(err){
+            if(err instanceof HTTPError){
+                return Promise.reject(new ServiceError('Solution error', err.message))
+            }
+            return Promise.reject(new ServiceError('Solution Error', 'error'))
+        }
+    }
     
 }

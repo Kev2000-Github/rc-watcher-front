@@ -55,7 +55,7 @@ export function AlertForm({
     
     return (
     <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex', flexDirection: 'column'}}>
-        <FormControl sx={{ p: 1 }} variant="outlined">
+            <FormControl sx={{ p: 1 }} variant="outlined">
             <label htmlFor='login-title'>Titulo</label>
             <OutlinedInput
                 {...register("title")}

@@ -15,6 +15,7 @@ import alertService from '../../../services/Alert'
 import { Box, Button } from '@mui/material'
 import style from './style.module.scss'
 import { SolutionSchema, solutionSchema } from '../../../components/Form/Solution/schema'
+import { editSolutionProps } from '../../../services/Solution/interface'
 
 export function EditSolution() {
     const {user} = useUserStore()
@@ -49,7 +50,10 @@ export function EditSolution() {
         return alertService.getAlerts(options, filters)
       },
     })
-    const deleteSolution = useMutation([mutationKey.DELETE_SOLUTION], solutionService.deleteSolution, {
+    const editSolution = useMutation([mutationKey.EDIT_SOLUTION], (data: editSolutionProps) => {
+      return solutionService.editSolution(id ?? '', data)
+    }, 
+    {
       onSuccess: async () => {
         closeNotification()
         await queryClient.invalidateQueries({queryKey: [queryKey.SOLUTIONS, queryKey.SOLUTION]})
@@ -66,9 +70,9 @@ export function EditSolution() {
     }, [isLoading])
 
     useEffect(() => {
-      if(deleteSolution.isLoading) notifyLoading()
+      if(editSolution.isLoading) notifyLoading()
       return () => closeNotification()
-    }, [deleteSolution.isLoading])
+    }, [editSolution.isLoading])
 
     const genDefaultvalues = (solution: Solution) => {
         return {
@@ -81,7 +85,12 @@ export function EditSolution() {
     }
 
     const onSubmit = (data: SolutionSchema) => {
-      console.log(data)
+      const req: editSolutionProps = {
+        ...data,
+        steps: data.steps.map(step => step.value),
+        responsableIds: data.responsableIds.map(user => user.id)
+      }
+      editSolution.mutate(req)
     }
 
     return (

@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom'
 import { routes } from '../../../app/constants'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { mutationKey, queryKey } from '../../../services/constants'
+import { SOLUTION_STATE, mutationKey, queryKey } from '../../../services/constants'
 import solutionService from '../../../services/Solution'
 import { Layout } from '../../../components/Layout'
 import { useEffect } from 'react'
@@ -58,6 +58,19 @@ export function SolutionViewPage() {
         notifyError(error.title, error.message)
       }
     })
+    const toggleSolution = useMutation([mutationKey.DELETE_SOLUTION], () => {
+      let newState = SOLUTION_STATE.ACTIVE
+      if(solution?.state === SOLUTION_STATE.ACTIVE) newState = SOLUTION_STATE.ACTIVE
+      return solutionService.updateSolutionState(id ?? '', newState)
+    }, {
+      onSuccess: async () => {
+        closeNotification()
+        await queryClient.invalidateQueries({queryKey: [queryKey.SOLUTIONS, queryKey.SOLUTION]})
+      },
+      onError: (error: ServiceError) => {
+        notifyError(error.title, error.message)
+      }
+    })
 
     useEffect(() => {
       if(isLoading) notifyLoading()
@@ -65,9 +78,9 @@ export function SolutionViewPage() {
     }, [isLoading])
 
     useEffect(() => {
-      if(deleteSolution.isLoading) notifyLoading()
+      if(deleteSolution.isLoading, toggleSolution.isLoading) notifyLoading()
       return () => closeNotification()
-    }, [deleteSolution.isLoading])
+    }, [deleteSolution.isLoading, toggleSolution.isLoading])
 
     const genDefaultvalues = (solution: Solution) => {
         return {
@@ -107,7 +120,8 @@ export function SolutionViewPage() {
             alerts={alerts?.data ?? []}
             isEditable={false}
             defaultValues={genDefaultvalues(solution)}
-            submitBtnText='Resolver Solucion'
+            submitBtnText={solution.state === SOLUTION_STATE.ACTIVE ? 'desactivar' : 'activar'}
+            submitBtnColor={solution.state === SOLUTION_STATE.ACTIVE ? 'info' : 'primary'}
             dangerBtnText='Eliminar'
             dangerBtnOnClick={onDelete}
             submitBtnOnClick={onSubmit}

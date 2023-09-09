@@ -11,6 +11,8 @@
     .split{
         display: flex;
         column-gap: 30px;
+        scrollbar-gutter: stable;
+        flex-wrap: wrap;
         .side{
             display: flex;
             flex-direction: column;

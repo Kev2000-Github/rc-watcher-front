@@ -19,4 +19,5 @@ export abstract class SolutionServiceInterface {
     abstract editSolution: (id: string, props: editSolutionProps) => Promise<Solution>
     abstract deleteSolution: (id: string) => Promise<boolean>
     abstract getSolution: (id: string) => Promise<Solution>
+    abstract updateSolutionState: (id: string, state: string) => Promise<boolean>
 }
