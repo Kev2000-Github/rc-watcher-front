@@ -11,8 +11,10 @@ import { getAlertStateText, getPriorityText } from '../../../utils/common'
 import { useEffect } from 'react'
 import { closeNotification, notifyError, notifyLoading } from '../../../utils/alert'
 import { ServiceError } from '../../../errors/ServiceError'
+import { useUserStore } from '../../../store'
 
 export function AlertViewPage() {
+    const { isOperator, isAuditor } = useUserStore()
     const navigate = useNavigate()
     const {id} = useParams()
     const queryClient = useQueryClient()
@@ -49,16 +51,19 @@ export function AlertViewPage() {
       {
         alert ? 
         <Box className={style.content}>
-          <Box className={style.header}>
-            <Button 
-                sx={{pl: 4, pr: 4}}
-                variant='outlined'
-                color='primary'
-                onClick={() => navigate(routes.EDIT_ALERT.replace(':id', alert.id))}
-            >
-                Editar
-            </Button>
-          </Box>
+          {
+            !isOperator() &&
+            <Box className={style.header}>
+              <Button 
+                  sx={{pl: 4, pr: 4}}
+                  variant='outlined'
+                  color='primary'
+                  onClick={() => navigate(routes.EDIT_ALERT.replace(':id', alert.id))}
+              >
+                  Editar
+              </Button>
+            </Box>
+          }
           <Box className={style.split}>
             <Box className={`${style.side} ${style.left}`}>
               <Box className={style.sideHeader}>
@@ -119,23 +124,26 @@ export function AlertViewPage() {
                     </FormControl>
                   </Box>
                   
-                  <FormControl sx={{ p: 1, mt: 2, display: 'flex', flexDirection: 'row', justifyContent: 'end' }} variant="outlined">
-                          <Button 
-                              variant='outlined'
-                              color='error'
-                              onClick={() => deleteAlert.mutate(alert.id)}
-                          >
-                              Eliminar
-                          </Button>
-                          <Button 
-                              sx={{ ml: 2 }}
-                              variant='contained'
-                              color='primary'
-                              onClick={() => navigate(routes.CREATE_SOLUTION)}
-                          >
-                              Crear Solucion
-                          </Button>
-                  </FormControl>
+                  {
+                    !isOperator() &&
+                    <FormControl sx={{ p: 1, mt: 2, display: 'flex', flexDirection: 'row', justifyContent: 'end' }} variant="outlined">
+                      <Button 
+                          variant='outlined'
+                          color='error'
+                          onClick={() => deleteAlert.mutate(alert.id)}
+                      >
+                          Eliminar
+                      </Button>
+                      <Button 
+                          sx={{ ml: 2 }}
+                          variant='contained'
+                          color='primary'
+                          onClick={() => navigate(routes.CREATE_SOLUTION)}
+                      >
+                          Crear Solucion
+                      </Button>
+                    </FormControl>
+                  }
                 </Box>
               </Card>
             </Box>

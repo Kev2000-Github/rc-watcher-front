@@ -164,13 +164,6 @@ export function QuizForm({
                                         mimeType={['application/pdf']}
                                         id={`file-${question.id}`}
                                     />
-                                    <input
-                                        onChange={(e) => onUploadBasePDF(e, question.id)}
-                                        accept="application/pdf"
-                                        style={{ display: 'none' }}
-                                        id={`file-${question.id}`}
-                                        type="file"
-                                    /> 
                                     <label 
                                         className={selectedValue !== positiveSelectionId ? style.disabled : ''} 
                                         htmlFor={`file-${question.id}`}>

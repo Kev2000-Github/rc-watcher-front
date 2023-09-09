@@ -147,7 +147,6 @@ export function Users() {
     _: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number,
   ) => {
-    console.log(newPage)
     setPage(newPage)
   }
 

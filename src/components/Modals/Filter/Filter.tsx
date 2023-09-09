@@ -34,7 +34,7 @@ export const FilterModal = ({
     open,
     yOffset = 20
 }: Props) => {
-    const [state, setState] = useState<string>(stateOptions[0].value)
+    const [state, setState] = useState<string>(stateOptions[2].value)
     const [tags, setTags] = useState<string[]>(includeOptions.map(opt => opt.value))
     const handleStateChange = (e: SelectChangeEvent<string>) => {
         setState(e.target.value)

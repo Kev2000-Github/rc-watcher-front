@@ -11,14 +11,19 @@ import loginService from '../../services/Session'
 import { useEffect } from 'react'
 import { useUserStore } from '../../store'
 import { ServiceError } from '../../errors/ServiceError'
-import { mutationKey } from '../../services/constants'
+import { ROLES, mutationKey } from '../../services/constants'
 
 export function Login() {
   const {isAuth, setUser, isAdmin, isAuditor, isOperator} = useUserStore()
   const signInMutation = useMutation([mutationKey.LOGIN], loginService.login, {
     onSuccess: (user) => {
       setUser(user)
-      navigate(routes.DASHBOARD)
+      if(isAdmin() || isAuditor()){
+        navigate(routes.DASHBOARD)
+      }
+      else if(isOperator()){
+        navigate(routes.ALERTS)
+      }
       closeNotification()
     }
   })
@@ -28,8 +33,7 @@ export function Login() {
   useEffect(() => {
     if(isAuth()){
       if(isAdmin() || isAuditor()) navigate(routes.DASHBOARD)
-      else if(isOperator()) navigate(routes.NOT_FOUND) //TODO: PENDING NAVIGATE IMPLEMENTATION!
-      else navigate(routes.NOT_FOUND)
+      else if(isOperator()) navigate(routes.ALERTS)
     }
   }, [])
 

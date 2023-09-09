@@ -51,7 +51,7 @@ export function SolutionForm({
     schema,
     disabledFields,
     defaultValues = defaultPropValues,
-    dangerBtnText = 'Descartar',
+    dangerBtnText = 'Descartar Cambios',
     submitBtnText = 'Guardar',
     dangerBtnOnClick,
     submitBtnOnClick,
@@ -59,12 +59,12 @@ export function SolutionForm({
 } : EditFormProps|ViewFormProps) {
     const [selectedAlert, setSelectedAlert] = useState<Alert|null>()
     const [addedAlerts, setAddedAlerts] = useState<Alert[]>([])
-    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
         control,
         setValue,
+        reset,
         formState: { errors },
       } = useForm({ defaultValues, resolver: schema ? yupResolver(schema) : undefined });
     const { fields, append, remove } = useFieldArray({
@@ -72,11 +72,16 @@ export function SolutionForm({
         name: 'steps'
     })
     useEffect(() => {
+        setDefaultAlerts()
+    }, [])
+
+    const setDefaultAlerts = () => {
         if(defaultValues.alertIds.length > 0){
             const defaultAlerts = alerts.filter(alert => defaultValues.alertIds.includes(alert.id))
             setAddedAlerts(defaultAlerts)
         }
-    }, [])
+        else setAddedAlerts([])
+    }
 
     const onSubmit = (data: SolutionSchema) => {
         if(onSubmitItem) onSubmitItem(data)
@@ -110,6 +115,11 @@ export function SolutionForm({
         })
     }
 
+    const discard = () => {
+        reset()
+        setDefaultAlerts()
+    }
+
     return (
         <form onSubmit={isEditable ? handleSubmit(onSubmit) : undefined} style={{display: 'flex', flexDirection: 'column'}}>
             <Box className={style.content}>
@@ -129,7 +139,7 @@ export function SolutionForm({
                                             disabled={disabledFields?.title ?? !isEditable}
                                         />
                                         {!!errors.title && (
-                                            <FormHelperText error id="accountId-error">
+                                            <FormHelperText error>
                                             {errors.title?.message}
                                             </FormHelperText>
                                         )}
@@ -158,7 +168,7 @@ export function SolutionForm({
                                         defaultValue={[]}
                                     />
                                     {!!errors.responsableIds && (
-                                        <FormHelperText error id="accountId-error">
+                                        <FormHelperText error>
                                         {errors.responsableIds?.message}
                                         </FormHelperText>
                                     )}
@@ -175,7 +185,7 @@ export function SolutionForm({
                                         disabled={disabledFields?.description  ?? !isEditable}
                                     />
                                     {!!errors.description && (
-                                        <FormHelperText error id="accountId-error">
+                                        <FormHelperText error>
                                         {errors.description?.message}
                                         </FormHelperText>
                                     )}
@@ -222,7 +232,7 @@ export function SolutionForm({
                                                 }
                                             </Box>
                                             {!!errors.steps && (
-                                                <FormHelperText error id="accountId-error">
+                                                <FormHelperText error>
                                                 {errors.steps[index]?.value?.message}
                                                 </FormHelperText>
                                             )}
@@ -231,7 +241,7 @@ export function SolutionForm({
                                     ))}
                                 </ul>
                                 {!!errors.steps && (
-                                    <FormHelperText error id="accountId-error">
+                                    <FormHelperText error>
                                     {errors.steps.message}
                                     </FormHelperText>
                                 )}
@@ -241,7 +251,7 @@ export function SolutionForm({
                                     <Button 
                                         variant='outlined'
                                         color='error'
-                                        onClick={dangerBtnOnClick ? dangerBtnOnClick : () => navigate(routes.SOLUTIONS)}
+                                        onClick={dangerBtnOnClick ? dangerBtnOnClick : discard}
                                     >
                                         {dangerBtnText}
                                     </Button>
@@ -340,7 +350,7 @@ export function SolutionForm({
                             })
                         }
                         {!!errors.alertIds && (
-                            <FormHelperText error id="accountId-error">
+                            <FormHelperText error>
                             {errors.alertIds?.message}
                             </FormHelperText>
                         )}

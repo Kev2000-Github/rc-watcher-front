@@ -54,7 +54,7 @@ export function LoginForm({
                 type='text'
                 size='small'
                 disabled={disabledFields?.username}
-                autoComplete='off'
+                autoComplete='on'
             />
             {!!errors.username && (
                 <FormHelperText error id="accountId-error">

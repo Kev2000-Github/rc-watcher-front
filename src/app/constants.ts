@@ -17,7 +17,7 @@ export const routes = {
     AML: '/AML',
     RISKS: '/risks',
     REPORTS: '/reports',
-    NOT_FOUND: '*'
+    NOT_FOUND: '*',
 }
 
 export const pagination = {

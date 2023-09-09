@@ -9,8 +9,7 @@ import { routes } from "../../app/constants";
 import { closeNotification, notifyLoading } from "../../utils/alert";
 import { useEffect } from "react";
 import { useUserStore } from "../../store";
-import { ROLES, mutationKey } from "../../services/constants";
-import { User } from "../../services/interface";
+import { mutationKey } from "../../services/constants";
 
 const drawerWidth = 240;
 const CustomDrawer = styled(Drawer)(({theme}) => ({
@@ -37,7 +36,7 @@ const CustomListButton = styled(ListItemButton)(({theme}) => ({
 }))
 
 export function Menu() {
-    const {clear, user} = useUserStore()
+    const {clear, user, isAdmin} = useUserStore()
     const logoutMutation = useMutation([mutationKey.LOGOUT], loginService.logout, {
       onSuccess: () => {
         clear()
@@ -52,9 +51,9 @@ export function Menu() {
       if(logoutMutation.isLoading) notifyLoading()
     }, [logoutMutation.isLoading])
 
-    const getMenuItems = (user: User) => {
-      if(user.Role.name === ROLES.ADMIN){
-        return menuLastItems
+    const getMenuItems = () => {
+      if(isAdmin()){
+        return menuItems
       }
       else{
         return operatorMenuItems
@@ -70,21 +69,24 @@ export function Menu() {
           <DarkLogo style={style.logo}/>
         </Box>
         <List>
-          {menuItems.map(({text, URI, icon}) => (
-            <ListItem key={text} disablePadding>
-              <CustomListButton 
-                onClick={() => {
-                  closeNotification()
-                  navigate(URI)
-                }}
-                selected={location.pathname === URI}>
-                <ListItemIcon sx={{minWidth: 40}}>
-                  {icon}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </CustomListButton>
-            </ListItem>
-          ))}
+          {
+            user &&
+            getMenuItems().map(({text, URI, icon}) => (
+              <ListItem key={text} disablePadding>
+                <CustomListButton 
+                  onClick={() => {
+                    closeNotification()
+                    navigate(URI)
+                  }}
+                  selected={location.pathname === URI}>
+                  <ListItemIcon sx={{minWidth: 40}}>
+                    {icon}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </CustomListButton>
+              </ListItem>
+            ))
+          }
         </List>
         <Box
           sx={{
@@ -98,8 +100,7 @@ export function Menu() {
         >
           <List sx={{width: 1}}>
             {
-              user &&
-              getMenuItems(user).map(({text, icon}) => (
+              menuLastItems.map(({text, icon}) => (
                 <ListItem key={text} disablePadding>
                   <CustomListButton 
                     sx={{justifyContent: "center"}}

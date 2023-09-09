@@ -5,7 +5,7 @@ export class OverviewServiceDummy implements OverviewServiceInterface {
     async getOverview() {
         await sleep(500)
         return {
-          complianceScore: 50,
+          complianceScore: 0.5,
           pendingQuizCount: 20,
           affectingRiskCount: 20,
           solutionCount: 20,
@@ -57,7 +57,7 @@ export class OverviewServiceDummy implements OverviewServiceInterface {
                   name: 'AML',
                   description: 'AML'
               },
-              score: 15
+              score: 0.15
             }
           ],
         }

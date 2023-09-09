@@ -10,8 +10,6 @@ import style from './style.module.scss'
 import { Card } from '../../Card'
 import { Logo } from '../../../SVG/logo'
 import { Country } from '../../../services/interface'
-import { useNavigate } from 'react-router-dom'
-import { routes } from '../../../app/constants'
 
 interface FormProps {
     countries: Country[],
@@ -44,12 +42,12 @@ export function RegisterForm({
     countries,
     defaultValues = defaultPropValues
 } : FormProps) {
-    const navigate = useNavigate()
     const [showPassword, setShowPassword] = useState(false)
     const {
         register,
         handleSubmit,
         control,
+        reset,
         formState: { errors },
       } = useForm({ defaultValues, resolver: yupResolver(schema) });
     
@@ -258,9 +256,9 @@ export function RegisterForm({
                     <Button 
                         variant='outlined'
                         color='error'
-                        onClick={() => navigate(routes.LOGIN)}
+                        onClick={() => reset()}
                     >
-                        Descartar
+                        Descartar Cambios
                     </Button>
                     <Button 
                         sx={{ ml: 2 }}

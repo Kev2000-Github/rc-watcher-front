@@ -20,6 +20,7 @@ export class ClientHTTP implements Client {
               error.response?.status === HTTP_CODES.UNAUTHORIZED &&
               originalRequestURL.indexOf("/auths") === -1
             ) {
+              localStorage.removeItem('user')
               return window.location.replace(routes.LOGIN)
             }
             return Promise.reject(error)

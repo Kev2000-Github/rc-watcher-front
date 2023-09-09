@@ -63,44 +63,9 @@ export const menuItems: MenuItems = [
 
 export const operatorMenuItems: MenuItems = [
     {
-        text: 'Dashboard',
-        URI: routes.DASHBOARD,
-        icon: <Dashboard/>
-    },
-    {
-        text: 'Encuestas',
-        URI: routes.QUIZ,
-        icon: <Form/>
-    },
-    {
-        text: 'Riesgos',
-        URI: routes.RISKS,
-        icon: <Risk/>
-    },
-    {
         text: 'Alertas',
         URI: routes.ALERTS,
         icon: <Notification/>
-    },
-    {
-        text: 'Soluciones',
-        URI: routes.SOLUTIONS,
-        icon: <Solution/>
-    },
-    {
-        text: 'Buscador AML - PEP',
-        URI: routes.AML,
-        icon: <AML/>
-    },
-    {
-        text: 'Usuarios',
-        URI: routes.USERS,
-        icon: <User/>
-    },
-    {
-        text: 'Reportes',
-        URI: routes.REPORTS,
-        icon: <Report/>
     },
 ]
 

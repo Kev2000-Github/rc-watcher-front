@@ -34,7 +34,7 @@ const queryClient= new QueryClient({
 })
 
 function App() {
-  const { isAdmin, isAuditor } = useUserStore()
+  const { isAdmin, isAuditor, isOperator } = useUserStore()
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
@@ -42,20 +42,22 @@ function App() {
             <Routes>
               <Route path={routes.LOGIN} element={<Login />} />
               <Route path={routes.REGISTER} element={<Register />} />
+              <Route element={<ProtectedRoute isAllowed={isOperator() || isAdmin() || isAuditor()} />}>
+                <Route path={routes.CREATE_ALERT} element={<CreateAlert />} />
+                <Route path={routes.ALERTS} element={<AlertListPage/>} />
+                <Route path={routes.ALERT} element={<AlertViewPage/>} />
+              </Route>
               <Route element={<ProtectedRoute isAllowed={isAdmin() || isAuditor()}/>}>
                 <Route path={routes.DASHBOARD} element={<Dashboard/>} />
                 <Route path={routes.QUIZ} element={<QuizListPage/>} />
                 <Route path={routes.QUIZ_FORM} element={<QuizFormPage/>} />
                 <Route path={routes.USERS} element={<Users/>} />
-                <Route path={routes.ALERTS} element={<AlertListPage/>} />
                 <Route path={routes.AML} element={<AML/>} />
                 <Route path={routes.SOLUTIONS} element={<SolutionListPage/>} />
                 <Route path={routes.CREATE_SOLUTION} element={<CreateSolution/>} />
                 <Route path={routes.EDIT_SOLUTION} element={<EditSolution/>} />
                 <Route path={routes.SOLUTION} element={<SolutionViewPage/>} />
-                <Route path={routes.ALERT} element={<AlertViewPage/>} />
                 <Route path={routes.EDIT_ALERT} element={<EditAlert/>} />
-                <Route path={routes.CREATE_ALERT} element={<CreateAlert/>} />
                 <Route path={routes.RISKS} element={<Risks/>} />
                 <Route path={routes.REPORTS} element={<Reports/>} />
               </Route>

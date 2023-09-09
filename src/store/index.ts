@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { User } from '../services/interface'
+import { ROLES } from '../services/constants'
 
 export interface UserState {
   user: User|null
@@ -18,9 +19,9 @@ export const useUserStore = create<UserState>()(persist(
       setUser: (userData: User) => set(() => ({ user: userData })),
       clear: () => set(() => ({ user: null })),
       isAuth: () => get().user !== null,
-      isAdmin: () => get().user?.Role?.name === 'admin',
-      isAuditor: () => get().user?.Role?.name === 'auditor',
-      isOperator: () => get().user?.Role?.name === 'operator'
+      isAdmin: () => get().user?.Role?.name === ROLES.ADMIN,
+      isAuditor: () => get().user?.Role?.name === ROLES.AUDITOR,
+      isOperator: () => get().user?.Role?.name === ROLES.OPERATOR
   }),
   {
     name: 'user'

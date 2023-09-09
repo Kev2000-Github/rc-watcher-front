@@ -8,8 +8,6 @@ import { ReactHookFormSelect } from '../../ReactHookFormSelect'
 import { Regulation } from '../../../services/interface'
 import { ALERT_PRIORITY } from '../../../services/constants'
 import { CustomTextArea } from '../../CustomTextArea'
-import { useNavigate } from 'react-router-dom'
-import { routes } from '../../../app/constants'
 import { enumArray, getPriorityText } from '../../../utils/common'
 
 interface FormProps {
@@ -42,11 +40,11 @@ export function AlertForm({
     onSubmitItem,
     defaultValues = defaultPropValues
 } : FormProps) {
-    const navigate = useNavigate()
     const {
         register,
         handleSubmit,
         control,
+        reset,
         formState: { errors },
       } = useForm({ defaultValues, resolver: yupResolver(schema) });
     
@@ -146,9 +144,9 @@ export function AlertForm({
                 <Button 
                     variant='outlined'
                     color='error'
-                    onClick={() => navigate(routes.ALERTS)}
+                    onClick={() => reset()}
                 >
-                    Descartar
+                    Descartar Cambios
                 </Button>
                 <Button 
                     sx={{ ml: 2 }}

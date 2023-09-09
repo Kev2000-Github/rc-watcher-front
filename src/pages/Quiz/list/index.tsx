@@ -18,7 +18,7 @@ import { GridCard } from '../../../components/GridCard'
 export function QuizListPage() {
   const navigate = useNavigate()
   const filterBtn = useRef<HTMLButtonElement>(null)
-  const [stateFilter, setStateFilter] = useState<string>(quizListFilter.state.ALL)
+  const [stateFilter, setStateFilter] = useState<string>(quizListFilter.state.PENDING)
   const [tagsFilter, setTagsFilter] = useState<string[]>(Object.values(quizListFilter.include))
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false)
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
