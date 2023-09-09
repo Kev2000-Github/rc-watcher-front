@@ -1,4 +1,4 @@
-import {FormControl, IconButton, InputAdornment, OutlinedInput, Button, FormHelperText} from '@mui/material'
+import {FormControl, IconButton, InputAdornment, OutlinedInput, Button, FormHelperText, TextField} from '@mui/material'
 import {VisibilityOff, Visibility} from '@mui/icons-material'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -48,12 +48,13 @@ export function LoginForm({
     <form onSubmit={handleSubmit(onSubmit)} style={{display: 'flex', flexDirection: 'column'}}>
         <FormControl sx={{ p: 1 }} variant="outlined">
             <label htmlFor='login-username'>Username</label>
-            <OutlinedInput
+            <TextField
                 {...register("username")}
                 id="login-username"
                 type='text'
                 size='small'
                 disabled={disabledFields?.username}
+                autoComplete='off'
             />
             {!!errors.username && (
                 <FormHelperText error id="accountId-error">
@@ -64,7 +65,7 @@ export function LoginForm({
 
             <FormControl sx={{ p: 1 }} variant="outlined">
             <label htmlFor='login-id-empresa'>ID Empresa</label>
-            <OutlinedInput
+            <TextField
                 {...register("companyId")}
                 id="login-id-empresa"
                 type='text'

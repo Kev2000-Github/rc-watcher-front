@@ -77,6 +77,12 @@ export const RISK = {
     LOW: 'low'
 }
 
+export const ROLES = {
+    ADMIN: 'admin',
+    OPERATOR: 'operativo',
+    AUDITOR: 'auditor'
+}
+
 export const url = {
     login: `${config.backURL}/auths`,
     logout: `${config.backURL}/auths`,

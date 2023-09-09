@@ -1,7 +1,7 @@
 import { styled, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Box, Typography } from "@mui/material";
 import { DarkLogo } from '../../SVG/darkLogo'
 import style from './style.module.scss'
-import { menuItems, menuLastItems } from './helper'
+import { menuItems, menuLastItems, operatorMenuItems } from './helper'
 import { useLocation, useNavigate } from 'react-router-dom'
 import loginService from "../../services/Session";
 import { useMutation } from "@tanstack/react-query";
@@ -9,7 +9,8 @@ import { routes } from "../../app/constants";
 import { closeNotification, notifyLoading } from "../../utils/alert";
 import { useEffect } from "react";
 import { useUserStore } from "../../store";
-import { mutationKey } from "../../services/constants";
+import { ROLES, mutationKey } from "../../services/constants";
+import { User } from "../../services/interface";
 
 const drawerWidth = 240;
 const CustomDrawer = styled(Drawer)(({theme}) => ({
@@ -51,6 +52,15 @@ export function Menu() {
       if(logoutMutation.isLoading) notifyLoading()
     }, [logoutMutation.isLoading])
 
+    const getMenuItems = (user: User) => {
+      if(user.Role.name === ROLES.ADMIN){
+        return menuLastItems
+      }
+      else{
+        return operatorMenuItems
+      }
+    }
+
     return (
     <CustomDrawer
         variant="permanent"
@@ -87,20 +97,23 @@ export function Menu() {
           }}
         >
           <List sx={{width: 1}}>
-            {menuLastItems.map(({text, icon}) => (
-              <ListItem key={text} disablePadding>
-                <CustomListButton 
-                  sx={{justifyContent: "center"}}
-                  onClick={() => logoutMutation.mutate()}>
-                  <ListItemIcon sx={{minWidth: 30}}>
-                    {icon}
-                  </ListItemIcon>
-                  <Typography>
-                    {text}
-                  </Typography>
-                </CustomListButton>
-              </ListItem>
-            ))}
+            {
+              user &&
+              getMenuItems(user).map(({text, icon}) => (
+                <ListItem key={text} disablePadding>
+                  <CustomListButton 
+                    sx={{justifyContent: "center"}}
+                    onClick={() => logoutMutation.mutate()}>
+                    <ListItemIcon sx={{minWidth: 30}}>
+                      {icon}
+                    </ListItemIcon>
+                    <Typography>
+                      {text}
+                    </Typography>
+                  </CustomListButton>
+                </ListItem>
+              ))
+            }
           </List>
           <Typography>
             {user?.Company?.name ?? 'COMPANY NAME'}

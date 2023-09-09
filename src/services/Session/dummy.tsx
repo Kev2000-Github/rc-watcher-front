@@ -8,6 +8,28 @@ export class LoginServiceDummy implements LoginServiceInterface {
         if(props.username === 'error'){
             throw new ServiceError('error title', 'a')
         }
+        if(props.username === 'operator'){
+            return {
+                id: '1',
+                username: 'Jose',
+                fullName: 'Jose Fernandez',
+                email: 'Jose@gmail.com',
+                Company: {
+                    id: '1',
+                    name: 'company Test',
+                    address: 'address',
+                    Country: {
+                        id: '1',
+                        name: 'Venezuela',
+                    }
+                },
+                Role: {
+                    id: '1',
+                    name: 'operativo'
+                },
+                sessionId: '1'
+            } 
+        }
         const dummyUser: User = {
             id: '1',
             username: 'Fran',
