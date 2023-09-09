@@ -10,7 +10,8 @@ export class AMLServiceHttp implements AMLServiceInterface {
     async getAML(props: AMLFilter) {
         try{
             const sessionId = getSessionId()
-            let link = `${url.AML}?name=${props.name}`
+            const formattedName = props.name.replace(' ', '-')
+            let link = `${url.AML}?fullName=${formattedName}`
             if(props.country) link = `${link}&country=${props.country}`
             const resp = await client.get<ResponseHTTP<AML>>(link, sessionId)
             return resp.data

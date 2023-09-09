@@ -98,5 +98,5 @@ export const url = {
     editSolution: `${config.backURL}/solution/:id`,
     deleteSolution: `${config.backURL}/solution/:id`,
     createSolution: `${config.backURL}/solution`,
-    AML: `${config.backURL}/aml`,
+    AML: `${config.backURL}/amlProfiles`,
 }

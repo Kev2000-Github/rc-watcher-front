@@ -104,7 +104,7 @@ export function AML() {
                           Riesgo: {getRiskText(search.data.riskLevel)}
                         </Typography>
                       </Box>
-                      {search.data.Articles.map((article, idx) => (
+                      {search.data.articles.map((article, idx) => (
                         <Card className={style.article} key={`${search.data.id}-article-${idx}`}>
                           <Box className={style.horizontal}>
                             <Typography sx={{fontWeight: '600'}} variant='subtitle1'>
@@ -119,13 +119,13 @@ export function AML() {
                           </Link>
                         </Card>
                       ))}
-                      {search.data.Sanctions.map((sanction, idx) => (
+                      {search.data.sanctions.map((sanction, idx) => (
                         <Card className={`${style.horizontal} ${style.sanction}`} key={`${search.data.id}-sanction-${idx}`}>
                           <Typography sx={{fontWeight: '600'}} variant='subtitle1'>
                             Sanción #{idx + 1}: 
                           </Typography>
                           <Typography>
-                            {sanction}
+                            {sanction.content}
                           </Typography>
                         </Card>
                       ))}

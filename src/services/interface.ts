@@ -114,8 +114,10 @@ export interface AML {
     riskLevel: string,
     riskPoints: number,
     picture: string,
-    Sanctions: string[],
-    Articles: {
+    sanctions: {
+        content: string
+    }[],
+    articles: {
         content: string,
         link: string
     }[]

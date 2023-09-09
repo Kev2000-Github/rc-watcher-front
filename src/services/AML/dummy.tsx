@@ -13,8 +13,14 @@ export class AMLServiceDummy implements AMLServiceInterface {
         riskLevel: 'high',
         riskPoints: 78,
         picture: 'https://s.france24.com/media/display/647b0c3a-9698-11ea-adda-005056a964fe/w:1280/p:1x1/Poutine%20-.jpg',
-        Sanctions: ['Bloqueo de Activos', 'Prohibición de Viaje', 'Embargo de Armas'],
-        Articles: [
+        sanctions: [{
+          content: 'Bloqueo de Activos'
+        }, {
+          content: 'Prohibición de Viaje'
+        }, {
+          content: 'Embargo de Armas'
+        }],
+        articles: [
           {
             content: 'Vladimir Putin: Un Vistazo a su Carrera Política',
             link: 'https://example.com/putin-article1',
@@ -25,7 +31,7 @@ export class AMLServiceDummy implements AMLServiceInterface {
           },
         ],
       }
-      sampleAML.Articles = sampleAML.Articles.map(val => ({
+      sampleAML.articles = sampleAML.articles.map(val => ({
         ...val,
         content: ellipsisText(val.content, 100)
       }))
