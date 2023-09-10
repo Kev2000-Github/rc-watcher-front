@@ -8,9 +8,8 @@ import { QuizForm } from '../../../components/Form/QuizForm'
 import { QuizForm as QuizFormType } from '../../../services/interface'
 import { DynamicSchema, QuizFormSchema, quizFormSchemaBuilder } from '../../../components/Form/QuizForm/schema'
 import { routes } from '../../../app/constants'
-import { mutationKey, queryKey, url } from '../../../services/constants'
+import { mutationKey, queryKey } from '../../../services/constants'
 import { ServiceError } from '../../../errors/ServiceError'
-import axios from 'axios'
 import { isPromise } from '../../../utils/common'
 
 export function UpdateQuizFormPage() {

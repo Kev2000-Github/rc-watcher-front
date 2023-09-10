@@ -11,7 +11,7 @@ import loginService from '../../services/Session'
 import { useEffect } from 'react'
 import { useUserStore } from '../../store'
 import { ServiceError } from '../../errors/ServiceError'
-import { ROLES, mutationKey } from '../../services/constants'
+import { mutationKey } from '../../services/constants'
 
 export function Login() {
   const {isAuth, setUser, isAdmin, isAuditor, isOperator} = useUserStore()

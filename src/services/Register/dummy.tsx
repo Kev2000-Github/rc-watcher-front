@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+ 
 import { ServiceError } from '../../errors/ServiceError'
 import { sleep } from '../../utils/common'
 import {RegisterServiceInterface, registerProps} from './interface'

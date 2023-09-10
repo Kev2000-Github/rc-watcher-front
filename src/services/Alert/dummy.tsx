@@ -54,7 +54,7 @@ export class AlertServiceDummy implements AlertServiceInterface {
         return result
     }
 
-    async createAlert(props: createAlertProps) {
+    async createAlert(_props: createAlertProps) {
         const result = {
             id: 'ecebc955-80f4-4aca-915f-461e15e05abb',
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
