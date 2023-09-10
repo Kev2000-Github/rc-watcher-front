@@ -52,7 +52,7 @@ export function AlertViewPage() {
         alert ? 
         <Box className={style.content}>
           {
-            (isAdmin() || isOperator()) &&
+            isAdmin() &&
             <Box className={style.header}>
               <Button 
                   sx={{pl: 4, pr: 4}}
