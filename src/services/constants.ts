@@ -19,7 +19,8 @@ export const queryKey = {
     REGULATIONS: 'REGULATIONS',
     OVERVIEW: 'OVERVIEW',
     AML: 'AML',
-    COUNTRIES: 'COUNTRIES'
+    COUNTRIES: 'COUNTRIES',
+    RISKS: 'RISKS'
 }
 
 export const mutationKey = {
@@ -111,5 +112,6 @@ export const url = {
     createSolution: `${config.backURL}/solution`,
     AML: `${config.backURL}/amlProfiles`,
     countries: `${config.backURL}/countries`,
-    document: `${config.backURL}/quizzes/document/:id`
+    document: `${config.backURL}/quizzes/document/:id`,
+    risks: `${config.backURL}/risks`
 }

@@ -1,7 +1,5 @@
-import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -9,7 +7,7 @@ import Paper from '@mui/material/Paper';
 import { Layout } from '../../components/Layout';
 import { Card } from '../../components/Card';
 import style from './style.module.scss'
-import { Button, IconButton, TableFooter, TablePagination, Typography } from '@mui/material';
+import { Box, Button, IconButton, TableFooter, TablePagination, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { pagination } from '../../app/constants';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -26,31 +24,12 @@ import { UpdateUserModal } from '../../components/Modals/User/updateUser';
 import { DeleteUserModal } from '../../components/Modals/User/DeleteUser';
 import { ServiceError } from '../../errors/ServiceError';
 import { modals } from './constants';
-
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
-  [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
-  [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
-  },
-}));
-
-const StyledTableRow = styled(TableRow)(({ theme }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-}));
+import { StyledTableCell, StyledTableRow } from '../../components/styledComponents';
 
 export function Users() {
   const {user, isAdmin} = useUserStore()
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE - 1)
-  const [rowsPerPage, setRowsPerPage] = useState<number>(5);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(pagination.LIMIT);
   const [updates, setUpdates] = useState<number>(0)
   const [selectedUser, setSelectedUser] = useState<string>('')
   const [openModal, setOpenModal] = useState<string|null>(null)
@@ -59,8 +38,9 @@ export function Users() {
     queryFn: () => {
       const options: paginationProps = {
         limit: pagination.LIMIT,
-        page
+        page: page + 1
       }
+      console.log(options)
       return userService.getUsers(user?.Company?.id ?? '', options)
     },
     ...paginationConfig
@@ -161,7 +141,7 @@ export function Users() {
     <Layout>
         {
           user ?
-          <main className={style.content}>
+          <Box className={style.content}>
             <Card className={style.card}>
                 <header>
                   <Typography variant='h5'>
@@ -253,7 +233,7 @@ export function Users() {
               open={openModal === modals.DELETE}
               onClose={onCloseModal}            
             />
-        </main>
+        </Box>
         : ''
         }
     </Layout>
