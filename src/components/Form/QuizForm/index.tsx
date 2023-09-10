@@ -16,7 +16,7 @@ import {
 import { Card } from '../../../components/Card'
 import style from './style.module.scss'
 import { AttachFile } from '@mui/icons-material'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { QuizForm } from '../../../services/interface'
 import { DynamicSchema, QuizFormSchema } from './schema'
@@ -41,10 +41,10 @@ export function QuizForm({
     defaultValues
 }: FormProps) {
     const {
-        register,
         handleSubmit,
         watch,
         setValue,
+        control,
         formState: { errors },
     } = useForm({
         defaultValues,
@@ -67,7 +67,6 @@ export function QuizForm({
     const onClickSelection = (questionId: string, type: string) => {
         if(type === selectionType.NEGATIVE){
             setValue(`${questionId}.document`, null)
-
         }
     }
 
@@ -121,36 +120,78 @@ export function QuizForm({
                             <TableCell scope="row">
                                 {question.description}
                             </TableCell>
-                            <TableCell align="left">
-                                <RadioGroup
-                                    className={style.selections}
-                                    name={`selections-${question.id}`}
-                                >
-                                    {
-                                    question.Selections.map(selection => {
-                                        const isMultiple = question.isMultiple
-                                        return (
-                                        <FormControlLabel 
-                                            key={selection.id}
-                                            className={style.selection}
-                                            value={selection.id} 
-                                            control={isMultiple ? 
-                                            <Checkbox 
-                                                {...register(`${question.id}.selectionId`)}
-                                                value={selection.id}
-                                                sx={{ '& .MuiSvgIcon-root': { fontSize: 20 }}}
-                                            /> 
-                                            : <Radio 
-                                                    {...register(`${question.id}.selectionId`)}
-                                                    onClick={() => onClickSelection(question.id, selection.type)}
-                                                    value={selection.id}
-                                                    size='small'/>} 
-                                            label={selection.description} 
-                                        />
-                                        )
-                                    })
-                                    }
-                                </RadioGroup>
+                            <TableCell align="left" className={style.selections}>
+                                <>
+                                {
+                                    question.isMultiple ?
+                                    <Controller
+                                        control={control}
+                                        name={`${question.id}.selectionId`}
+                                        defaultValue={[]}
+                                        render={({field}) => <>
+                                        {
+                                            question.Selections.map(selection => (
+                                                <FormControlLabel 
+                                                    key={selection.id}
+                                                    className={style.selection}
+                                                    value={selection.id} 
+                                                    label={selection.description}
+                                                    control={
+                                                        <Checkbox 
+                                                            {...field}
+                                                            onChange={(e) => {
+                                                                const checkeds = field.value as string[]
+                                                                if(e.target.checked){
+                                                                    field.onChange([...checkeds, e.target.value])
+                                                                }
+                                                                else{
+                                                                    const filtered = checkeds.filter(val => val !== e.target.value)
+                                                                    field.onChange(filtered)
+                                                                }
+                                                            }}
+                                                            checked={field.value?.includes(selection.id)}
+                                                            value={selection.id}
+                                                            sx={{ '& .MuiSvgIcon-root': { fontSize: 20 }}}
+                                                        />
+                                                    } 
+                                                />
+                                            ))
+                                        }
+                                        </>
+                                        }
+                                    />
+                                    :
+                                    <Controller
+                                        control={control}
+                                        name={`${question.id}.selectionId`}
+                                        defaultValue={''}
+                                        render={({field}) => (
+                                            <RadioGroup
+                                                {...field}
+                                                name={`selections-${question.id}`}
+                                            >
+                                                {
+                                                question.Selections.map(selection => (
+                                                    <FormControlLabel 
+                                                        key={selection.id}
+                                                        className={style.selection}
+                                                        value={selection.id}
+                                                        label={selection.description} 
+                                                        control={
+                                                            <Radio 
+                                                                onClick={() => onClickSelection(question.id, selection.type)}
+                                                                value={selection.id}
+                                                                size='small'
+                                                            />
+                                                        } 
+                                                    />
+                                                ))
+                                                }
+                                            </RadioGroup>
+                                        )}
+                                    />
+                                }
+                                </>
                             </TableCell>
                             <TableCell align="left">
                                 <Coloredtag text={question.Risk.name} size='small' />
@@ -161,7 +202,7 @@ export function QuizForm({
                                 <Box className={style.uploadFileSection}>
                                     <HiddenFileInput
                                         onChange={(e) => onUploadBasePDF(e, question.id)}
-                                        mimeType={['application/pdf']}
+                                        mimeType={['application/pdf, image/jpeg, image/jpg, image/png']}
                                         id={`file-${question.id}`}
                                     />
                                     <label 

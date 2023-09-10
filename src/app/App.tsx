@@ -10,7 +10,7 @@ import { QuizListPage } from '../pages/Quiz/list/index.tsx'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ProtectedRoute } from '../components/protectedRoute.tsx'
 import { useUserStore } from '../store/index.ts'
-import { QuizFormPage } from '../pages/Quiz/form/index.tsx'
+import { QuizFormPage } from '../pages/Quiz/answer/index.tsx'
 import { Users } from '../pages/Users/index.tsx'
 import { AlertListPage } from '../pages/Alerts/list/index.tsx'
 import { CreateAlert } from '../pages/Alerts/create/index.tsx'
@@ -24,6 +24,7 @@ import { EditSolution } from '../pages/Solutions/edit/index.tsx'
 import { Risks } from '../pages/Risks/index.tsx'
 import { Reports } from '../pages/Reports/index.tsx'
 import { Register } from '../pages/Register/index.tsx'
+import { UpdateQuizFormPage } from '../pages/Quiz/update/index.tsx'
 
 const queryClient= new QueryClient({
   defaultOptions: {
@@ -51,6 +52,7 @@ function App() {
                 <Route path={routes.DASHBOARD} element={<Dashboard/>} />
                 <Route path={routes.QUIZ} element={<QuizListPage/>} />
                 <Route path={routes.QUIZ_FORM} element={<QuizFormPage/>} />
+                <Route path={routes.UPDATE_QUIZ_FORM} element={<UpdateQuizFormPage/>} />
                 <Route path={routes.USERS} element={<Users/>} />
                 <Route path={routes.AML} element={<AML/>} />
                 <Route path={routes.SOLUTIONS} element={<SolutionListPage/>} />

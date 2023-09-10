@@ -2,11 +2,11 @@ import { Layout } from '../../../components/Layout'
 import { useEffect, useState } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import quizService from '../../../services/Quiz'
-import { closeNotification, notifyError, notifyLoading, notifySuccess } from '../../../utils/alert'
+import { closeNotification, notifyError, notifyLoading } from '../../../utils/alert'
 import { useNavigate, useParams } from 'react-router'
 import { QuizForm } from '../../../components/Form/QuizForm'
+import { QuizForm as QuizFormType } from '../../../services/interface'
 import { DynamicSchema, QuizFormSchema, quizFormSchemaBuilder } from '../../../components/Form/QuizForm/schema'
-import { generateDefaultValues } from '../../../components/Form/QuizForm/helper'
 import { routes } from '../../../app/constants'
 import { mutationKey, queryKey } from '../../../services/constants'
 import { ServiceError } from '../../../errors/ServiceError'
@@ -25,7 +25,6 @@ export function QuizFormPage() {
   const answerFormMutation = useMutation([mutationKey.QUIZ], quizService.answerQuizForm, {
     onSuccess: () => {
       closeNotification()
-      notifySuccess({ title: '¡Has completado la encuesta!' })
       navigate(routes.DASHBOARD)
     }
   })
@@ -56,6 +55,19 @@ export function QuizFormPage() {
   }, [quiz])
 
   const onSubmit = (data: QuizFormSchema) => answerFormMutation.mutate({id, form: data})
+
+  const generateDefaultValues = (quiz: QuizFormType) => {
+    const data: QuizFormSchema = {}
+    for(const question of quiz.Questions){
+        if(question.isMultiple){
+            data[question.id] = {selectionId: []}
+        }
+        else{
+            data[question.id] = {selectionId: undefined}
+        }
+    }
+    return data
+  }
  
   return (
     <Layout>

@@ -43,7 +43,7 @@ export function Dashboard() {
       title: risk.name,
       regulation: risk.Regulation.name,
       tagColor: style.black,
-      tag: `puntaje: ${risk.score * 100}%`
+      tag: `puntaje: ${(risk.score * 100).toFixed(0)}%`
     }))
   }
 

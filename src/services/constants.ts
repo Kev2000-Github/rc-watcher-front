@@ -24,6 +24,7 @@ export const queryKey = {
 
 export const mutationKey = {
     QUIZ: 'CREATE_QUIZ',
+    UPDATE_QUIZ: 'UPDATE_QUIZ',
     USER: 'CREATE_USER',
     UPDATE_USER: 'UPDATE_USER',
     DELETE_USER: 'DELETE_USER',

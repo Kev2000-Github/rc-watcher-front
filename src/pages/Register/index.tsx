@@ -1,8 +1,6 @@
 import style from './style.module.scss'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '../../app/constants'
-import { Card } from '../../components/Card'
-import { Logo } from '../../SVG/logo'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { closeNotification, notifyError, notifyLoading } from '../../utils/alert'
 import { useEffect } from 'react'

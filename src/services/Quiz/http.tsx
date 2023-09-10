@@ -43,6 +43,35 @@ export class QuizServiceHttp implements QuizServiceInterface {
         }
     }
 
+    async updateQuizForm({id, form}: answerQuizProps) {
+        try{
+            const sessionId = getSessionId()
+            const link = url.answerQuizForm.replace(':id', id ?? '')
+            const responses = Object.keys(form).reduce((resp, questionId) => {
+                if(typeof form[questionId].selectionId === 'string'){
+                    const newItem: answerSchema = {
+                        questionId, 
+                        selectionId: form[questionId].selectionId as string
+                    }
+                    if(form[questionId].document) newItem.document = form[questionId].document
+                    return [...resp, newItem]
+                }
+                const checkboxes = (form[questionId].selectionId as string[]).map(
+                    (selectionId: string) => ({questionId, selectionId})
+                )
+                return [...resp, ...checkboxes]
+            }, [] as answerSchema[])
+            await client.put(link, {responses}, sessionId)
+            return true
+        }
+        catch(err){
+            if(err instanceof HTTPError){
+                return Promise.reject(new ServiceError('Quiz error', err.message))
+            }
+            return Promise.reject(new ServiceError('Quiz Error', 'error'))
+        }
+    }
+
     async getQuizForm(id: string) {
         try{
             const sessionId = getSessionId()

@@ -10,6 +10,11 @@ export class QuizServiceDummy implements QuizServiceInterface {
         return true
     }
 
+    async updateQuizForm(_props: answerQuizProps) {
+        await sleep(500)
+        return true
+    }
+
     async getQuizForm(id: string) {
         const result: QuizForm = {
             id,

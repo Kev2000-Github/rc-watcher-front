@@ -86,7 +86,7 @@ export function QuizListPage() {
           
           <Box className={style.catalog}>
             {
-              paginatedQuizzes?.data.map((item, idx) => {
+              paginatedQuizzes?.data.map((item) => {
                 return (
                   <GridCard
                     key={item.id}
@@ -97,7 +97,9 @@ export function QuizListPage() {
                     state={'completo'}
                     showState={item.isCompleted}
                     onClick={() => {
-                      const url = routes.QUIZ_FORM.replace(':id', item.id)
+                      let url = ''
+                      if(!item.isCompleted) url = routes.QUIZ_FORM.replace(':id', item.id)
+                      else url = routes.UPDATE_QUIZ_FORM.replace(':id', item.id)
                       navigate(url)
                     }}
                     btnColor={item.isCompleted ? 'info' : 'primary'}

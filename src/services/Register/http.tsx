@@ -1,4 +1,4 @@
-import { Paginated, ResponseHTTP, User } from '../interface'
+import { User } from '../interface'
 import {RegisterServiceInterface, registerProps} from './interface'
 import { client } from '../../clients'
 import { url } from '../constants'
@@ -17,8 +17,7 @@ export class RegisterServiceHttp implements RegisterServiceInterface {
             const sessionId = getSessionId()
             const link = `${url.register}`
             const resp = await client.post<registerResponse>(link, props, sessionId)
-            const user: User = resp.user
-            user.sessionId = resp.session
+            const user: User = {...resp.user, sessionId: resp.session}
             return user
         }
         catch(err){

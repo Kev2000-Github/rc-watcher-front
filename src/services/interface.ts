@@ -104,8 +104,17 @@ export interface Question {
         id: string,
         description: string,
         riskScore: number,
-        type: string
-    }[]
+        type: string,
+        selected?: boolean
+    }[],
+    Document?: Document
+}
+
+export interface Document {
+    id: string,
+    name: string,
+    type: string,
+    file: string
 }
 
 export interface AML {
