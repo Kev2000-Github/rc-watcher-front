@@ -40,7 +40,8 @@ export class QuizServiceDummy implements QuizServiceInterface {
                             id: 'da1bc58e-dde3-4f58-89fb-63dbe8c8054e',
                             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel ',
                             riskScore: 0.1,
-                            type: selectionType.SIMPLE
+                            type: selectionType.SIMPLE,
+                            selected: true
                         },
                         {
                             id: '9e798c76-dedb-49bf-8bbd-b01cf9691332',
@@ -64,13 +65,15 @@ export class QuizServiceDummy implements QuizServiceInterface {
                             id: '6981f586-9fcf-44a8-b94a-da21c8f6cef1',
                             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel ',
                             riskScore: 0.1,
-                            type: selectionType.MULTIPLE
+                            type: selectionType.MULTIPLE,
+                            selected: true
                         },
                         {
                             id: '0979027f-944a-4c31-aa9b-30be895e0aaa',
                             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel ',
                             riskScore: 0.1,
-                            type: selectionType.MULTIPLE
+                            type: selectionType.MULTIPLE,
+                            selected: true
                         }
                     ]
                 },
@@ -94,7 +97,8 @@ export class QuizServiceDummy implements QuizServiceInterface {
                             id: 'aa2af5ba-98e4-4c88-b24d-3c2612351425',
                             description: 'No',
                             riskScore: 0.9,
-                            type: selectionType.NEGATIVE
+                            type: selectionType.NEGATIVE,
+                            selected: true
                         }
                     ]
                 },

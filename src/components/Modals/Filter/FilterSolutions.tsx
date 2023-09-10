@@ -11,7 +11,8 @@ interface Props {
     onClose: () => void,
     apply: (data: SolutionFilterProps) => void
     elementRef?: DOMRect | null,
-    yOffset?: number
+    yOffset?: number,
+    initialState?: string
 }
 
 const stateOptions = [
@@ -21,6 +22,7 @@ const stateOptions = [
 ]
 
 export const FilterSolutionModal = ({
+    initialState = stateOptions[0].value,
     elementRef,
     onClose,
     apply,
@@ -28,7 +30,7 @@ export const FilterSolutionModal = ({
     open,
     yOffset = 20
 }: Props) => {
-    const [state, setState] = useState<string>(stateOptions[0].value)
+    const [state, setState] = useState<string>(initialState)
     
     const handleStateChange = (e: SelectChangeEvent<string>) => {
         setState(e.target.value)

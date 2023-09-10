@@ -15,11 +15,13 @@ import { SECOND } from '../../../utils/constants'
 import solutionService from '../../../services/Solution'
 import { FilterSolutionModal } from '../../../components/Modals/Filter/FilterSolutions'
 import { GridCardSplit } from '../../../components/GridCard/split'
+import { useUserStore } from '../../../store'
 
 export function SolutionListPage() {
+  const { isAdmin } = useUserStore()
   const navigate = useNavigate()
   const filterBtn = useRef<HTMLButtonElement>(null)
-  const [stateFilter, setStateFilter] = useState<string>(ALERT_STATE.ALL)
+  const [stateFilter, setStateFilter] = useState<string>(SOLUTION_STATE.ACTIVE)
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false)
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
   const { isLoading, isFetching, data: paginatedSolutions, isPreviousData } = useQuery({
@@ -85,17 +87,21 @@ export function SolutionListPage() {
                 >
                   Filtros
                 </Button>
-                <Button 
-                  ref={filterBtn}
-                  onClick={() => navigate(routes.CREATE_SOLUTION)} 
-                  variant='contained' 
-                  startIcon={<Add/>} 
-                  color='primary'
-                >
-                  Crear Solucion
-                </Button>
+                {
+                  isAdmin() &&
+                  <Button 
+                    ref={filterBtn}
+                    onClick={() => navigate(routes.CREATE_SOLUTION)} 
+                    variant='contained' 
+                    startIcon={<Add/>} 
+                    color='primary'
+                  >
+                    Crear Solucion
+                  </Button>
+                }
               </div>
               <FilterSolutionModal
+                initialState={stateFilter}
                 elementRef={filterBtn.current?.getBoundingClientRect()}
                 apply={handleFilters}
                 open={isFilterOpen}

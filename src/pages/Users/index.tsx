@@ -48,7 +48,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 }));
 
 export function Users() {
-  const user = useUserStore(state => state.user)
+  const {user, isAdmin} = useUserStore()
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE - 1)
   const [rowsPerPage, setRowsPerPage] = useState<number>(5);
   const [updates, setUpdates] = useState<number>(0)
@@ -167,11 +167,14 @@ export function Users() {
                   <Typography variant='h5'>
                       Usuarios
                   </Typography>
-                  <Button 
-                  variant='contained'
-                  onClick={() => onOpenModal(modals.CREATE)}>
-                    Agregar
-                  </Button>
+                  {
+                    isAdmin() &&
+                    <Button 
+                    variant='contained'
+                    onClick={() => onOpenModal(modals.CREATE)}>
+                      Agregar
+                    </Button>
+                  }
                 </header>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 700 }}>
@@ -194,18 +197,23 @@ export function Users() {
                               <StyledTableCell>{scopedUser.email}</StyledTableCell>
                               <StyledTableCell>{scopedUser.Role.name}</StyledTableCell>
                               <StyledTableCell>
-                                <IconButton
-                                color='primary'
-                                disabled={user?.id === scopedUser.id}
-                                onClick={() => onUpdateSelectedUser(modals.UPDATE, scopedUser.id)}>
-                                  <Edit/>
-                                </IconButton>
-                                <IconButton
-                                color='error'
-                                disabled={user?.id === scopedUser.id}
-                                onClick={() => onUpdateSelectedUser(modals.DELETE, scopedUser.id)}>
-                                  <Delete/>
-                                </IconButton>
+                                {
+                                  isAdmin() &&
+                                  <>
+                                    <IconButton
+                                      color='primary'
+                                      disabled={user?.id === scopedUser.id}
+                                      onClick={() => onUpdateSelectedUser(modals.UPDATE, scopedUser.id)}>
+                                        <Edit/>
+                                      </IconButton>
+                                      <IconButton
+                                      color='error'
+                                      disabled={user?.id === scopedUser.id}
+                                      onClick={() => onUpdateSelectedUser(modals.DELETE, scopedUser.id)}>
+                                        <Delete/>
+                                    </IconButton>
+                                  </>
+                                }
                               </StyledTableCell>
                             </StyledTableRow>
                           ))}

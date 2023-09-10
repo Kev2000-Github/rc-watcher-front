@@ -11,7 +11,8 @@ interface Props {
     onClose: () => void,
     apply: (data: quizFilterProps) => void
     elementRef?: DOMRect | null,
-    yOffset?: number
+    yOffset?: number,
+    initialState?: string
 }
 
 const stateOptions = [
@@ -27,6 +28,7 @@ const includeOptions = [
 ]
 
 export const FilterModal = ({
+    initialState = stateOptions[2].value,
     elementRef,
     onClose,
     apply,
@@ -34,7 +36,7 @@ export const FilterModal = ({
     open,
     yOffset = 20
 }: Props) => {
-    const [state, setState] = useState<string>(stateOptions[2].value)
+    const [state, setState] = useState<string>(initialState)
     const [tags, setTags] = useState<string[]>(includeOptions.map(opt => opt.value))
     const handleStateChange = (e: SelectChangeEvent<string>) => {
         setState(e.target.value)

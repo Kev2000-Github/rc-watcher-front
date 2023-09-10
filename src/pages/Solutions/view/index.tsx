@@ -16,7 +16,7 @@ import { Box, Button } from '@mui/material'
 import style from './style.module.scss'
 
 export function SolutionViewPage() {
-    const {user} = useUserStore()
+    const {user, isAdmin} = useUserStore()
     const navigate = useNavigate()
     const {id} = useParams()
     const queryClient = useQueryClient()
@@ -106,14 +106,17 @@ export function SolutionViewPage() {
         solution &&
         <Box className={style.content}>
           <Box className={style.header}>
-            <Button 
+            {
+              isAdmin() &&
+              <Button 
                 sx={{pl: 4, pr: 4}}
                 variant='outlined'
                 color='primary'
                 onClick={() => navigate(routes.EDIT_SOLUTION.replace(':id', solution.id))}
-            >
-                Editar
-            </Button>
+              >
+                  Editar
+              </Button>
+            }
           </Box>
           <SolutionForm
             availableUsers={users?.data ?? []}
@@ -125,6 +128,7 @@ export function SolutionViewPage() {
             dangerBtnText='Eliminar'
             dangerBtnOnClick={onDelete}
             submitBtnOnClick={onSubmit}
+            disableBtns={!isAdmin()}
           />
         </Box>
       }

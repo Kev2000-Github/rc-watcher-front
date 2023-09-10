@@ -36,7 +36,7 @@ const CustomListButton = styled(ListItemButton)(({theme}) => ({
 }))
 
 export function Menu() {
-    const {clear, user, isAdmin} = useUserStore()
+    const {clear, user, isAdmin, isAuditor} = useUserStore()
     const logoutMutation = useMutation([mutationKey.LOGOUT], loginService.logout, {
       onSuccess: () => {
         clear()
@@ -52,7 +52,7 @@ export function Menu() {
     }, [logoutMutation.isLoading])
 
     const getMenuItems = () => {
-      if(isAdmin()){
+      if(isAdmin() || isAuditor()){
         return menuItems
       }
       else{

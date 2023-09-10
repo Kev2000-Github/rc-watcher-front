@@ -15,8 +15,10 @@ import alertService from '../../../services/Alert'
 import { FilterAlertModal } from '../../../components/Modals/Filter/FilterAlerts'
 import { SECOND } from '../../../utils/constants'
 import { GridCard } from '../../../components/GridCard'
+import { useUserStore } from '../../../store'
 
 export function AlertListPage() {
+  const {isOperator, isAdmin} = useUserStore()
   const navigate = useNavigate()
   const filterBtn = useRef<HTMLButtonElement>(null)
   const [stateFilter, setStateFilter] = useState<string>(ALERT_STATE.ALL)
@@ -80,15 +82,18 @@ export function AlertListPage() {
                 >
                   Filtros
                 </Button>
-                <Button 
-                  ref={filterBtn}
-                  onClick={() => navigate(routes.CREATE_ALERT)} 
-                  variant='contained' 
-                  startIcon={<Add/>} 
-                  color='primary'
-                >
-                  Crear Alerta
-                </Button>
+                {
+                  (isAdmin() || isOperator()) &&
+                  <Button 
+                    ref={filterBtn}
+                    onClick={() => navigate(routes.CREATE_ALERT)} 
+                    variant='contained' 
+                    startIcon={<Add/>} 
+                    color='primary'
+                  >
+                    Crear Alerta
+                  </Button>
+                }
               </div>
               <FilterAlertModal
                 elementRef={filterBtn.current?.getBoundingClientRect()}

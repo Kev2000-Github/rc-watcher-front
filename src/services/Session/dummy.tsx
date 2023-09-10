@@ -30,6 +30,28 @@ export class LoginServiceDummy implements LoginServiceInterface {
                 sessionId: '1'
             } 
         }
+        if(props.username === 'auditor'){
+            return {
+                id: '1',
+                username: 'Peter',
+                fullName: 'Peter Parker',
+                email: 'Peter@gmail.com',
+                Company: {
+                    id: '1',
+                    name: 'company Test',
+                    address: 'address',
+                    Country: {
+                        id: '1',
+                        name: 'Venezuela',
+                    }
+                },
+                Role: {
+                    id: '1',
+                    name: 'auditor'
+                },
+                sessionId: '1'
+            } 
+        }
         const dummyUser: User = {
             id: '1',
             username: 'Fran',

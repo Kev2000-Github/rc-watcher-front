@@ -172,7 +172,7 @@ function Top({
                     size='small'
                     className={style.button}
                     sx={{width: 'auto'}}
-                    onClick={() => onClick}
+                    onClick={onClick}
                 >
                     Ver
                 </Button>

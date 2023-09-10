@@ -14,7 +14,7 @@ import { ServiceError } from '../../../errors/ServiceError'
 import { useUserStore } from '../../../store'
 
 export function AlertViewPage() {
-    const { isOperator, isAuditor } = useUserStore()
+    const { isAdmin, isOperator } = useUserStore()
     const navigate = useNavigate()
     const {id} = useParams()
     const queryClient = useQueryClient()
@@ -52,7 +52,7 @@ export function AlertViewPage() {
         alert ? 
         <Box className={style.content}>
           {
-            !isOperator() &&
+            (isAdmin() || isOperator()) &&
             <Box className={style.header}>
               <Button 
                   sx={{pl: 4, pr: 4}}
@@ -125,7 +125,7 @@ export function AlertViewPage() {
                   </Box>
                   
                   {
-                    !isOperator() &&
+                    isAdmin() &&
                     <FormControl sx={{ p: 1, mt: 2, display: 'flex', flexDirection: 'row', justifyContent: 'end' }} variant="outlined">
                       <Button 
                           variant='outlined'

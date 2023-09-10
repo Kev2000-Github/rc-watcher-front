@@ -14,11 +14,13 @@ import { queryKey, quizListFilter } from '../../../services/constants'
 import { FilterModal } from '../../../components/Modals/Filter/Filter'
 import { quizFilterProps } from '../../../services/Quiz/interface'
 import { GridCard } from '../../../components/GridCard'
+import { useUserStore } from '../../../store'
 
 export function QuizListPage() {
+  const { isAdmin, isAuditor } = useUserStore()
   const navigate = useNavigate()
   const filterBtn = useRef<HTMLButtonElement>(null)
-  const [stateFilter, setStateFilter] = useState<string>(quizListFilter.state.PENDING)
+  const [stateFilter, setStateFilter] = useState<string>(isAdmin() ? quizListFilter.state.PENDING : quizListFilter.state.COMPLETED)
   const [tagsFilter, setTagsFilter] = useState<string[]>(Object.values(quizListFilter.include))
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false)
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
@@ -58,6 +60,12 @@ export function QuizListPage() {
     setStateFilter(data.state ?? quizListFilter.state.ALL)
     setTagsFilter(tags => data.tags ?? tags)
   }
+
+  const shouldBtnDisable = (isCompleted: boolean) => {
+    if(isAuditor() && !isCompleted) return true
+    else return false
+  }
+
   return (
     <Layout>
       {
@@ -77,6 +85,7 @@ export function QuizListPage() {
                 Filtros
               </Button>
               <FilterModal
+                initialState={stateFilter}
                 elementRef={filterBtn.current?.getBoundingClientRect()}
                 apply={handleFilters}
                 open={isFilterOpen}
@@ -103,7 +112,8 @@ export function QuizListPage() {
                       navigate(url)
                     }}
                     btnColor={item.isCompleted ? 'info' : 'primary'}
-                    btnText='Responder'
+                    btnText={isAdmin() ? 'Responder' : 'Ver'}
+                    disabled={shouldBtnDisable(item.isCompleted)}
                   />
                 )
               })

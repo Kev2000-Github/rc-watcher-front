@@ -19,6 +19,7 @@ interface FormProps {
     disabledFields?: Boolify<SolutionSchema>
     dangerBtnText?: string
     submitBtnText?: string,
+    disableBtns?: boolean,
     submitBtnColor?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
     dangerBtnOnClick?: () => void
     submitBtnOnClick?: () => void
@@ -55,6 +56,7 @@ export function SolutionForm({
     dangerBtnOnClick,
     submitBtnOnClick,
     submitBtnColor,
+    disableBtns = false,
     onSubmitItem
 } : EditFormProps|ViewFormProps) {
     const [selectedAlert, setSelectedAlert] = useState<Alert|null>()
@@ -247,7 +249,9 @@ export function SolutionForm({
                                 )}
                         </Box>
                         
-                        <FormControl sx={{ p: 1, mt: 2, display: 'flex', flexDirection: 'row', justifyContent: 'end' }} variant="outlined">
+                        {
+                            !disableBtns &&
+                            <FormControl sx={{ p: 1, mt: 2, display: 'flex', flexDirection: 'row', justifyContent: 'end' }} variant="outlined">
                                     <Button 
                                         variant='outlined'
                                         color='error'
@@ -264,7 +268,8 @@ export function SolutionForm({
                                     >
                                         {submitBtnText}
                                     </Button>
-                        </FormControl>
+                            </FormControl>
+                        }
                     </Card>
                 </Box>
                 <Box className={`${style.side} ${style.right}`}>
