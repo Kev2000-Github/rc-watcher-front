@@ -114,5 +114,21 @@ export class QuizServiceHttp implements QuizServiceInterface {
             return Promise.reject(new ServiceError('Quiz Error', 'error'))
         }
     }
+
+    getQuizDocumentBase64(id: string, type: string) {
+        return new Promise<string>((resolve, reject) => {
+          const sessionId = getSessionId()
+          const link = url.document.replace(':id', id)
+          const reader = new FileReader()
+          reader.onload = () => {
+            const dataUrl = reader.result as string
+            const base64 = dataUrl.split(',')[1]
+            resolve(`data:${type};base64,${base64}`)
+          }
+          client.getBlob(link, sessionId)
+              .then((resp) => reader.readAsDataURL(resp))
+              .catch((err) => reject(err))
+        })
+    }
     
 }

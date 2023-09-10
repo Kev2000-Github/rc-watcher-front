@@ -86,4 +86,22 @@ export class ClientHTTP implements Client {
         return Promise.reject(err)
       }
     }
+
+    async getBlob(url: string, sessionId: string) {
+      try {
+        const headers = { authorization: sessionId }
+        const resp = await this._transport.get<Blob>(url, {
+          headers,
+          responseType: 'blob'
+        })
+        return resp.data
+      }
+      catch (err) {
+        if(err instanceof AxiosError){
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+            return Promise.reject(new HTTPError(err.response?.data?.error as httpErrorProps))
+        }
+        return Promise.reject(err)
+      }
+    }
 }

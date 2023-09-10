@@ -81,20 +81,9 @@ export function UpdateQuizFormPage() {
             if(question.hasDoc && question.Document) {
               const id = question.Document.id
               const type = question.Document.type
-              const link = url.document.replace(':id', id)
               data[question.id].document = {
                 name: question.Document.name,
-                content: new Promise((resolve, reject) => {
-                  const reader = new FileReader()
-                  reader.onload = () => {
-                    const dataUrl = reader.result as string
-                    const base64 = dataUrl.split(',')[1]
-                    resolve(`data:${type};base64,${base64}`)
-                  }
-                  axios.get<Blob>(link, {responseType: 'blob'})
-                    .then((resp) => reader.readAsDataURL(resp.data))
-                    .catch((err) => reject(err))
-                })
+                content: quizService.getQuizDocumentBase64(id, type)
               }
             }
         }

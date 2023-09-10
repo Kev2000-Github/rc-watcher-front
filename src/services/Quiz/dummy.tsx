@@ -157,5 +157,10 @@ export class QuizServiceDummy implements QuizServiceInterface {
         await sleep(500)
         return result
     }
+
+    async getQuizDocumentBase64(_id: string, _type: string) {
+        await sleep(500)
+        return 'base64'
+    }
     
 }
