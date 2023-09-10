@@ -1,6 +1,6 @@
 import { Layout } from '../../../components/Layout'
 import { useEffect, useState } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import quizService from '../../../services/Quiz'
 import { closeNotification, notifyError, notifyLoading } from '../../../utils/alert'
 import { useNavigate, useParams } from 'react-router'
@@ -13,6 +13,7 @@ import { ServiceError } from '../../../errors/ServiceError'
 
 export function QuizFormPage() {
   const {id} = useParams()
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const [enabledFetch, setEnabledFetch] = useState<boolean>(true)
   const [schema, setSchema] = useState<DynamicSchema|null>(null)
@@ -23,8 +24,9 @@ export function QuizFormPage() {
     enabled: enabledFetch
   })
   const answerFormMutation = useMutation([mutationKey.QUIZ], quizService.answerQuizForm, {
-    onSuccess: () => {
+    onSuccess: async () => {
       closeNotification()
+      await queryClient.invalidateQueries({queryKey: [queryKey.QUIZZES, queryKey.QUIZ]})
       navigate(routes.DASHBOARD)
     }
   })

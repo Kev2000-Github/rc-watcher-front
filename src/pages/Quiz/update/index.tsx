@@ -1,6 +1,6 @@
 import { Layout } from '../../../components/Layout'
 import { useEffect, useState } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import quizService from '../../../services/Quiz'
 import { closeNotification, notifyError, notifyLoading } from '../../../utils/alert'
 import { useNavigate, useParams } from 'react-router'
@@ -8,11 +8,14 @@ import { QuizForm } from '../../../components/Form/QuizForm'
 import { QuizForm as QuizFormType } from '../../../services/interface'
 import { DynamicSchema, QuizFormSchema, quizFormSchemaBuilder } from '../../../components/Form/QuizForm/schema'
 import { routes } from '../../../app/constants'
-import { mutationKey, queryKey } from '../../../services/constants'
+import { mutationKey, queryKey, url } from '../../../services/constants'
 import { ServiceError } from '../../../errors/ServiceError'
+import axios from 'axios'
+import { isPromise } from '../../../utils/common'
 
 export function UpdateQuizFormPage() {
   const {id} = useParams()
+  const queryClient = useQueryClient()
   const navigate = useNavigate()
   const [enabledFetch, setEnabledFetch] = useState<boolean>(true)
   const [schema, setSchema] = useState<DynamicSchema|null>(null)
@@ -23,8 +26,9 @@ export function UpdateQuizFormPage() {
     enabled: enabledFetch
   })
   const answerFormMutation = useMutation([mutationKey.UPDATE_QUIZ], quizService.updateQuizForm, {
-    onSuccess: () => {
+    onSuccess: async () => {
       closeNotification()
+      await queryClient.invalidateQueries({queryKey: [queryKey.QUIZZES, queryKey.QUIZ]})
       navigate(routes.DASHBOARD)
     }
   })
@@ -54,7 +58,14 @@ export function UpdateQuizFormPage() {
     }
   }, [quiz])
 
-  const onSubmit = (data: QuizFormSchema) => answerFormMutation.mutate({id, form: data})
+  const onSubmit = async (data: QuizFormSchema) => {
+    for(const key of Object.keys(data)){
+      if(data[key].document && isPromise(data[key].document?.content)){
+        data[key].document!.content = await data[key].document!.content
+      }
+    }
+    answerFormMutation.mutate({id, form: data})
+  }
 
   const generateDefaultValues = (quiz: QuizFormType) => {
     const data: QuizFormSchema = {}
@@ -67,9 +78,24 @@ export function UpdateQuizFormPage() {
         }
         else{
             data[question.id] = {selectionId: selectedOpt[0].id}
-            if(question.hasDoc && question.Document) data[question.id].document = {
-              name: question.Document.name,
-              content: question.Document.file
+            if(question.hasDoc && question.Document) {
+              const id = question.Document.id
+              const type = question.Document.type
+              const link = url.document.replace(':id', id)
+              data[question.id].document = {
+                name: question.Document.name,
+                content: new Promise((resolve, reject) => {
+                  const reader = new FileReader()
+                  reader.onload = () => {
+                    const dataUrl = reader.result as string
+                    const base64 = dataUrl.split(',')[1]
+                    resolve(`data:${type};base64,${base64}`)
+                  }
+                  axios.get<Blob>(link, {responseType: 'blob'})
+                    .then((resp) => reader.readAsDataURL(resp.data))
+                    .catch((err) => reject(err))
+                })
+              }
             }
         }
     }

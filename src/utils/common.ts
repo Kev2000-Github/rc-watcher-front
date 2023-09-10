@@ -112,3 +112,11 @@ export const enumArray = (enumValues: object) => {
   if(result.every((val) => typeof val === 'string')) return result as string[]
   return []
 }
+
+export const isPromise = (p: any) => {
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+  if(typeof p === 'object' && typeof p.then === 'function'){
+    return true
+  }
+  return false
+}

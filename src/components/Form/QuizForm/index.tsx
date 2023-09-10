@@ -45,6 +45,7 @@ export function QuizForm({
         watch,
         setValue,
         control,
+        reset,
         formState: { errors },
     } = useForm({
         defaultValues,
@@ -235,8 +236,9 @@ export function QuizForm({
                 color='error'
                 className={style.button}
                 sx={{marginRight: 2}}
+                onClick={() => reset()}
             >
-                Descartar
+                Descartar Cambios
             </Button>
             <Button 
                 variant='contained'

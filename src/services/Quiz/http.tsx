@@ -24,7 +24,12 @@ export class QuizServiceHttp implements QuizServiceInterface {
                         questionId, 
                         selectionId: form[questionId].selectionId as string
                     }
-                    if(form[questionId].document) newItem.document = form[questionId].document
+                    if(form[questionId].document) {
+                        newItem.document = {
+                            name: form[questionId].document!.name,
+                            content: form[questionId].document!.content as string
+                        }
+                    }
                     return [...resp, newItem]
                 }
                 const checkboxes = (form[questionId].selectionId as string[]).map(
@@ -53,7 +58,12 @@ export class QuizServiceHttp implements QuizServiceInterface {
                         questionId, 
                         selectionId: form[questionId].selectionId as string
                     }
-                    if(form[questionId].document) newItem.document = form[questionId].document
+                    if(form[questionId].document) {
+                        newItem.document = {
+                            name: form[questionId].document!.name,
+                            content: form[questionId].document!.content as string
+                        }
+                    }
                     return [...resp, newItem]
                 }
                 const checkboxes = (form[questionId].selectionId as string[]).map(

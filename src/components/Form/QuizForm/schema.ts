@@ -8,7 +8,7 @@ export interface QuizFormSchema {
         selectionId: string[]|string|undefined,
         document?: {
             name: string
-            content: string|ArrayBuffer
+            content: string|ArrayBuffer|Promise<string|ArrayBuffer>
         } | null
     }
 }

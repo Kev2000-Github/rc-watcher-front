@@ -110,5 +110,6 @@ export const url = {
     deleteSolution: `${config.backURL}/solution/:id`,
     createSolution: `${config.backURL}/solution`,
     AML: `${config.backURL}/amlProfiles`,
-    countries: `${config.backURL}/countries`
+    countries: `${config.backURL}/countries`,
+    document: `${config.backURL}/quizzes/document/:id`
 }
