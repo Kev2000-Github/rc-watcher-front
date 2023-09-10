@@ -14,7 +14,7 @@ import { ServiceError } from '../../../errors/ServiceError'
 import { useUserStore } from '../../../store'
 
 export function AlertViewPage() {
-    const { isAdmin, isOperator } = useUserStore()
+    const { isAdmin } = useUserStore()
     const navigate = useNavigate()
     const {id} = useParams()
     const queryClient = useQueryClient()
