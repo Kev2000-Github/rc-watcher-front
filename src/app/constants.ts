@@ -17,7 +17,6 @@ export const routes = {
     CREATE_SOLUTION: '/solution',
     AML: '/AML',
     RISKS: '/risks',
-    REPORTS: '/reports',
     NOT_FOUND: '*',
 }
 

@@ -6,7 +6,6 @@ import Notification from '@mui/icons-material/NotificationsActiveRounded';
 import Solution from '@mui/icons-material/TipsAndUpdatesRounded';
 import AML from '@mui/icons-material/FindInPageRounded';
 import User from '@mui/icons-material/PersonRounded';
-import Report from '@mui/icons-material/DescriptionRounded';
 import Logout from '@mui/icons-material/Logout';
 import { routes } from '../../app/constants'
 
@@ -53,11 +52,6 @@ export const menuItems: MenuItems = [
         text: 'Usuarios',
         URI: routes.USERS,
         icon: <User/>
-    },
-    {
-        text: 'Reportes',
-        URI: routes.REPORTS,
-        icon: <Report/>
     },
 ]
 

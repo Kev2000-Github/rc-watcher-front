@@ -22,7 +22,6 @@ import { EditAlert } from '../pages/Alerts/edit/index.tsx'
 import { SolutionViewPage } from '../pages/Solutions/view/index.tsx'
 import { EditSolution } from '../pages/Solutions/edit/index.tsx'
 import { Risks } from '../pages/Risks/index.tsx'
-import { Reports } from '../pages/Reports/index.tsx'
 import { Register } from '../pages/Register/index.tsx'
 import { UpdateQuizFormPage } from '../pages/Quiz/update/index.tsx'
 
@@ -61,7 +60,6 @@ function App() {
                 <Route path={routes.SOLUTION} element={<SolutionViewPage/>} />
                 <Route path={routes.EDIT_ALERT} element={<EditAlert/>} />
                 <Route path={routes.RISKS} element={<Risks/>} />
-                <Route path={routes.REPORTS} element={<Reports/>} />
               </Route>
               <Route path={routes.NOT_FOUND} element={<NotFound/>} />
             </Routes>
