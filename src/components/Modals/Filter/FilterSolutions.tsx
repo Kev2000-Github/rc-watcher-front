@@ -1,6 +1,6 @@
 import { Button, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material"
 import { useState } from 'react'
-import { SOLUTION_STATE } from "../../../services/constants"
+import { SOLUTION_STATE, SOLUTION_STATE_FILTER } from "../../../services/constants"
 import style from './style.module.scss'
 import { CustomDialog } from "../customDialog"
 import { SolutionFilterProps } from "../../../services/Solution/interface"
@@ -16,9 +16,9 @@ interface Props {
 }
 
 const stateOptions = [
-    {value: SOLUTION_STATE.ALL, name: 'Todo'},
-    {value: SOLUTION_STATE.ACTIVE, name: 'Activo'},
-    {value: SOLUTION_STATE.INACTIVE, name: 'Inactivo'},
+    {value: SOLUTION_STATE_FILTER.ALL, name: 'Todo'},
+    {value: SOLUTION_STATE_FILTER.ACTIVE, name: 'Activo'},
+    {value: SOLUTION_STATE_FILTER.INACTIVE, name: 'Inactivo'},
 ]
 
 export const FilterSolutionModal = ({

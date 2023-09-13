@@ -1,6 +1,6 @@
 import { Button, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material"
 import { useState } from 'react'
-import { ALERT_PRIORITY, ALERT_STATE } from "../../../services/constants"
+import { ALERT_PRIORITY, ALERT_PRIORITY_FILTER, ALERT_STATE, ALERT_STATE_FILTER } from "../../../services/constants"
 import style from './style.module.scss'
 import { CustomDialog } from "../customDialog"
 import { AlertFilterProps } from "../../../services/Alert/interface"
@@ -15,17 +15,17 @@ interface Props {
 }
 
 const stateOptions = [
-    {value: ALERT_STATE.ALL, name: 'Todo'},
-    {value: ALERT_STATE.SOLVED, name: 'Resuelto'},
-    {value: ALERT_STATE.PENDING, name: 'No Resuelto'},
-    {value: ALERT_STATE.CANCELED, name: 'Cancelado'}
+    {value: ALERT_STATE_FILTER.ALL, name: 'Todo'},
+    {value: ALERT_STATE_FILTER.SOLVED, name: 'Resuelto'},
+    {value: ALERT_STATE_FILTER.PENDING, name: 'No Resuelto'},
+    {value: ALERT_STATE_FILTER.CANCELED, name: 'Cancelado'}
 ]
 
 const priorityOptions = [
-    {value: ALERT_PRIORITY.ALL, name: 'Todo'},
-    {value: ALERT_PRIORITY.HIGH, name: 'Alto'},
-    {value: ALERT_PRIORITY.MEDIUM, name: 'Medio'},
-    {value: ALERT_PRIORITY.LOW, name: 'Bajo'},
+    {value: ALERT_PRIORITY_FILTER.ALL, name: 'Todo'},
+    {value: ALERT_PRIORITY_FILTER.HIGH, name: 'Alto'},
+    {value: ALERT_PRIORITY_FILTER.MEDIUM, name: 'Medio'},
+    {value: ALERT_PRIORITY_FILTER.LOW, name: 'Bajo'},
 ]
 
 export const FilterAlertModal = ({

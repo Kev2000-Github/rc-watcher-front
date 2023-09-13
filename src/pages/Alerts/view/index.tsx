@@ -138,7 +138,10 @@ export function AlertViewPage() {
                           sx={{ ml: 2 }}
                           variant='contained'
                           color='primary'
-                          onClick={() => navigate(routes.CREATE_SOLUTION)}
+                          onClick={() => {
+                            const url = `${routes.CREATE_SOLUTION}?alertId=${alert.id}`
+                            navigate(url)
+                          }}
                       >
                           Crear Solucion
                       </Button>

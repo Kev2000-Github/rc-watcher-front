@@ -9,13 +9,14 @@ import { pagination, routes } from '../../../app/constants'
 import { closeNotification, notifyLoading } from '../../../utils/alert'
 import { getPriorityText, paginationConfig } from '../../../utils/common'
 import { useNavigate } from 'react-router'
-import { ALERT_STATE, SOLUTION_STATE, queryKey } from '../../../services/constants'
+import { ALERT_STATE, ALERT_STATE_FILTER, SOLUTION_STATE, SOLUTION_STATE_FILTER, queryKey } from '../../../services/constants'
 import { quizFilterProps } from '../../../services/Quiz/interface'
 import { SECOND } from '../../../utils/constants'
 import solutionService from '../../../services/Solution'
 import { FilterSolutionModal } from '../../../components/Modals/Filter/FilterSolutions'
 import { GridCardSplit } from '../../../components/GridCard/split'
 import { useUserStore } from '../../../store'
+import { SolutionFilterProps } from '../../../services/Solution/interface'
 
 export function SolutionListPage() {
   const { isAdmin } = useUserStore()
@@ -56,8 +57,8 @@ export function SolutionListPage() {
 
   const onOpenFilter = () => setIsFilterOpen(true)
   const onCloseFilter = () => setIsFilterOpen(false)
-  const handleFilters = (data: quizFilterProps) => {
-    setStateFilter(data.state ?? ALERT_STATE.ALL)
+  const handleFilters = (data: SolutionFilterProps) => {
+    setStateFilter(data.state ?? SOLUTION_STATE_FILTER.ALL)
   }
 
   const genTagData = (solution: Solution) => {
@@ -113,23 +114,21 @@ export function SolutionListPage() {
             {
               paginatedSolutions?.data.map((item) => {
                 return (
-                  <>
-                    <GridCardSplit
-                      key={item.id}
-                      title={item.title}
-                      description={item.description}
-                      smallText={item.madeBy.fullName}
-                      tagData={genTagData(item)}
-                      onClick={() => {
-                        const url = routes.SOLUTION.replace(':id', item.id)
-                        navigate(url)
-                      }}
-                      btnColor={item.state === SOLUTION_STATE.INACTIVE ? 'info' : 'primary'}
-                      state={'Inactivo'}
-                      showState={item.state === SOLUTION_STATE.INACTIVE}
-                      stateColor='gray'
-                    />
-                  </>
+                  <GridCardSplit
+                    key={item.id}
+                    title={item.title}
+                    description={item.description}
+                    smallText={item.CreatedBy.fullName}
+                    tagData={genTagData(item)}
+                    onClick={() => {
+                      const url = routes.SOLUTION.replace(':id', item.id)
+                      navigate(url)
+                    }}
+                    btnColor={item.state === SOLUTION_STATE.INACTIVE ? 'info' : 'primary'}
+                    state={'Inactivo'}
+                    showState={item.state === SOLUTION_STATE.INACTIVE}
+                    stateColor='gray'
+                  />
                 )
               })
             }

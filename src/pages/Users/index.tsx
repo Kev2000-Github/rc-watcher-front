@@ -40,7 +40,6 @@ export function Users() {
         limit: pagination.LIMIT,
         page: page + 1
       }
-      console.log(options)
       return userService.getUsers(user?.Company?.id ?? '', options)
     },
     ...paginationConfig

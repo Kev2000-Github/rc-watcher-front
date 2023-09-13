@@ -54,23 +54,35 @@ export const quizListFilter = {
 }
 
 export const SOLUTION_STATE = {
-    ALL: 'ALL',
     ACTIVE: 'active',
     INACTIVE: 'inactive'
 }
 
-export const ALERT_STATE = {
+export const SOLUTION_STATE_FILTER = {
     ALL: 'ALL',
+    ...SOLUTION_STATE
+}
+
+export const ALERT_STATE = {
     PENDING: 'pending',
     SOLVED: 'solved',
     CANCELED: 'canceled'
 }
 
 export const ALERT_PRIORITY = {
-    ALL: 'ALL',
     HIGH: 'high',
     MEDIUM: 'medium',
     LOW: 'low'
+}
+
+export const ALERT_STATE_FILTER = {
+    ALL: 'ALL',
+    ...ALERT_STATE
+}
+
+export const ALERT_PRIORITY_FILTER = {
+    ALL: 'ALL',
+    ...ALERT_PRIORITY
 }
 
 export const RISK = {
@@ -102,14 +114,14 @@ export const url = {
     createUser: `${config.backURL}/users/:companyId`,
     alerts: `${config.backURL}/alerts`,
     alert: `${config.backURL}/alerts/:id`,
-    deleteAlert: `${config.backURL}/alert/:id`,
-    editAlert: `${config.backURL}/alert/:id`,
-    createAlert: `${config.backURL}/alert`,
+    deleteAlert: `${config.backURL}/alerts/:id`,
+    editAlert: `${config.backURL}/alerts/:id`,
+    createAlert: `${config.backURL}/alerts`,
     solutions: `${config.backURL}/solutions`,
-    solution: `${config.backURL}/solution/:id`,
-    editSolution: `${config.backURL}/solution/:id`,
-    deleteSolution: `${config.backURL}/solution/:id`,
-    createSolution: `${config.backURL}/solution`,
+    solution: `${config.backURL}/solutions/:id`,
+    editSolution: `${config.backURL}/solutions/:id`,
+    deleteSolution: `${config.backURL}/solutions/:id`,
+    createSolution: `${config.backURL}/solutions`,
     AML: `${config.backURL}/amlProfiles`,
     countries: `${config.backURL}/countries`,
     document: `${config.backURL}/quizzes/document/:id`,

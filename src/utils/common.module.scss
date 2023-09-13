@@ -20,7 +20,7 @@
         padding: 20px 0;
         display: grid;
         grid-template-columns: repeat(
-            auto-fit,
+            auto-fill,
             minmax(400px, 1fr)
         );
         gap: 30px;

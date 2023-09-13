@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useSearchParams } from "react-router-dom"
 import { notifyLoading } from "../../../utils/alert"
 import { useEffect } from "react"
 import { Layout } from "../../../components/Layout"
@@ -17,6 +17,7 @@ import alertService from "../../../services/Alert"
 export function CreateSolution() {
   const {user} = useUserStore()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
   const createMutation = useMutation([mutationKey.SOLUTION], solutionService.createSolution, {
     onSuccess: () => {
       navigate(routes.SOLUTIONS)
@@ -56,14 +57,29 @@ export function CreateSolution() {
     if(createMutation.isLoading) notifyLoading()
   }, [createMutation.isLoading])
 
+  const genDefaultvalues = () => {
+    const alertId = searchParams.get('alertId')
+    return {
+      title: '',
+      description: '',
+      responsableIds: [],
+      alertIds: alertId ? [alertId] : [],
+      steps: [{value: ''}]
+    }
+}
+
   return (
     <Layout>
-      <SolutionForm
+      {
+        alerts && 
+        <SolutionForm
           availableUsers={users?.data ?? []}
           alerts={alerts?.data ?? []}
           onSubmitItem={onSubmit}
           schema={solutionSchema}
-      />
+          defaultValues={genDefaultvalues()}
+        />
+      }
     </Layout>
   )
 }

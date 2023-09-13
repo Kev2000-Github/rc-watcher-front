@@ -9,20 +9,21 @@ import { pagination, routes } from '../../../app/constants'
 import { closeNotification, notifyLoading } from '../../../utils/alert'
 import { getAlertStateText, getPriorityText, paginationConfig } from '../../../utils/common'
 import { useNavigate } from 'react-router'
-import { ALERT_PRIORITY, ALERT_STATE, queryKey } from '../../../services/constants'
+import { ALERT_PRIORITY, ALERT_PRIORITY_FILTER, ALERT_STATE, ALERT_STATE_FILTER, queryKey } from '../../../services/constants'
 import { quizFilterProps } from '../../../services/Quiz/interface'
 import alertService from '../../../services/Alert'
 import { FilterAlertModal } from '../../../components/Modals/Filter/FilterAlerts'
 import { SECOND } from '../../../utils/constants'
 import { GridCard } from '../../../components/GridCard'
 import { useUserStore } from '../../../store'
+import { AlertFilterProps } from '../../../services/Alert/interface'
 
 export function AlertListPage() {
   const {isOperator, isAdmin} = useUserStore()
   const navigate = useNavigate()
   const filterBtn = useRef<HTMLButtonElement>(null)
-  const [stateFilter, setStateFilter] = useState<string>(ALERT_STATE.ALL)
-  const [priorityFilter, setPriorityFilter] = useState<string>(ALERT_PRIORITY.ALL)
+  const [stateFilter, setStateFilter] = useState<string>(ALERT_STATE_FILTER.ALL)
+  const [priorityFilter, setPriorityFilter] = useState<string>(ALERT_PRIORITY_FILTER.ALL)
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false)
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
   const { isLoading, isFetching, data: paginatedAlerts, isPreviousData } = useQuery({
@@ -58,9 +59,9 @@ export function AlertListPage() {
 
   const onOpenFilter = () => setIsFilterOpen(true)
   const onCloseFilter = () => setIsFilterOpen(false)
-  const handleFilters = (data: quizFilterProps) => {
-    setStateFilter(data.state ?? ALERT_STATE.ALL)
-    setPriorityFilter(data.state ?? ALERT_PRIORITY.ALL)
+  const handleFilters = (data: AlertFilterProps) => {
+    setStateFilter(data.state ?? ALERT_STATE_FILTER.ALL)
+    setPriorityFilter(data.priority ?? ALERT_PRIORITY_FILTER.ALL)
   }
 
   return (

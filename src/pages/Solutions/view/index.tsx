@@ -20,7 +20,7 @@ export function SolutionViewPage() {
     const navigate = useNavigate()
     const {id} = useParams()
     const queryClient = useQueryClient()
-    const { data: solution, isLoading } = useQuery({
+    const { data: solution, isLoading, refetch } = useQuery({
       queryKey: [queryKey.SOLUTION],
       queryFn: () => solutionService.getSolution(id ?? ''),
       onSuccess: () => {
@@ -60,12 +60,13 @@ export function SolutionViewPage() {
     })
     const toggleSolution = useMutation([mutationKey.DELETE_SOLUTION], () => {
       let newState = SOLUTION_STATE.ACTIVE
-      if(solution?.state === SOLUTION_STATE.ACTIVE) newState = SOLUTION_STATE.ACTIVE
+      if(solution?.state === SOLUTION_STATE.ACTIVE) newState = SOLUTION_STATE.INACTIVE
       return solutionService.updateSolutionState(id ?? '', newState)
     }, {
       onSuccess: async () => {
         closeNotification()
         await queryClient.invalidateQueries({queryKey: [queryKey.SOLUTIONS, queryKey.SOLUTION]})
+        await refetch()
       },
       onError: (error: ServiceError) => {
         notifyError(error.title, error.message)
@@ -78,7 +79,7 @@ export function SolutionViewPage() {
     }, [isLoading])
 
     useEffect(() => {
-      if(deleteSolution.isLoading, toggleSolution.isLoading) notifyLoading()
+      if(deleteSolution.isLoading || toggleSolution.isLoading) notifyLoading()
       return () => closeNotification()
     }, [deleteSolution.isLoading, toggleSolution.isLoading])
 
@@ -97,7 +98,7 @@ export function SolutionViewPage() {
     }
 
     const onSubmit = () => {
-      console.log('a')
+      toggleSolution.mutate()
     }
 
     return (

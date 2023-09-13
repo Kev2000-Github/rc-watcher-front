@@ -72,7 +72,7 @@ export interface Solution {
     title: string,
     description: string,
     state: string,
-    madeBy: UserBasic,
+    CreatedBy: UserBasic,
     Responsables: UserBasic[],
     Alerts: Alert[],
     Steps: SolutionStep[]

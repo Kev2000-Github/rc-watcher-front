@@ -59,7 +59,6 @@ export function Menu() {
         return operatorMenuItems
       }
     }
-
     return (
     <CustomDrawer
         variant="permanent"
