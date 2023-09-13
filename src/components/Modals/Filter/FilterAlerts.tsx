@@ -1,6 +1,6 @@
 import { Button, DialogActions, DialogContent, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material"
 import { useState } from 'react'
-import { ALERT_PRIORITY, ALERT_PRIORITY_FILTER, ALERT_STATE, ALERT_STATE_FILTER } from "../../../services/constants"
+import { ALERT_PRIORITY_FILTER, ALERT_STATE_FILTER } from "../../../services/constants"
 import style from './style.module.scss'
 import { CustomDialog } from "../customDialog"
 import { AlertFilterProps } from "../../../services/Alert/interface"

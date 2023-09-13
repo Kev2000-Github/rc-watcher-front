@@ -48,6 +48,26 @@ export const notifyError: ErrorNotifier = (
   })
 }
 
+type WarnNotifier = (title?: string, text?: string|string[]) => void
+export const notifyWarn: WarnNotifier = (
+  title = 'Ha ocurrido un error',
+  text
+) => {
+  let message = text as string
+  if(typeof text === 'object'){
+    message = text.map(msg => `<li style="text-align: left;">${msg}</li>`).join('\n ')
+    message = `<ul>${message}</ul>`
+  }
+  void Swal.fire({
+    customClass: {
+      container: 'alerts'
+    },
+    icon: 'warning',
+    title,
+    html: message
+  })
+}
+
 export const notifySuccess = (options?: Options) => {
   const { onClose, title } = {...defaultOpts, ...options}
   void Swal.fire({

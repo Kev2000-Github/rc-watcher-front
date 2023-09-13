@@ -21,11 +21,12 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { QuizForm } from '../../../services/interface'
 import { DynamicSchema, QuizFormSchema } from './schema'
 import { useEffect } from 'react'
-import { notifyError } from '../../../utils/alert'
+import { notifyError, notifyWarn } from '../../../utils/alert'
 import { selectionType } from '../../../services/constants'
 import { readFile } from '../../../utils/common'
 import { HiddenFileInput } from '../../hiddenFileInput'
 import { Coloredtag } from '../../ColoredTag'
+import { MB } from '../../../utils/constants'
 
 interface FormProps {
     onSubmitItem: (data: QuizFormSchema) => void;
@@ -56,7 +57,13 @@ export function QuizForm({
         onSubmitItem(data)
     }
     const onUploadBasePDF = async (e: React.ChangeEvent<HTMLInputElement>, questionId: string) => {
-      if(!e.target || !e.target.files) return
+        if(!e.target || !e.target.files){
+            return
+        }
+        if(e.target.files[0].size > 1 * MB) {
+            notifyWarn('Documento', 'El documento es muy grande, el peso máximo es de 1 MB')
+            return
+        }
         const result = await readFile(e.target.files[0], 'dataURL')
         const doc = {
             name: e.target.files[0].name,
