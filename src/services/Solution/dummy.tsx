@@ -14,7 +14,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
                     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
                     state: 'inactive',
                     title: 'title',
-                    madeBy: {
+                    CreatedBy: {
                         id: '1',
                         email: 'fran@gmail.com',
                         fullName: 'Francisco Castillo',
@@ -78,7 +78,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
                     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
                     state: 'pending',
                     title: 'title',
-                    madeBy: {
+                    CreatedBy: {
                         id: '1',
                         email: 'fran@gmail.com',
                         fullName: 'Francisco Castillo',
@@ -118,7 +118,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
                     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
                     state: 'pending',
                     title: 'title',
-                    madeBy: {
+                    CreatedBy: {
                         id: '1',
                         email: 'fran@gmail.com',
                         fullName: 'Francisco Castillo',
@@ -172,7 +172,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
             state: 'pending',
             title: 'title',
-            madeBy: {
+            CreatedBy: {
                 id: '1',
                 email: 'fran@gmail.com',
                 fullName: 'Francisco Castillo',
@@ -217,7 +217,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
             state: 'active',
             title: 'title',
-            madeBy: {
+            CreatedBy: {
                 id: '1',
                 email: 'fran@gmail.com',
                 fullName: 'Francisco Castillo',
@@ -274,7 +274,7 @@ export class SolutionServiceDummy implements SolutionServiceInterface {
             description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit vel turpis quis rutrum. In consectetur purus a arcu scelerisque tempus. Aliquam auctor nisi in tempor ullamcorper. Nullam vel hendrerit enim. Sed at tellus ipsum.',
             state: 'pending',
             title: 'title',
-            madeBy: {
+            CreatedBy: {
                 id: '1',
                 email: 'fran@gmail.com',
                 fullName: 'Francisco Castillo',
