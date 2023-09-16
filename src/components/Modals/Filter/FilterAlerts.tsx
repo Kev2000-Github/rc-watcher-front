@@ -11,7 +11,8 @@ interface Props {
     onClose: () => void,
     apply: (data: AlertFilterProps) => void
     elementRef?: DOMRect | null,
-    yOffset?: number
+    yOffset?: number,
+    initialState?: string
 }
 
 const stateOptions = [
@@ -34,9 +35,10 @@ export const FilterAlertModal = ({
     apply,
     className,
     open,
-    yOffset = 20
+    yOffset = 20,
+    initialState
 }: Props) => {
-    const [state, setState] = useState<string>(stateOptions[0].value)
+    const [state, setState] = useState<string>(initialState ?? stateOptions[0].value)
     const [priority, setPriority] = useState<string>(priorityOptions[0].value)
     
     const handleStateChange = (e: SelectChangeEvent<string>) => {

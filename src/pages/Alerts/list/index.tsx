@@ -21,7 +21,7 @@ export function AlertListPage() {
   const {isOperator, isAdmin} = useUserStore()
   const navigate = useNavigate()
   const filterBtn = useRef<HTMLButtonElement>(null)
-  const [stateFilter, setStateFilter] = useState<string>(ALERT_STATE_FILTER.ALL)
+  const [stateFilter, setStateFilter] = useState<string>(ALERT_STATE_FILTER.PENDING)
   const [priorityFilter, setPriorityFilter] = useState<string>(ALERT_PRIORITY_FILTER.ALL)
   const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false)
   const [page, setPage] = useState<number>(pagination.DEFAULT_PAGE)
@@ -96,6 +96,7 @@ export function AlertListPage() {
                 }
               </div>
               <FilterAlertModal
+                initialState={stateFilter}
                 elementRef={filterBtn.current?.getBoundingClientRect()}
                 apply={handleFilters}
                 open={isFilterOpen}
